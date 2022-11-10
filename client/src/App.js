@@ -12,6 +12,7 @@ import Enrollments from './pages/enrollments';
 
 
 function App() {
+
   return (
     <div className="App">
       <Router>

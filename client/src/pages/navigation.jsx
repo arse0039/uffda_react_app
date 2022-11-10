@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navigation = () => {
     return (
-        <header className='head'>
+        <header id='header'>
             <h1 class="mainTitle">Uffda Recreations</h1>
             <div class="nav-div">
                 <ul class="navbar">

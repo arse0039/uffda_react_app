@@ -1,11 +1,13 @@
 import React from 'react';
 import { IonIcon } from '@ionic/react';
 import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Participants = () => {
     
     return ( 
-        <div class="main">
+        <div className="main">
             <div id="table-div">
                 <div id="search-div">
                     <input type="text" class="search-input" placeholder="Age Group Filter"/>
@@ -29,10 +31,10 @@ const Participants = () => {
                 <td> Captain America</td>
                 <td>612 Upside Down Lane</td>
                 <td>
-                    <button class="edit-button" ion-button icon-only onclick="edit()">
+                    <button class="edit-button" ion-button icon-only>
                     <IonIcon icon={trashOutline} />
                     </button><br/>
-                    <button class="del-button" ion-button icon-only onclick="del()">
+                    <button class="del-button" ion-button icon-only>
                     <IonIcon icon={buildOutline} />
                     </button>
                 </td>
@@ -43,10 +45,10 @@ const Participants = () => {
                 <td> Mike Tyson</td>
                 <td>555 Punchers Way</td>
                 <td>
-                    <button class="edit-button" ion-button icon-only onclick="edit()">
+                    <button class="edit-button" ion-button icon-only onClick="edit()">
                         <IonIcon icon={trashOutline}/>
                     </button><br/>
-                    <button class="del-button" ion-button icon-only onclick="del()">
+                    <button class="del-button" ion-button icon-only onClick="del()">
                         <IonIcon icon={buildOutline} />
                     </button>
                 </td>
@@ -57,10 +59,10 @@ const Participants = () => {
                 <td> Humpty Dumpty</td>
                 <td>1820 High Wall Blvd</td>
                 <td>
-                    <button class="edit-button" ion-button icon-only onclick="edit()">
+                    <button class="edit-button" ion-button icon-only onClick="edit()">
                         <IonIcon icon={trashOutline} />
                     </button><br/>
-                    <button class="del-button" ion-button icon-only onclick="del()">
+                    <button class="del-button" ion-button icon-only onClick="del()">
                         <IonIcon icon={buildOutline} />
                     </button>
                 </td>
@@ -75,7 +77,7 @@ const Participants = () => {
             
             <div>
             <div id="insert-form">
-                <button class="closebtn" ion-button icon-only onclick="closeForm()">
+                <button class="closebtn" ion-button icon-only onClick="closeForm()">
                     <IonIcon icon={closeCircleOutline} />
                 </button>
                 <form method="POST" id="addParticipant">
