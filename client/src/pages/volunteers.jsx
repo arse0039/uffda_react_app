@@ -60,14 +60,14 @@ const Volunteers = () => {
     const [role, setVolunteerRole] = useState("");
 
     const edit = (volData) => {
-        setVolunteerId(volData.id)
+        setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)
         setVolunteerEmail(volData.email)
         setVolunteerRole(volData.role)
         showform("edit");}
     
     const del = (volData) => {
-        setVolunteerId(volData.id)
+        setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)
         showform("delete");}
 
@@ -133,9 +133,9 @@ const Volunteers = () => {
                 </tr>
             </thead>
             <tbody>
-                {volunteers.map( (user) => (
-                    <tr key={user.id}>
-                    <td>{user.id}</td>
+               {/*} {volunteers.map( (user) => (
+                    <tr key={user.volunteer_id}>
+                    <td>{user.volunteer_id}</td>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.role}</td>
@@ -148,7 +148,7 @@ const Volunteers = () => {
                         </button>
                     </td>
                 </tr>       
-                ))}
+               ))} */}
 
             </tbody>
         </table>
