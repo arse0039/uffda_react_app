@@ -46,7 +46,7 @@ const Volunteers = () => {
 
     useEffect(() => {
         const getVolunteers = () => {
-        Axios.get('http://localhost:3001/volunteers/data').then(result =>{
+        Axios.get('/volunteers/data').then(result =>{
             setVolunteers(result.data)
             console.log(result.data)
         })};
