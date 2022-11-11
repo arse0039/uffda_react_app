@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 const Navigation = () => {
     return (
         <header id='header'>
-            <h1 class="mainTitle">Uffda Recreations</h1>
-            <div class="nav-div">
-                <ul class="navbar">
+            <h1 className="mainTitle">Uffda Recreations</h1>
+            <div className="nav-div">
+                <ul className="navbar">
                     <li>
                         <Link to='.\activities' className='links'>
                             <span>Activities</span>

@@ -187,7 +187,7 @@ ion-icon {
 
 /* Form Styling */
 
-form legend{
+.form h1{
   margin: 30px, 0px, 30px, 0px;
   font-weight: bold;
   font-size: 1.4em;
@@ -219,7 +219,7 @@ form legend{
   cursor: pointer;
 }
 
-form {
+.form {
   align-items: left;
   align-content: left;
   text-align: left;
@@ -236,7 +236,7 @@ fieldset {
   border-radius: 15px;
 }
 
-label {
+.form label {
   margin-top: 25px;
   align-items: center;
   color: #bbb;
