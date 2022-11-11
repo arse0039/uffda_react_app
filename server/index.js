@@ -6,11 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = 3001;
+const PORT = 10725;
 
 // View volunteer data for populating Table
 app.get("/volunteers/data", (req,res)=>{
-    const volunteerSelect = 'SELECT * FROM volunteers';
+    const volunteerSelect = 'SELECT * FROM Volunteers';
     db.query(volunteerSelect, (err, result)=>{
         if(err) {return result.json(err)}
         return res.json(result)
@@ -23,7 +23,7 @@ app.post("/volunteers/insert", (req, res) => {
     const email = req.body.email;
     const role = req.body.role;
 
-    const volInsert = "INSERT INTO volunteers (name, email, role) VALUES (?, ?, ?)"
+    const volInsert = "INSERT INTO Volunteers (name, email, role) VALUES (?, ?, ?)"
     db.query(volInsert, [name, email, role], (err, result)=> {
         if(err){return result.json(err)}
         return res.json(result)
@@ -37,7 +37,7 @@ app.put("/volunteers/:id", (req, res) => {
     const role = req.body.role;
     const id = req.params.id;
 
-    const volInsert = "UPDATE volunteers SET `name`=?, `email`=?, `role`=? WHERE id= ?"
+    const volInsert = "UPDATE Volunteers SET `name`=?, `email`=?, `role`=? WHERE id= ?"
     db.query(volInsert, [name, email, role, id], (err, result)=> {
         if(err) return result.json(err);
         return res.json("Volunteer Successfully Updated") 
@@ -48,7 +48,7 @@ app.put("/volunteers/:id", (req, res) => {
 app.delete("/volunteers/:id", (req, res)=> {
     // const volID = req.params.id;
     const volID = req.params.id
-    const delQuery = "DELETE FROM volunteers WHERE id = ?"
+    const delQuery = "DELETE FROM Volunteers WHERE id = ?"
     db.query(delQuery, [volID], (err, result)=> {
         if(err) return result.json(err);
         return res.json("Volunteer Successfully Deleted") 
