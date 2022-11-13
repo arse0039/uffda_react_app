@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
-import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
+import { closeCircleOutline} from 'ionicons/icons';
 import Axios from 'axios';
 import RenderTable from '../components/tableComponent';
 
