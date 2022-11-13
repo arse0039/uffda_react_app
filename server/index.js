@@ -134,6 +134,7 @@ app.put("/locations/:id", (req, res) => {
 // Update Age Groups Table record
 app.put("/ageGroups/:id", (req, res) => {
     const description = req.body.description;
+    const id = req.params.id;
 
     const ageGroupInsert = "UPDATE Age_Groups SET `description`=? WHERE age_group_id= ?"
     db.query(ageGroupInsert, [description, id], (err, result) => {
