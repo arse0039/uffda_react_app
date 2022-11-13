@@ -35,7 +35,7 @@ const AgeGroups = () => {
     useEffect(() => {
         const populateHeaders = async () => {
             try {
-                const res = await Axois.get('http://flip2.engr.oregonstate.edu:10725/ageGroupCol')
+                const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/ageGroupCol')
                 setColHeaders(res.data)
             } catch (err) {
                 console.log(err)
@@ -133,6 +133,8 @@ const AgeGroups = () => {
                   <button className='closebtn' onClick={closeForm}>
                       <IonIcon icon={closeCircleOutline} />
                   </button>
+                <div className='form'>
+                    <h1>Add Age Group</h1>
                   <div className='form-ele'>
                       <label> Description </label>
                       <input type="text" value={description} onChange={(e) => {
@@ -140,6 +142,7 @@ const AgeGroups = () => {
                       }} />
                   </div>
               <button className='btn' onClick={insertAgeGroup}> Add Age Group</button>
+                <div/>
               </div>
           </div>
 
@@ -178,7 +181,8 @@ const AgeGroups = () => {
                   <input className='btn' type="submit" id="deleteAgeGroup" value="Delete Age Group" onClick={() => delAgeGroup(id)}/>
               </div>
           </div>
-      </div> 
+      </div>
+    </div> 
     )
 };
 

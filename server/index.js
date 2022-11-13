@@ -39,6 +39,23 @@ app.get("/locationData", (req, res) => {
     });
 });
 
+// View Age Group Data for Populating Table
+app.get("/ageGroupData", (req, res) => {
+    const ageGroupSelect = 'SELECT * FROM Age_Groups';
+    db.query(ageGroupSelect, (err, result) => {
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
+app.get("/ageGroupCol", (req, res) => {
+    const ageGroupDesc = 'Describe Age_Groups';
+    db.query(ageGroupDesc, (err, result) => {
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
 
 /************* POST *************/
 // Insert into Volunteer Table
@@ -65,6 +82,17 @@ app.post("/locationsInsert", (req, res) => {
         return res.json(result)
     });
 })
+
+// Insert into Age Groups Table
+app.post("/ageGroupInsert", (req, res) => {
+    const description = req.body.description;
+
+    const ageGroupInsert = "INSERT INTO Age_Groups (description) VALUES (?)"
+    db.query(ageGroupInsert, [description], (err, result) => {
+        if(err){return result.json(err)}
+        return res.json(result)
+    });
+});
 
 
 /************* PUT *************/
@@ -95,6 +123,17 @@ app.put("/locations/:id", (req, res) => {
     });
 });
 
+// Update Age Groups Table record
+app.put("/ageGroups/:id", (req, res) => {
+    const description = req.body.description;
+
+    const ageGroupInsert = "UPDATE Age_Groups SET `description`=? WHERE age_group_id= ?"
+    db.query(ageGroupInsert, [description, id], (err, result) => {
+        if(err) return result.json(err);
+        return res.json("Age Group Successfully Updated")
+    });
+});
+
 
 /************* DELETE *************/
 // Delete Volunteer Table record
@@ -116,6 +155,16 @@ app.delete("/locations/:id", (req, res)=> {
         if(err) return result.json(err);
         return res.json("Location Successfully Deleted") 
     })
+});
+
+// Delete Age Group record
+app.delete("/ageGroups/:id", (req, res) => {
+    const ageGroupID = req.params.id
+    const delQuery = "DELETE FROM Age_Groups WHERE age_group_id = ?"
+    db.query(delQuery, [ageGroupID], (err, result) => {
+        if(err) return result.json(err);
+        return res.json("Age Group Successfully Deleted")
+    });
 });
 
 
