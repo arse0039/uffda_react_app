@@ -95,7 +95,7 @@ const AgeGroups = () => {
 
     const updateAgeGroup = async (ageGroupID) => {
         try {
-            await Axios.put(`http://flip2.engr.oregonstate.edu:10725/ageGroups/${ageGroupID}`, {description:description})
+            await Axios.put(`http://flip2.engr.oregonstate.edu:10725/ageGroups/${ageGroupID}`, {description: description})
         } catch(err) {
             console.log(err)
         } finally {
