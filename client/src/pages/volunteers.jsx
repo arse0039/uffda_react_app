@@ -3,40 +3,10 @@ import { IonIcon } from '@ionic/react';
 import { closeCircleOutline} from 'ionicons/icons';
 import Axios from 'axios';
 import RenderTable from '../components/tableComponent';
+import showform from '../components/ShowForm';
+
 
 const Volunteers = () => {
-    // This block sets the form divs to appear as pop-ups on the same page.
-    const showform = (formtype) => {
-        if (formtype == "edit") {
-            document.getElementById("insert-form").style.visibility="hidden"
-            document.getElementById("update-form").style.visibility="visible"
-            document.getElementById("delete-form").style.visibility="hidden"
-            document.getElementById("table-div").style.filter="blur(3px)"
-            document.getElementById("header").style.filter="blur(3px)"    
-            document.getElementById("search-div").style.filter="blur(3px)"
-        }else if (formtype == "delete") {
-            document.getElementById("insert-form").style.visibility="hidden"
-            document.getElementById("update-form").style.visibility="hidden"
-            document.getElementById("delete-form").style.visibility="visible"
-            document.getElementById("table-div").style.filter="blur(3px)"
-            document.getElementById("header").style.filter="blur(3px)"
-            document.getElementById("search-div").style.filter="blur(3px)"               
-        } else if (formtype == "insert") {
-            document.getElementById("insert-form").style.visibility="visible"
-            document.getElementById("update-form").style.visibility="hidden"
-            document.getElementById("delete-form").style.visibility="hidden"
-            document.getElementById("table-div").style.filter="blur(3px)"
-            document.getElementById("header").style.filter="blur(3px)" 
-            document.getElementById("search-div").style.filter="blur(3px)"
-        } else {
-            document.getElementById("insert-form").style.visibility="hidden"
-            document.getElementById("update-form").style.visibility="hidden"
-            document.getElementById("delete-form").style.visibility="hidden"
-            document.getElementById("table-div").style.filter="blur(0px)"
-            document.getElementById("header").style.filter="blur(0px)" 
-            document.getElementById("search-div").style.filter="blur(0px)"
-        }
-    }
 
 ////////////////////////////////////////////////////////////////////////////
 //// Use Effect block to populate the Volunteer Table from the database
@@ -46,11 +16,14 @@ const Volunteers = () => {
     const [renderNew, forceUpdate] = useReducer(x => x+1,0); //allows for auto-rendering of the component page
 
     useEffect(() => {
-        const getVolunteers = () => {
-        Axios.get('http://flip2.engr.oregonstate.edu:10725/volunteerData').then(result =>{
-            setVolunteers(result.data)
-            console.log(result.data)
-        })};
+        const getVolunteers = async () => {
+            try {
+                const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/volunteerData')
+                setVolunteers(result.data)
+            } catch(err) {
+                console.log(err)
+            }
+        }
         getVolunteers();
     }, [renderNew]); // adding renderNew to the dependency array here forces the useEffect function to
     // run whenever there is a change to the received item. 
@@ -120,10 +93,11 @@ const Volunteers = () => {
             await Axios.post('http://flip2.engr.oregonstate.edu:10725/volunteersInsert', {name: name, email:email, role:role})  
         } catch(err){
             console.log(err)
+        } finally {
+          closeForm()
+            clearState()  
+            forceUpdate(); // forces rerender of table component
         }
-        closeForm()
-        clearState()  
-        forceUpdate(); // forces rerender of table component
     };
 
     const updateVol = async (volID) => {
@@ -131,9 +105,10 @@ const Volunteers = () => {
             await Axios.put(`http://flip2.engr.oregonstate.edu:10725/volunteers/${volID}`, {name: name, email:email, role:role})
         } catch(err){
             console.log(err)
-        }   
-        closeForm();   
-        forceUpdate(); // forces rerender of table component
+        } finally {
+            closeForm();   
+          forceUpdate(); // forces rerender of table component
+        }  
     };
 
     const delVol = async (volID) => {
@@ -141,9 +116,10 @@ const Volunteers = () => {
             await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/volunteers/${volID}`)
         } catch(err) {
             console.log(err)
-        }  
-        closeForm();
-        forceUpdate(); // forces rerender of table component
+        } finally {
+            closeForm();
+            forceUpdate(); // forces rerender of table component          
+        }
     };
 
     return ( 

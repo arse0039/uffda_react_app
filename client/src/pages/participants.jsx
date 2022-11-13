@@ -1,10 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
-import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { closeCircleOutline} from 'ionicons/icons';
+import Axios from 'axios';
+import RenderTable from '../components/tableComponent';
+import showform from '../components/ShowForm';
 
 const Participants = () => {
+  
+////////////////////////////////////////////////////////////////////////////
+//// Use Effect block to populate the Participants Table from the database
+///////////////////////////////////////////////////////////////////////////
+
+    const [participants, setParticipants] = useState([]);
+    const [renderNew, forceUpdate] = useReducer(x => x+1, 0);
+    
+    useEffect(() => {
+        const getParticipants = async () => {
+            try{
+                const result = Axios.get('http://flip2.engr.oregonstate.edu:10725/participantData')
+                setParticipants(result.data)
+            } catch(err) {
+                console.log(err)
+            }
+        }
+        getParticipants();    
+    }, [renderNew]);
     
     return ( 
         <div className="main">
