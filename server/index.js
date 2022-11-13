@@ -39,6 +39,14 @@ app.get("/locationData", (req, res) => {
     });
 });
 
+app.get("/locationCol", (req, res) => {
+    const locationDesc = 'Describe Locations';
+    db.query(locationDesc, (err, result) => {
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
 // View Age Group Data for Populating Table
 app.get("/ageGroupData", (req, res) => {
     const ageGroupSelect = 'SELECT * FROM Age_Groups';
