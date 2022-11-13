@@ -16,11 +16,14 @@ const Locations = () => {
   const [renderNew, forceUpdate] = useReducer(x => x+1, 0);  // allows for auto-rendering of the component page
   
   useEffect(() => {
-    const getLocations = () => {
-    Axios.get('http://flip2.engr.oregonstate.edu:10725/locationData').then(result => {
-        setLocations(result.data)
-        console.log(result.data)
-    })};
+    const getLocations = async () => {
+        try {
+            const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationData')
+            setLocations(result.data)
+        } catch(err) {
+            console.log(result.data)
+        }
+    }
     getLocations();
   }, [renderNew]);  
   // Adding renderNew to the dependency array here forces the useEffect function to run
