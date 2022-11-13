@@ -21,7 +21,7 @@ const Locations = () => {
             const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationData')
             setLocations(result.data)
         } catch(err) {
-            console.log(result.data)
+            console.log(err)
         }
     }
     getLocations();
