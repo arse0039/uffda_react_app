@@ -64,6 +64,23 @@ app.get("/ageGroupCol", (req, res) => {
     });
 });
 
+// View Participant Data for Populating Table
+app.get("/participantData", (req, res) => {
+    const participantSelect = 'SELECT * FROM Participants';
+    db.query(participantSelect, (err, result) => {
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
+app.get("/participantCol", (req, res) => {
+    const participantDesc = 'Describe Participants';
+    db.query(participantDesc, (err, result) => {
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
 
 /************* POST *************/
 // Insert into Volunteer Table
@@ -97,6 +114,19 @@ app.post("/ageGroupInsert", (req, res) => {
 
     const ageGroupInsert = "INSERT INTO Age_Groups (description) VALUES (?)"
     db.query(ageGroupInsert, [description], (err, result) => {
+        if(err){return result.json(err)}
+        return res.json(result)
+    });
+});
+
+// Insert into Participants Table
+app.post("participantsInsert", (req, res) => {
+    const ageGroup = req.body.age_group_id
+    const name = req.body.name
+    const address = req.body.address
+    
+    const participantInsert = "INSERT INTO Participants (age_group_id, name, address) VALUES (?, ?, ?)"
+    db.query(participantInsert, [ageGroup, name, address], (err, result) => {
         if(err){return result.json(err)}
         return res.json(result)
     });
@@ -143,6 +173,21 @@ app.put("/ageGroups/:id", (req, res) => {
     });
 });
 
+//Update Participant Table record
+app.put("/participants/:id", (req, res) => {
+    const ageGroup = req.body.age_group_id;
+    const name = req.body.name;
+    const address = req.body.address;
+    const id = req.params.id;
+
+    const participantInsert = "UPDATE Participants SET `age_group_id`=?, `name`=?, `address`=? WHERE participant_id= ?"
+    db.query(participantInsert, [ageGroup, name, address, id], (err, result) => {
+        if(err) return result.json(err);
+        return res.json("Participant Successfully Updated")
+    });
+});
+
+
 
 /************* DELETE *************/
 // Delete Volunteer Table record
@@ -173,6 +218,16 @@ app.delete("/ageGroups/:id", (req, res) => {
     db.query(delQuery, [ageGroupID], (err, result) => {
         if(err) return result.json(err);
         return res.json("Age Group Successfully Deleted")
+    });
+});
+
+// Delete Participant record
+app.delete("/participants/:id", (req, res) => {
+    const participantID = req.params.id
+    const delQuery = "DELETE FROM Participants WHERE participant_id = ?"
+    db.query(delQuery, [participantID], (err, result) => {
+        if(err) return result.json(err);
+        return res.json("Participant Successfully Deleted")
     });
 });
 
