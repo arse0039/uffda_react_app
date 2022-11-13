@@ -19,7 +19,7 @@ const Participants = () => {
     useEffect(() => {
         const getParticipants = async () => {
             try{
-                const result = Axios.get('http://flip2.engr.oregonstate.edu:10725/participantData')
+                const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/participantData')
                 setParticipants(result.data)
             } catch(err) {
                 console.log(err)
@@ -41,7 +41,7 @@ const Participants = () => {
                 console.log(err)
             }
         }
-        populateHeaders();
+        populateHeaders()
     });
 
     const headerPop = () => {
