@@ -2,6 +2,7 @@ import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
 import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
 import Axios from 'axios';
+import RenderTable from '../components/tableComponent';
 
 const Volunteers = () => {
     // This block sets the form divs to appear as pop-ups on the same page.
@@ -53,7 +54,32 @@ const Volunteers = () => {
         getVolunteers();
     }, [renderNew]); // adding renderNew to the dependency array here forces the useEffect function to
     // run whenever there is a change to the received item. 
- 
+
+    const [volunteerColumns, setColHeaders] = useState([]);
+    let volunteerHeaders  = []
+
+    useEffect(() => {
+        const populateHeaders = async () => {
+            try {
+                const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/volunteerCol')
+                setColHeaders(res.data)
+            } catch (err) {
+                console.log(err)
+            } 
+        }
+        populateHeaders();
+    });
+    
+    const headerPop = () => {
+        volunteerColumns.map((e) => {
+            volunteerHeaders.push(e.Field)
+        })
+    }
+    headerPop()
+
+    ///////////////////////////////////////////////////////////////////
+    /// Form Block for Getting Data from user for forms/CRUD operations
+    ///////////////////////////////////////////////////////////////////
     const [id, setVolunteerId] = useState("");
     const [name, setVolunteerName] = useState("");
     const [email, setVolunteerEmail] = useState("");
@@ -72,6 +98,7 @@ const Volunteers = () => {
         showform("delete");}
 
     const add = () => {showform("insert");}
+
     const closeForm = () => {
         clearState()
         showform("close")
@@ -126,36 +153,7 @@ const Volunteers = () => {
                 <input type="text" className="search-input" placeholder="Name Filter"/>
                 <input type="text" className="search-input" placeholder="Role Filter"/>
             </div> 
-        <table id="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-               {volunteers.map( (user) => (
-                    <tr key={user.volunteer_id}>
-                    <td>{user.volunteer_id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.role}</td>
-                    <td>
-                        <button className="edit-button" onClick={() => edit(user)}>
-                            <IonIcon icon={buildOutline} />
-                        </button><br/>
-                        <button className="del-button" onClick={() => del(user)}>
-                            <IonIcon icon={trashOutline} />
-                        </button>
-                    </td>
-                </tr>       
-               ))}
-
-            </tbody>
-        </table>
+        <RenderTable dataSet={volunteers} headerSet={volunteerHeaders} edit={edit} del={del}   />
         </div>
 
         <div className="insert-button">

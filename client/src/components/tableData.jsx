@@ -1,11 +1,9 @@
 import React from 'react';
 import { IonIcon } from '@ionic/react';
-import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
+import {trashOutline, buildOutline } from 'ionicons/icons';
 
 
 function TableData({ data, headers, edit, del }) {
-
-
     return (
         <tr key={data}>
           {headers.map((ele) => (
@@ -20,8 +18,6 @@ function TableData({ data, headers, edit, del }) {
                 </button>
             </td>
         </tr>
-
-
             )        
 }
 

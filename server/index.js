@@ -8,10 +8,22 @@ app.use(cors());
 
 const PORT = 10725;
 
+/////////////////////////////////////
+///// VOLUNTEERS TABLE CRUDS
+/////////////////////////////////////
+
 // View volunteer data for populating Table
 app.get("/volunteerData", (req,res)=>{
     const volunteerSelect = 'SELECT * FROM Volunteers';
     db.query(volunteerSelect, (err, result)=>{
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
+app.get("/volunteerCol", (req,res)=>{
+    const volunteerDesc = 'Describe Volunteers';
+    db.query(volunteerDesc, (err, result)=>{
         if(err) {return result.json(err)}
         return res.json(result)
     });
