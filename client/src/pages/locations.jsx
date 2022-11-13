@@ -1,47 +1,18 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
-import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
+import { closeCircleOutline} from 'ionicons/icons';
 import Axios from 'axios';
+import RenderTable from '../components/tableComponent';
+import showform from '../components/ShowForm';
 
 const Locations = () => {
-    // This block sets the form divs to appear as pop-ups on the same page.
-    const showform = (formtype) => {
-        if (formtype == "edit") {
-            document.getElementById("insert-form").style.visibility="hidden"
-            document.getElementById("update-form").style.visibility="visible"
-            document.getElementById("delete-form").style.visibility="hidden"
-            document.getElementById("table-div").style.filter="blur(3px)"
-            document.getElementById("header").style.filter="blur(3px)"    
-            document.getElementById("search-div").style.filter="blur(3px)"
-        }else if (formtype == "delete") {
-            document.getElementById("insert-form").style.visibility="hidden"
-            document.getElementById("update-form").style.visibility="hidden"
-            document.getElementById("delete-form").style.visibility="visible"
-            document.getElementById("table-div").style.filter="blur(3px)"
-            document.getElementById("header").style.filter="blur(3px)"
-            document.getElementById("search-div").style.filter="blur(3px)"               
-        } else if (formtype == "insert") {
-            document.getElementById("insert-form").style.visibility="visible"
-            document.getElementById("update-form").style.visibility="hidden"
-            document.getElementById("delete-form").style.visibility="hidden"
-            document.getElementById("table-div").style.filter="blur(3px)"
-            document.getElementById("header").style.filter="blur(3px)" 
-            document.getElementById("search-div").style.filter="blur(3px)"
-        } else {
-            document.getElementById("insert-form").style.visibility="hidden"
-            document.getElementById("update-form").style.visibility="hidden"
-            document.getElementById("delete-form").style.visibility="hidden"
-            document.getElementById("table-div").style.filter="blur(0px)"
-            document.getElementById("header").style.filter="blur(0px)" 
-            document.getElementById("search-div").style.filter="blur(0px)"
-        }
-    }
+   
   
 ////////////////////////////////////////////////////////////////////////////
-//// Use Effect block to populate the Volunteer Table from the database
+//// Use Effect block to populate the Locations Table from the database
 ///////////////////////////////////////////////////////////////////////////  
 
-  const [locations, setLocations] = useState([]);  // Recieves data from DB via GET request
+  const [locations, setLocations] = useState([]);  // Receives data from DB via GET request
   const [renderNew, forceUpdate] = useReducer(x => x+1, 0);  // allows for auto-rendering of the component page
   
   useEffect(() => {
@@ -53,7 +24,33 @@ const Locations = () => {
     getLocations();
   }, [renderNew]);  
   // Adding renderNew to the dependency array here forces the useEffect function to run
-  // whenever there is a change to the recieved item.
+  // whenever there is a change to the received item.
+
+  const [locationColumns, setColHeaders] = useState([]);
+  let locationHeaders  = []
+
+  useEffect(() => {
+      const populateHeaders = async () => {
+          try {
+              const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationCol')
+              setColHeaders(res.data)
+          } catch (err) {
+              console.log(err)
+          } 
+      }
+      populateHeaders()
+  });
+  
+  const headerPop = () => {
+    locationColumns.map((e) => {
+        locationHeaders.push(e.Field)
+      })
+  }
+  headerPop()
+
+///////////////////////////////////////////////////////////////////
+/// Form Block for Getting Data from user for forms/CRUD operations
+///////////////////////////////////////////////////////////////////
 
   const [id, setLocationId] = useState("");
   const [name, setLocationName] = useState("");
@@ -63,27 +60,34 @@ const Locations = () => {
       setLocationId(locData.location_id)
       setLocationName(locData.name)
       setLocationAddress(locData.address)
-      showform("edit");
-  }
-
-  const del = (locData) => {
-      setLocationId(locData.location_id)
-      setLocationName(locData.name)
-      showform("delete");
-  }
-
-  const add = () => {showform("insert");}
-
-  const closeForm = () => {
-      clearState()
-      showform("close");
-  }
-
-  const clearState = () => {
-      setLocationId('')
-      setLocationName('')
-      setLocationAddress('')
+      showform("edit")
   };
+
+    const del = (locData) => {
+        setLocationId(locData.location_id)
+        setLocationName(locData.name)
+        showform("delete")
+    };
+
+    const add = () => {
+        showform("insert")
+    };
+
+    const closeForm = () => {
+        clearState()
+        showform("close")
+    };
+
+    const clearState = () => {
+        setLocationId('')
+        setLocationName('')
+        setLocationAddress('')
+    }
+
+    //////////////////////////////////////////////////////
+    // CRUD Request Block
+    //////////////////////////////////////////////////////
+
 
   const insertLoc = async () => {
       try {
@@ -122,33 +126,8 @@ const Locations = () => {
           <div id="search-div">
               <input type="text" className="search-input" placeholder="Name Filter" />
           </div>
-        <table id="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {locations.map( (user) => (
-            <tr key={user.location_id}>
-            <td>{user.location_id}</td>
-            <td>{user.name}</td>
-            <td>{user.address}</td>
-            <td>
-                <button className="edit-button" onClick={() => edit(user)}>
-                  <IonIcon icon={buildOutline} />
-                </button><br/>
-                <button className="del-button" onClick={() => del(user)}>
-                  <IonIcon icon={trashOutline} />
-                </button>
-            </td>
-            </tr> 
-            ))}
-          </tbody>
-        </table>
+          <RenderTable dataSet={locations} headerSet={locationHeaders} edit={edit} del={del}   />
+
       </div>  
             
       <div className="insert-button">
@@ -220,7 +199,7 @@ const Locations = () => {
                    <label>Name:</label>
                    <input type="text" readOnly={true} value={name} />
                 </div>
-            <input className='btn' type="submit" id="deleteLocation" value="Delete Location" onClick={() => delLoc(id)} />
+            <button className='btn' onClick={() => delLoc(id)} >Delete Location </button>
         </div>
       </div>
     </div>
