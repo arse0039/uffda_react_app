@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer, useHistory} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
 import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
 import Axios from 'axios';
@@ -46,7 +46,7 @@ const Volunteers = () => {
 
     useEffect(() => {
         const getVolunteers = () => {
-        Axios.get('/volunteers/data').then(result =>{
+        Axios.get('http://flip2.engr.oregonstate.edu:10725/volunteerData').then(result =>{
             setVolunteers(result.data)
             console.log(result.data)
         })};
@@ -88,8 +88,12 @@ const Volunteers = () => {
         setVolunteerRole(e.target.value)
     }
 
-    const insertVol = () => {
-        Axios.post('/volunteers/insert', {name: name, email:email, role:role})  
+    const insertVol = async () => {
+        try {
+            await Axios.post('http://flip2.engr.oregonstate.edu:10725/volunteersInsert', {name: name, email:email, role:role})  
+        } catch(err){
+            console.log(err)
+        }
         closeForm()
         clearState()  
         forceUpdate(); // forces rerender of table component
@@ -97,7 +101,7 @@ const Volunteers = () => {
 
     const updateVol = async (volID) => {
         try {
-            await Axios.put(`/volunteers/${volID}`, {name: name, email:email, role:role})
+            await Axios.put(`http://flip2.engr.oregonstate.edu:10725/volunteers/${volID}`, {name: name, email:email, role:role})
         } catch(err){
             console.log(err)
         }   
@@ -107,7 +111,7 @@ const Volunteers = () => {
 
     const delVol = async (volID) => {
         try{
-            await Axios.delete(`/volunteers/${volID}`)
+            await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/volunteers/${volID}`)
         } catch(err) {
             console.log(err)
         }  
@@ -133,7 +137,7 @@ const Volunteers = () => {
                 </tr>
             </thead>
             <tbody>
-               {/*} {volunteers.map( (user) => (
+               {volunteers.map( (user) => (
                     <tr key={user.volunteer_id}>
                     <td>{user.volunteer_id}</td>
                     <td>{user.name}</td>
@@ -148,7 +152,7 @@ const Volunteers = () => {
                         </button>
                     </td>
                 </tr>       
-               ))} */}
+               ))}
 
             </tbody>
         </table>
