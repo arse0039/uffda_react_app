@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
-import { closeCircleOutline} from 'ionicons/icons';
+import { closeCircleOutline, construct} from 'ionicons/icons';
 import Axios from 'axios';
 import RenderTable from '../components/tableComponent';
 import showform from '../components/ShowForm';
+import RenderAgeDropdown from '../components/AgeGroupDropdown';
 
 const Participants = () => {
   
@@ -11,6 +12,7 @@ const Participants = () => {
 //// Use Effect block to populate the Participants Table from the database
 ///////////////////////////////////////////////////////////////////////////
 
+    // Get data for the Participants Table
     const [participants, setParticipants] = useState([]);
     const [renderNew, forceUpdate] = useReducer(x => x+1, 0);
     
@@ -25,7 +27,123 @@ const Participants = () => {
         }
         getParticipants();    
     }, [renderNew]);
+
+    // Generate Headers for Table
+    const [participantColumns, setColHeaders] = useState([])
+    let participantHeaders = []
+
+    useEffect(() => {
+        const populateHeaders = async () => {
+            try{
+                const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/participantCol')
+                setColHeaders(res.data)
+            } catch(err) {
+                console.log(err)
+            }
+        }
+        populateHeaders();
+    });
+
+    const headerPop = () => {
+        participantColumns.map(e => {
+            participantHeaders.push(e.Field)
+        })
+    }
+    headerPop()
+
+    // Get data to Generate Age Groups DropDown
+    const [ageDropDown, setAgeDropdown] = useState([])
+    useEffect( async () => {
+        try {
+            const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/ageGroupData')
+            setAgeDropdown(result.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }, [renderNew]);
+
+
+    ///////////////////////////////////////////////////////////////////
+    /// Form Block for Getting Data from user for forms/CRUD operations
+    ///////////////////////////////////////////////////////////////////
+
+    const [id, setParticipantId] = useState("")
+    const [ageGroup, setParticipantAgeGroup] = useState("")
+    const [name, setParticipantName] = useState("")
+    const [address, setParticipantAddress] = useState("")
+
+    const edit = (participantData) => {
+        setParticipantId(participantData.participant_id)
+        setParticipantAgeGroup(participantData.age_group_id)
+        setParticipantName(participantData.name)
+        setParticipantAddress(participantData.address)
+    };
+
+    const del = (participantData) => {
+        setParticipantId(participantData.participant_id)
+        setParticipantName(participantData.name)
+        showform("delete")
+    };
+
+    const add = () => {
+        showform("insert")
+    };
+
+    const closeForm = () => {
+        clearState()
+        showform("close")
+    };
+
+    const clearState = () => {
+        setParticipantId('')
+        setParticipantAgeGroup('')
+        setParticipantName('')
+        setParticipantAddress('')
+    };
     
+    const changeAgeGroup = (e) => {
+        setParticipantAgeGroup(e)
+    }
+
+    //////////////////////////////////////////////////////
+    // CRUD Request Block
+    //////////////////////////////////////////////////////
+
+    const insertPart = async () => {
+        try {
+            await Axios.post('http://flip2.engr.oregonstate.edu:10725/participantsInsert', {age_group_id: ageGroup, name:name, address:address})
+        } catch(err){
+            console.log(err)
+        } finally {
+            closeForm()
+            clearState()
+            forceUpdate()
+        }
+    };
+
+    const updatePart = async (partID) => {
+        try{
+            await Axios.put(`http://flip2.engr.oregonstate.edu:10725/participants/${partID}`, {age_group_id: ageGroup, name:name, address:address})
+        } catch(err) {
+            console.log(err)
+        } finally{
+            closeForm()
+            forceUpdate()
+        }
+    };
+
+    const delPart = async (partID) => {
+        try {
+            await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/participants/${volID}`)
+        } catch(err){
+            console.log(err)
+        } finally {
+            closeForm()
+            forceUpdate()
+        }
+    };
+
+    //Render the Page
     return ( 
         <div className="main">
             <div id="table-div">
@@ -33,160 +151,103 @@ const Participants = () => {
                     <input type="text" class="search-input" placeholder="Age Group Filter"/>
                     <input type="text" class="search-input" placeholder="Name Filter"/>
                 </div>
-        
-            <table id="table">
-            <thead>
-                <tr>
-                <th>ID</th>
-                <th>Age Group</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td>1</td>
-                <td>18+</td>
-                <td> Captain America</td>
-                <td>612 Upside Down Lane</td>
-                <td>
-                    <button class="edit-button" ion-button icon-only>
-                    <IonIcon icon={trashOutline} />
-                    </button><br/>
-                    <button class="del-button" ion-button icon-only>
-                    <IonIcon icon={buildOutline} />
-                    </button>
-                </td>
-                </tr>
-                <tr>
-                <td >2</td>
-                <td>14 to 18</td>
-                <td> Mike Tyson</td>
-                <td>555 Punchers Way</td>
-                <td>
-                    <button class="edit-button" ion-button icon-only onClick="edit()">
-                        <IonIcon icon={trashOutline}/>
-                    </button><br/>
-                    <button class="del-button" ion-button icon-only onClick="del()">
-                        <IonIcon icon={buildOutline} />
-                    </button>
-                </td>
-                </tr>
-                <tr>
-                <td>3</td>
-                <td>18+</td>
-                <td> Humpty Dumpty</td>
-                <td>1820 High Wall Blvd</td>
-                <td>
-                    <button class="edit-button" ion-button icon-only onClick="edit()">
-                        <IonIcon icon={trashOutline} />
-                    </button><br/>
-                    <button class="del-button" ion-button icon-only onClick="del()">
-                        <IonIcon icon={buildOutline} />
-                    </button>
-                </td>
-                </tr>
-            </tbody>
-            </table>
+                <RenderTable dataSet={participants} headerSet={participantHeaders} edit={edit} del={del}  />
             </div>
         
             <div class="insert-button">
-            <button class="add-button" onclick="add()">Add New Participant</button>
+            <button class="add-button" onclick={add}>Add New Participant</button>
             </div>
             
             <div>
             <div id="insert-form">
-                <button class="closebtn" ion-button icon-only onClick="closeForm()">
+                <button class="closebtn" ion-button icon-only onClick={closeForm}>
                     <IonIcon icon={closeCircleOutline} />
                 </button>
-                <form method="POST" id="addParticipant">
-                    <legend>Add Participant</legend>
-                        <fieldset class="fields">
+                <div className="form">
+                    <h1>Add Participant</h1>
                         <div class="form-ele">
-                            <label> First Name </label> 
-                            <input type="text" name="fname"/>
+                            <label> Name </label> 
+                            <input type="text" value={name} onChange={(e) => {
+                                setParticipantName(e.target.value)
+                            }}/>
                         </div>
-                        <div class="form-ele">
-                            <label> Last Name </label> <input type="text" name="lname"/>
-                        </div>  
                         <div class="form-ele">
                             <label> Age Group </label> 
-                            <select name="ageGroup">
-                            <option value="0">&nbsp;</option>
-                                <option value="1">4 to 5</option>
-                                <option value="2">6 to 9</option>
-                                <option value="3">10 to 13</option>
-                                <option value="4">14 to 18</option>
-                                <option value="5">18+</option>
+                            <select value={ageGroup} onChange={(e) => {
+                                setParticipantAgeGroup(e.target.value)
+                                }
+                            }>
+                                <option value=''></option>
+                                {ageDropDown.map((ageCategory) => (
+                                    <RenderAgeDropdown data={ageCategory} />
+                                ))}
                             </select>
                         </div>
-                        <div class="form-ele"> 
-                            <label> Address </label> <input type="text" name="address"/>
+                        <div className="form-ele"> 
+                            <label> Address </label> 
+                            <input type="text" onChange={(e) => {
+                                setParticipantAddress(e.target.value)
+                              }
+                            }/>
                         </div>
-                    </fieldset>
-                    <input class="btn" type="submit" id="addPerson" value="Add Participant"/>
-                </form> 
+                    <button className="btn" onClick={insertPart}> Add Participant </button>
+                </div> 
             </div>
         
             <div id="update-form">
-            <button class="closebtn" ion-button icon-only onclick="closeForm()">
-                <IonIcon icon={closeCircleOutline} />
-            </button>
-        
-            <form method="POST" id="update-particpant">
-                <legend>Update Participant</legend>
-                <fieldset class="fields">
-                    <div class="form-ele">
-                    <label> ID: </label>
-                    <input type="text" name="personID" id="updatepersonID" value="2"/>
-                    </div>
-                    <div class="form-ele">      
-                    <label> First Name </label> 
-                    <input type="text" name="fname" value="Mike"/>
-                    </div>
-                    <div class="form-ele">
-                    <label> Last Name </label> 
-                    <input type="text" name="lname" value="Tyson"/>
-                    </div>
-                    <div class="form-ele">
-                    <label> Age Group </label> <select name="ageGroup">
-                        <option value="0">&nbsp;</option>
-                        <option value="1">4 to 5</option>
-                        <option value="2">6 to 9</option>
-                        <option value="3">10 to 13</option>
-                        <option value="4">14 to 18</option>
-                        <option value="5">18+</option>
-                        </select>
-                    </div>
-                    <div class="form-ele">
-                    <label> Address </label> 
-                    <input type="text" name="age" value="555 Punchers Way"/>
-                    </div>
-                </fieldset>
-                    <input class="btn" type="submit" id="UpdateSavePerson" value="Update Participant"/>
-            </form> 
+                <button className="closebtn" onClick={closeForm}>
+                    <IonIcon icon={closeCircleOutline} />
+                </button>
+            
+                <div className="form">
+                    <h1>Update Participant</h1>
+                        <div className="form-ele">
+                            <label> ID: </label>
+                            <input type="text" value={id} />
+                        </div>
+                        <div className="form-ele">      
+                            <label> Name </label> 
+                            <input type="text" placeholder={name} onChange={(e) => {
+                                    setParticipantName(e.target.value)
+                                }
+                            }/>
+                        </div>
+                        <div className="form-ele">
+                            <label> Age Group </label> 
+                            <select value={ageGroup} onChange={changeAgeGroup}>
+                                {ageDropDown.map((ageCategory) => (
+                                    <RenderAgeDropdown data={ageCategory} />
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-ele">
+                            <label> Address </label> 
+                            <input type="text" placeholder={address} onChange={(e) => {
+                                    setParticipantAddress(e.target.value)
+                                }   
+                            } />
+                        </div>
+                        <button className="btn" onClick={()=> updatePart(id)}> Update Participant </button>
+                </div> 
             </div>
         
             <div id="delete-form">
-            <button class="closebtn" ion-button icon-only onclick="closeForm()">
-                <IonIcon icon={closeCircleOutline} />
-            </button>
-            <form method="POST" id="deleteParticipant">
-                <legend>Delete Participant</legend>
-                    <fieldset class="fields">
-                    <p>Are you sure you wish to delete the following?</p>
-                    <div class="form-ele">
-                        <label>ID:</label> 
-                        <input type="text" name="personID" id="deletepersonID" value="2"/>
-                    </div>
-                    <div class="form-ele">
-                        <label> Name: </label>
-                        <input type="text" name="personID" id="deletepersonID" value="Mike Tyson"/>
-                    </div>  
-                </fieldset>
-                <input class="btn" type="submit" id="DeletePerson" value="Delete Participant"/>
-            </form> 
+                <button class="closebtn" onClick={closeForm}>
+                    <IonIcon icon={closeCircleOutline} />
+                </button>
+                <div className="form">
+                    <h1>Delete Participant</h1>
+                        <p>Are you sure you wish to delete the following participant??</p>
+                        <div className="form-ele">
+                            <label>ID:</label> 
+                            <input type="text" readOnly={true} value={id} />
+                        </div>
+                        <div className="form-ele">
+                            <label> Name: </label>
+                            <input type="text" readOnly={true} value={name} />
+                        </div>  
+                    <button className="btn" onClick={() => delVol(id)}> Delete Participant </button>
+                </div> 
             </div>
         </div>
     </div>

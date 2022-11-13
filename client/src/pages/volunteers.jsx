@@ -14,6 +14,7 @@ const Volunteers = () => {
 
     const [volunteers, setVolunteers] = useState([]); // Receives data from DB via get request
     const [renderNew, forceUpdate] = useReducer(x => x+1,0); //allows for auto-rendering of the component page
+    // forceUpdate used to rerender table component dynamically
 
     useEffect(() => {
         const getVolunteers = async () => {
@@ -40,7 +41,7 @@ const Volunteers = () => {
                 console.log(err)
             } 
         }
-        populateHeaders();
+        populateHeaders()
     });
     
     const headerPop = () => {
@@ -53,29 +54,33 @@ const Volunteers = () => {
     ///////////////////////////////////////////////////////////////////
     /// Form Block for Getting Data from user for forms/CRUD operations
     ///////////////////////////////////////////////////////////////////
-    const [id, setVolunteerId] = useState("");
-    const [name, setVolunteerName] = useState("");
-    const [email, setVolunteerEmail] = useState("");
-    const [role, setVolunteerRole] = useState("");
+    const [id, setVolunteerId] = useState("")
+    const [name, setVolunteerName] = useState("")
+    const [email, setVolunteerEmail] = useState("")
+    const [role, setVolunteerRole] = useState("")
 
     const edit = (volData) => {
         setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)
         setVolunteerEmail(volData.email)
         setVolunteerRole(volData.role)
-        showform("edit");}
+        showform("edit")
+    };
     
     const del = (volData) => {
         setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)
-        showform("delete");}
+        showform("delete")
+    };
 
-    const add = () => {showform("insert");}
+    const add = () => {
+        showform("insert")
+    };
 
     const closeForm = () => {
         clearState()
         showform("close")
-    ;}
+    };
 
     const clearState = () => {
         setVolunteerId('')
@@ -86,7 +91,11 @@ const Volunteers = () => {
 
     const changeRole = (e) => {
         setVolunteerRole(e.target.value)
-    }
+    };
+
+    //////////////////////////////////////////////////////
+    // CRUD Request Block
+    //////////////////////////////////////////////////////
 
     const insertVol = async () => {
         try {
@@ -94,9 +103,9 @@ const Volunteers = () => {
         } catch(err){
             console.log(err)
         } finally {
-          closeForm()
+            closeForm()
             clearState()  
-            forceUpdate(); // forces rerender of table component
+            forceUpdate() 
         }
     };
 
@@ -106,8 +115,8 @@ const Volunteers = () => {
         } catch(err){
             console.log(err)
         } finally {
-            closeForm();   
-          forceUpdate(); // forces rerender of table component
+            closeForm()   
+            forceUpdate() 
         }  
     };
 
@@ -117,84 +126,51 @@ const Volunteers = () => {
         } catch(err) {
             console.log(err)
         } finally {
-            closeForm();
-            forceUpdate(); // forces rerender of table component          
+            closeForm()
+            forceUpdate()          
         }
     };
 
+    // Render the page
     return ( 
-    <div className="main">
-        <div id="table-div">
-            <div id="search-div">
-                <input type="text" className="search-input" placeholder="Name Filter"/>
-                <input type="text" className="search-input" placeholder="Role Filter"/>
-            </div> 
-        <RenderTable dataSet={volunteers} headerSet={volunteerHeaders} edit={edit} del={del}   />
-        </div>
-
-        <div className="insert-button">
-            <button className="add-button" onClick={add}>Add New Volunteer</button>
-        </div>
-
-        <div>
-            <div id="insert-form">
-                <button className="closebtn" onClick={closeForm}>
-                    <IonIcon icon={closeCircleOutline} />
-                </button>
-                <div className="form">
-                    <h1>Add Volunteer</h1>
-                    <div className="form-ele">
-                        <label> Name </label> 
-                        <input type="text" value={name} onChange={(e) =>{
-                            setVolunteerName(e.target.value)
-                        }}/>
-                    </div>
-                    <div className="form-ele">
-                        <label> Email </label> 
-                        <input type="email" value={email}  onChange={(e) => {
-                            setVolunteerEmail(e.target.value)
-                        }}/>
-                    </div>
-                    <div className="form-ele">
-                        <label> Role </label> 
-                        <select value={role} onChange = {(e) => {
-                            setVolunteerRole(e.target.value)
-                        }}>
-                            <option ></option>
-                            <option value="Instructor">Instructor</option>
-                            <option value="Coach">Coach</option>
-                            <option value="Head Coach">Head Coach</option>
-                            <option value="Assistant Coach">Assistant Coach</option>
-                            <option value="Guide">Guide</option>
-                        </select>
-                    </div>
-                <button className="btn" onClick={insertVol}> Add Volunteer </button>
+        <div className="main">
+            <div id="table-div">
+                <div id="search-div">
+                    <input type="text" className="search-input" placeholder="Name Filter"/>
+                    <input type="text" className="search-input" placeholder="Role Filter"/>
                 </div> 
-            </div> 
+                <RenderTable dataSet={volunteers} headerSet={volunteerHeaders} edit={edit} del={del}   />
+            </div>
 
-            <div id="update-form">
-                <button className="closebtn" onClick={closeForm}>
-                    <IonIcon icon={closeCircleOutline} />
-                </button>
+            <div className="insert-button">
+                <button className="add-button" onClick={add}>Add New Volunteer</button>
+            </div>
 
-                <div className='form'>
-                    <h1>Update Volunteer</h1>
+            <div>
+                <div id="insert-form">
+                    <button className="closebtn" onClick={closeForm}>
+                        <IonIcon icon={closeCircleOutline} />
+                    </button>
+                    <div className="form">
+                        <h1>Add Volunteer</h1>
                         <div className="form-ele">
                             <label> Name </label> 
-                            <input type="text" placeholder={name} onChange = {(e) => {
+                            <input type="text" value={name} onChange={(e) =>{
                                 setVolunteerName(e.target.value)
-                        }}/>
+                            }}/>
                         </div>
                         <div className="form-ele">
-                            <label> email </label> 
-                            <input type="email" placeholder={email} onChange = {(e) => {
+                            <label> Email </label> 
+                            <input type="email" value={email}  onChange={(e) => {
                                 setVolunteerEmail(e.target.value)
-                        }}/>
+                            }}/>
                         </div>
                         <div className="form-ele">
-                            <label> role </label> 
-                            <select value={role} onChange={changeRole}>
-                                <option value=''> </option>
+                            <label> Role </label> 
+                            <select value={role} onChange = {(e) => {
+                                setVolunteerRole(e.target.value)
+                            }}>
+                                <option ></option>
                                 <option value="Instructor">Instructor</option>
                                 <option value="Coach">Coach</option>
                                 <option value="Head Coach">Head Coach</option>
@@ -202,31 +178,65 @@ const Volunteers = () => {
                                 <option value="Guide">Guide</option>
                             </select>
                         </div>
-
-                    <button className="btn" onClick={() => updateVol(id)}>Update Volunteer</button> 
-                </div>   
-            </div>
-
-            <div id="delete-form">
-                <button className="closebtn" onClick={closeForm}>
-                    <IonIcon icon={closeCircleOutline} />
-                </button>
-                <div className="form">
-                    <h1>Delete Existing Volunteer</h1>
-                        <p>Are you sure you wish to delete the following?</p>
-                        <div className="form-ele">
-                            <label>ID:</label>
-                            <input type="text" readOnly={true} value={id}/>
-                        </div>
-                        <div className="form-ele">
-                            <label>Name:</label> 
-                            <input type="text" readOnly={true} value={name} />
-                        </div>
-                    <input className="btn" type="submit" id="deleteVolunteer" value="Delete Volunteer" onClick={()=> delVol(id)}/>
+                    <button className="btn" onClick={insertVol}> Add Volunteer </button>
+                    </div> 
                 </div> 
+
+                <div id="update-form">
+                    <button className="closebtn" onClick={closeForm}>
+                        <IonIcon icon={closeCircleOutline} />
+                    </button>
+
+                    <div className='form'>
+                        <h1>Update Volunteer</h1>
+                            <div className="form-ele">
+                                <label> Name </label> 
+                                <input type="text" placeholder={name} onChange = {(e) => {
+                                    setVolunteerName(e.target.value)
+                            }}/>
+                            </div>
+                            <div className="form-ele">
+                                <label> Email </label> 
+                                <input type="email" placeholder={email} onChange = {(e) => {
+                                    setVolunteerEmail(e.target.value)
+                            }}/>
+                            </div>
+                            <div className="form-ele">
+                                <label> Role </label> 
+                                <select value={role} onChange={changeRole}>
+                                    <option value=''> </option>
+                                    <option value="Instructor">Instructor</option>
+                                    <option value="Coach">Coach</option>
+                                    <option value="Head Coach">Head Coach</option>
+                                    <option value="Assistant Coach">Assistant Coach</option>
+                                    <option value="Guide">Guide</option>
+                                </select>
+                            </div>
+
+                        <button className="btn" onClick={() => updateVol(id)}>Update Volunteer</button> 
+                    </div>   
+                </div>
+
+                <div id="delete-form">
+                    <button className="closebtn" onClick={closeForm}>
+                        <IonIcon icon={closeCircleOutline} />
+                    </button>
+                    <div className="form">
+                        <h1>Delete Existing Volunteer</h1>
+                            <p>Are you sure you wish to delete the following volunteer?</p>
+                            <div className="form-ele">
+                                <label>ID:</label>
+                                <input type="text" readOnly={true} value={id}/>
+                            </div>
+                            <div className="form-ele">
+                                <label>Name:</label> 
+                                <input type="text" readOnly={true} value={name} />
+                            </div>
+                        <button className="btn" onClick={()=> delVol(id)}> Delete Volunteer </button>
+                    </div> 
+                </div>
             </div>
         </div>
-    </div>
     )
 };
 

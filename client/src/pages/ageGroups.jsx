@@ -156,7 +156,7 @@ const AgeGroups = () => {
                             setAgeGroupDescription(e.target.value)
                         }} />
                       </div>
-              <button className='btn' onClick={() => updateAgeGroup(id)}> Update Age Group</button>
+                <button className='btn' onClick={() => updateAgeGroup(id)}> Update Age Group</button>
             </div>
           </div>
 
