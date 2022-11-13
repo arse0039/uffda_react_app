@@ -134,7 +134,7 @@ const Participants = () => {
 
     const delPart = async (partID) => {
         try {
-            await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/participants/${volID}`)
+            await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/participants/${partID}`)
         } catch(err){
             console.log(err)
         } finally {
@@ -246,7 +246,7 @@ const Participants = () => {
                             <label> Name: </label>
                             <input type="text" readOnly={true} value={name} />
                         </div>  
-                    <button className="btn" onClick={() => delVol(id)}> Delete Participant </button>
+                    <button className="btn" onClick={() => delPart(id)}> Delete Participant </button>
                 </div> 
             </div>
         </div>

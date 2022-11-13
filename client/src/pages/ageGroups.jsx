@@ -35,7 +35,7 @@ const AgeGroups = () => {
     useEffect(() => {
         const populateHeaders = async () => {
             try {
-                const res = await Axois.get('http://flip2.engr.oregonstate.edu:10725/ageGroupCol')
+                const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/ageGroupCol')
                 setColHeaders(res.data)
             } catch (err) {
                 console.log(err)
