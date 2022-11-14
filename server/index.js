@@ -94,7 +94,7 @@ app.post("/volunteersInsert", (req, res) => {
         if(err){return result.json(err)}
         return res.json(result)
     });
-})
+});
 
 // Insert into Location Table
 app.post("/locationsInsert", (req, res) => {
@@ -106,7 +106,7 @@ app.post("/locationsInsert", (req, res) => {
         if(err){return result.json(err)}
         return res.json(result)
     });
-})
+});
 
 // Insert into Age Groups Table
 app.post("/ageGroupInsert", (req, res) => {
@@ -120,7 +120,7 @@ app.post("/ageGroupInsert", (req, res) => {
 });
 
 // Insert into Participants Table
-app.post("participantsInsert", (req, res) => {
+app.post("/participantsInsert", (req, res) => {
     const ageGroup = req.body.age_group_id
     const name = req.body.name
     const address = req.body.address
@@ -198,7 +198,7 @@ app.delete("/volunteers/:id", (req, res)=> {
     db.query(delQuery, [volID], (err, result)=> {
         if(err) return result.json(err);
         return res.json("Volunteer Successfully Deleted") 
-    })
+    });
 });
 
 // Delete Location Table record
@@ -208,7 +208,7 @@ app.delete("/locations/:id", (req, res)=> {
     db.query(delQuery, [locID], (err, result)=> {
         if(err) return result.json(err);
         return res.json("Location Successfully Deleted") 
-    })
+    });
 });
 
 // Delete Age Group record
