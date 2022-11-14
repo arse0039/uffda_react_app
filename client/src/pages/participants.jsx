@@ -77,6 +77,7 @@ const Participants = () => {
         setParticipantAgeGroup(participantData.age_group_id)
         setParticipantName(participantData.name)
         setParticipantAddress(participantData.address)
+        showform("edit")
     };
 
     const del = (participantData) => {
@@ -155,7 +156,7 @@ const Participants = () => {
             </div>
         
             <div class="insert-button">
-            <button class="add-button" onclick={add}>Add New Participant</button>
+            <button class="add-button" onClick={add}>Add New Participant</button>
             </div>
             
             <div>
