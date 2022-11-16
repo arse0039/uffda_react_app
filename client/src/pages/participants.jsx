@@ -104,7 +104,7 @@ const Participants = () => {
     
     const changeAgeGroup = (e) => {
         setParticipantAgeGroup(e)
-    }
+    };
 
     //////////////////////////////////////////////////////
     // CRUD Request Block
