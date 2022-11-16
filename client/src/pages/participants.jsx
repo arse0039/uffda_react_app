@@ -149,14 +149,14 @@ const Participants = () => {
         <div className="main">
             <div id="table-div">
                 <div id="search-div">
-                    <input type="text" class="search-input" placeholder="Age Group Filter"/>
-                    <input type="text" class="search-input" placeholder="Name Filter"/>
+                    <input type="text" className="search-input" placeholder="Age Group Filter"/>
+                    <input type="text" className="search-input" placeholder="Name Filter"/>
                 </div>
                 <RenderTable dataSet={participants} headerSet={participantHeaders} edit={edit} del={del}  />
             </div>
         
-            <div class="insert-button">
-            <button class="add-button" onClick={add}>Add New Participant</button>
+            <div className="insert-button">
+            <button className="add-button" onClick={add}>Add New Participant</button>
             </div>
             
             <div>
