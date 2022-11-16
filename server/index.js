@@ -8,9 +8,6 @@ app.use(cors());
 
 const PORT = 10725;
 
-/////////////////////////////////////
-///// VOLUNTEERS TABLE CRUDS
-/////////////////////////////////////
 
 /************* GET *************/
 // View volunteer data for populating Table

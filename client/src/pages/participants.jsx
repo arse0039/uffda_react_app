@@ -60,7 +60,7 @@ const Participants = () => {
         } catch (err) {
             console.log(err)
         }
-    }, [renderNew]);
+    });
 
 
     ///////////////////////////////////////////////////////////////////
@@ -215,7 +215,7 @@ const Participants = () => {
                         </div>
                         <div className="form-ele">
                             <label> Age Group </label> 
-                            <select value={ageGroup} onChange={changeAgeGroup}>
+                            <select value={ageGroup} onChange={(e) => changeAgeGroup(e.target.value)}>
                                 {ageDropDown.map((ageCategory) => (
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
