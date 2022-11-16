@@ -161,18 +161,18 @@ const Participants = () => {
             
             <div>
             <div id="insert-form">
-                <button class="closebtn" ion-button icon-only onClick={closeForm}>
+                <button className="closebtn" ion-button icon-only onClick={closeForm}>
                     <IonIcon icon={closeCircleOutline} />
                 </button>
                 <div className="form">
                     <h1>Add Participant</h1>
-                        <div class="form-ele">
+                        <div className="form-ele">
                             <label> Name </label> 
                             <input type="text" value={name} onChange={(e) => {
                                 setParticipantName(e.target.value)
                             }}/>
                         </div>
-                        <div class="form-ele">
+                        <div className="form-ele">
                             <label> Age Group </label> 
                             <select value={ageGroup} onChange={(e) => {
                                 setParticipantAgeGroup(e.target.value)
@@ -233,7 +233,7 @@ const Participants = () => {
             </div>
         
             <div id="delete-form">
-                <button class="closebtn" onClick={closeForm}>
+                <button className="closebtn" onClick={closeForm}>
                     <IonIcon icon={closeCircleOutline} />
                 </button>
                 <div className="form">
