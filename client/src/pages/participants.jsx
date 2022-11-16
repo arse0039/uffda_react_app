@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
-import { closeCircleOutline, construct} from 'ionicons/icons';
+import { closeCircleOutline } from 'ionicons/icons';
 import Axios from 'axios';
 import RenderTable from '../components/tableComponent';
 import showform from '../components/ShowForm';
@@ -45,7 +45,7 @@ const Participants = () => {
     });
 
     const headerPop = () => {
-        participantColumns.map(e => {
+        participantColumns.map((e) => {
             participantHeaders.push(e.Field)
         })
     }
