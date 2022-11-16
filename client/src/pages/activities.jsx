@@ -55,36 +55,48 @@ const Activities = () => {
 
     // Get data to Generate Location Dropdown
     const [locationDropDown, setLocationDropdown] = useState([])
-    useEffect( async () => {
+
+    useEffect (() => {
+        const populateLocDrop = async () => {
         try {
             const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationData')
             setLocationDropdown(result.data)
         } catch (err) {
             console.log(err)
         }
+        }
+        populateLocDrop()
     }, [renderNew]);    
 
     // Get data to Generate Volunteers Dropdown
     const [volunteerDropDown, setVolunteerDropdown] = useState([])
-    useEffect( async () => {
+
+    useEffect(() => {
+        const populateVolDrop = async () => {
         try {
             const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/volunteerData')
             setVolunteerDropdown(result.data)
         } catch (err) {
             console.log(err)
         }
+        }
+        populateVolDrop()
     }, [renderNew]);
 
     // Get data to Generate Age Groups Dropdown
     const [ageDropDown, setAgeDropdown] = useState([])
-    useEffect( async () => {
+
+    useEffect(() => {
+        const populateAgeDrop = async () => {
         try {
             const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/ageGroupData')
             setAgeDropdown(result.data)
         } catch (err) {
             console.log(err)
         }
-    }, [renderNew]);
+        }
+        populateAgeDrop()
+    });
 
 
     ///////////////////////////////////////////////////////////////////
@@ -306,7 +318,7 @@ const Activities = () => {
                         </div>
                         <div className='form-ele'>
                             <label> Location </label> 
-                            <select value={location} onChange={changeLocation}>
+                            <select value={location} onChange={(e) => changeLocation(e.target.value)}>
                                 {locationDropDown.map((locationCategory) => (
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
@@ -314,7 +326,7 @@ const Activities = () => {
                         </div>
                         <div className='form-ele'>
                             <label> Volunteer </label> 
-                            <select value={volunteer} onChange={changeVolunteer}>
+                            <select value={volunteer} onChange={(e) => changeVolunteer(e.target.value)}>
                                 {volunteerDropDown.map((volunteerCategory) => (
                                     <RenderVolunteerDropdown data={volunteerCategory} />
                                 ))}
@@ -322,7 +334,7 @@ const Activities = () => {
                         </div>
                         <div className='form-ele'>
                             <label> Age Group </label> 
-                            <select value={ageGroup} onChange={changeAgeGroup}>
+                            <select value={ageGroup} onChange={(e) => changeAgeGroup(e.target.value)}>
                                 {ageDropDown.map((ageCategory) => (
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
