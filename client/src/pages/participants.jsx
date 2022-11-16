@@ -53,13 +53,17 @@ const Participants = () => {
 
     // Get data to Generate Age Groups DropDown
     const [ageDropDown, setAgeDropdown] = useState([])
-    useEffect( async () => {
+
+    useEffect(() => {
+        const populateAgeDrop = async () => {
         try {
             const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/ageGroupData')
             setAgeDropdown(result.data)
         } catch (err) {
             console.log(err)
         }
+        }
+        populateAgeDrop()
     });
 
 
@@ -202,10 +206,6 @@ const Participants = () => {
             
                 <div className="form">
                     <h1>Update Participant</h1>
-                        <div className="form-ele">
-                            <label> ID: </label>
-                            <input type="text" value={id} />
-                        </div>
                         <div className="form-ele">      
                             <label> Name </label> 
                             <input type="text" placeholder={name} onChange={(e) => {
