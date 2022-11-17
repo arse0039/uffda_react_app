@@ -299,6 +299,68 @@ app.delete("/activities/:id", (req, res) => {
 /********************************************/
 
 
+/***********Enrollments Querires (to be moved to separate file) **************/
+
+// View Enrollment Data for Populating Table
+app.get("/enrollmentData", (req, res) => {
+    const enrollmentSelect = 'SELECT * FROM Activity_Enrollments';
+    db.query(enrollmentSelect, (err, result) => {
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
+app.get("/enrollmentCol", (req, res) => {
+    const enrollmentDesc = 'Describe Activity_Enrollments';
+    db.query(enrollmentDesc, (err, result) => {
+        if(err) {return result.json(err)}
+        return res.json(result)
+    });
+});
+
+
+// Insert into Activity_Enrollments Table
+app.post("/enrollmentsInsert", (req, res) => {
+    const participant = req.body.participant_id;
+    const activity = req.body.activity_id;
+
+    const activityInsert = "INSERT INTO Activity_Enrollments (participant_id, activity_id) VALUES (?, ?)"
+    db.query(activityInsert, [participant, activity], (err, result)=> {
+        if(err){return result.json(err)}
+        return res.json(result)
+    });
+});
+
+
+//Update Activity_Enrollments Table record
+app.put("/enrollments/:id", (req, res) => {
+    const participant = req.body.participant_id;
+    const activity = req.body.activity_id;
+    const id = req.params.id;
+
+    const participantInsert = "UPDATE Activity_Enrollments SET `participant_id`=?, `activity_id`=? WHERE enrollment_id= ?"
+    db.query(participantInsert, [participant, activity, id], (err, result) => {
+        if(err) return result.json(err);
+        return res.json("Enrollment Successfully Updated")
+    });
+});
+
+
+// Delete Activity_Enrollments record
+app.delete("/enrollments/:id", (req, res) => {
+    const enrollmentID = req.params.id
+    const delQuery = "DELETE FROM Activity_Enrollments WHERE enrollment_id = ?"
+    db.query(delQuery, [enrollmentID], (err, result) => {
+        if(err) return result.json(err);
+        return res.json("Enrollment Successfully Deleted")
+    });
+});
+
+
+
+/********************************************/
+
+
 app.listen(PORT, ()=> {
     console.log("Connected to backend!")
 });
