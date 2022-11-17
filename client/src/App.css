@@ -9,6 +9,10 @@ body {
   display:inline;
 }
 
+.page-header {
+  text-align: center;
+}
+
 /* Nav Bar Styling */
 .main {
   height: 80px;
@@ -74,17 +78,26 @@ header ul li:hover{
   transform: scaleY(1.2);
 }
 /* Search Bar  */
+.search-drop{
+  height: 35px;
+  position: relative;
+  margin-top: 10px;
+  margin-left: 2px;
+  border-style: none;
+  text-align: center;
+}
+
 #search-div{
-  align-items: center;
+  position:relative;
   margin-bottom: 10px;
   text-align: center;
 }
 
 #search-div .search-input{
-  width: 20%;
+  width: 25%;
   height: 35px;
   text-align: center;
-  margin-left:25px;
+  margin-left:0px;
   margin-top: 10px;
   margin-bottom: 10px;
   background-image: url('search.png');
@@ -95,6 +108,7 @@ header ul li:hover{
   letter-spacing: 0.1em;
   font-weight: bold;
   color: #000;
+  border: none;
 }
 
 /* Table Styling */

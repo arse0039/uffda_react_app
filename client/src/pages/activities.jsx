@@ -216,6 +216,7 @@ const Activities = () => {
     // Render the Page
     return (
         <div className='main'>
+            <h1 className="page-header"> Activities Page </h1>
             <div id="table-div">
                 <div id="search-div">
                     <input type="text" className="search-input" placeholder="Location Filter"/>

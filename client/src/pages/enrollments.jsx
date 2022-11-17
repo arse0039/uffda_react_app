@@ -168,6 +168,7 @@ const Enrollments = () => {
     // Render the Page
     return ( 
     <div className='main'>
+        <h1 className="page-header"> Enrollments Page </h1>
         <div id="table-div">
             <div id="search-div">
                 <input type="text" class="search-input" placeholder="Activity Filter"/>

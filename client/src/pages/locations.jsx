@@ -125,6 +125,7 @@ const Locations = () => {
 
   return ( 
       <div className="main">
+      <h1 className="page-header"> Locations Page </h1>
       <div id="table-div">
           <div id="search-div">
               <input type="text" className="search-input" placeholder="Name Filter" />

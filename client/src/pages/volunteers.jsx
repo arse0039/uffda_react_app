@@ -134,11 +134,9 @@ const Volunteers = () => {
     // Render the page
     return ( 
         <div className="main">
+            <h1 className="page-header"> Volunteers Page </h1>
             <div id="table-div">
-                <div id="search-div">
-                    <input type="text" className="search-input" placeholder="Name Filter"/>
-                    <input type="text" className="search-input" placeholder="Role Filter"/>
-                </div> 
+                <SearchBar headerData={volunteerHeaders} />
                 <RenderTable dataSet={volunteers} headerSet={volunteerHeaders} edit={edit} del={del}   />
             </div>
 

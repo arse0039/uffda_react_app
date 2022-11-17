@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonIcon } from '@ionic/react';
-import {trashOutline, buildOutline } from 'ionicons/icons';
+import {trashOutline, buildOutline, pencilOutline } from 'ionicons/icons';
 
 
 function TableData({ data, headers, edit, del }) {
@@ -11,7 +11,7 @@ function TableData({ data, headers, edit, del }) {
             ))}
              <td>
                 <button className="edit-button" onClick={() => edit(data)}>
-                    <IonIcon icon={buildOutline} />
+                    <IonIcon icon={pencilOutline} />
                 </button><br/>
                 <button className="del-button" onClick={() => del(data)}>
                     <IonIcon icon={trashOutline} />
