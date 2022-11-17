@@ -175,7 +175,7 @@ const Activities = () => {
                 max_participants: maxPart
             })
         } catch(err){
-            console.log(err)
+            console.log(err.data)
         } finally {
             closeForm()
             clearState()
@@ -204,7 +204,7 @@ const Activities = () => {
 
     const deleteActivity = async (activityID) => {
         try {
-            await Axios.put(`http://flip2.engr.oregonstate.edu:10725/activities/${activityID}`)
+            await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/activities/${activityID}`)
         } catch(err){
             console.log(err)
         } finally {
