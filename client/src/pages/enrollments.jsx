@@ -1,158 +1,267 @@
-import React from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import { IonIcon } from '@ionic/react';
-import {trashOutline, buildOutline, closeCircleOutline} from 'ionicons/icons';
+import { closeCircleOutline } from 'ionicons/icons';
+import Axios from 'axios';
+import RenderTable from '../components/tableComponent';
+import showform from '../components/ShowForm';
+import RenderParticipantDropdown from '../components/ParticipantDropdown';
+import RenderActivityDropdown from '../components/ActivityDropdown';
 
 const Enrollments = () => {
+
+////////////////////////////////////////////////////////////////////////////
+//// Use Effect block to populate the Participants Table from the database
+///////////////////////////////////////////////////////////////////////////
+
+    // Get data for Enrollments Table
+    const [enrollments, setEnrollments] = useState([]);
+    const [renderNew, forceUpdate] = useReducer(x => x+1, 0);
+
+    useEffect(() => {
+        const getEnrollments = async () => {
+            try{
+                const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/enrollmentData')
+                setEnrollments(result.data)
+            } catch(err) {
+                console.log(err)
+            }
+        }
+        getEnrollments();
+    }, [renderNew]);
+
+    // Generate Headers for Table
+    const [enrollmentColumns, setColHeaders] = useState([])
+    let enrollmentHeaders = []
+
+    useEffect(() => {
+        const populateHeaders = async () => {
+            try{
+                const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/enrollmentCol')
+                setColHeaders(res.data)
+            } catch(err) {
+                console.log(err)
+            }
+        }
+        populateHeaders()
+    });
+
+    const headerPop = () => {
+        enrollmentColumns.map((e) => {
+            enrollmentHeaders.push(e.Field)
+        })
+    }
+    headerPop()
+
+    // Get data to Generate Participants Dropdown
+    const [participantDropdown, setParticipantDropdown] = useState([])
+
+    useEffect(() => {
+        const populateParticipantDropdown = async () => {
+            try{
+                const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/participantData')
+                setParticipantDropdown(result.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        populateParticipantDropdown()
+    }, [renderNew]);
+
+    // Get data to Generate Participants Dropdown
+    const [activityDropdown, setActivityDropdown] = useState([])
+
+    useEffect(() => {
+        const populateActivityDropdown = async () => {
+            try{
+                const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/activityData')
+                setActivityDropdown(result.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        populateActivityDropdown()
+    }, [renderNew]);    
+
+    ///////////////////////////////////////////////////////////////////
+    /// Form Block for Getting Data from user for forms/CRUD operations
+    ///////////////////////////////////////////////////////////////////
+
+    const [id, setEnrollmentId] = useState("")
+    const [activity, setEnrollmentActivity] = useState("")
+    const [participant, setEnrollmentParticipant] = useState("")
+
+    const edit = (enrollmentData) => {
+        setEnrollmentId(enrollmentData.enrollment_id)
+        setEnrollmentParticipant(enrollmentData.participant_id)
+        setEnrollmentActivity(enrollmentData.activity_id)
+        showform("edit")
+    };
+
+    const del = (enrollmentData) => {
+        setEnrollmentId(enrollmentData.enrollment_id)
+        setEnrollmentParticipant(enrollmentData.participant_id)
+        setEnrollmentActivity(enrollmentData.activity_id)
+        showform("delete")
+    };
+
+    const add = () => {
+        showform("insert")
+    };
+
+    const closeForm = () => {
+        clearState()
+        showform("close")
+    };
+
+    const clearState = () => {
+        setEnrollmentId('')
+        setEnrollmentParticipant('')
+        setEnrollmentActivity('')
+    };
+
+    const changeParticipant = (e) => {
+        setEnrollmentParticipant(e)
+    };
+
+    const changeActivity = (e) => {
+        setEnrollmentActivity(e)
+    };
+
+    //////////////////////////////////////////////////////
+    // CRUD Request Block
+    //////////////////////////////////////////////////////
+
+    const insertEnrollment = async () => {
+        try {
+            await Axios.post('http://flip2.engr.oregonstate.edu:10725/enrollmentsInsert', {activity_id: activity, participant_id: participant})
+        } catch(err){
+            console.log(err)
+        } finally {
+            closeForm()
+            clearState()
+            forceUpdate()
+        }
+    };
+
+    const updateEnrollment = async (enrollmentID) => {
+        try{
+            await Axios.put(`http://flip2.engr.oregonstate.edu:10725/enrollments/${enrollmentID}`, {activity_id: activity, participant_id: participant})
+        } catch(err) {
+            console.log(err)
+        } finally{
+            closeForm()
+            forceUpdate()
+        }
+    };
+
+    const deleteEnrollment = async (enrollmentID) => {
+        try {
+            await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/enrollments/${enrollmentID}`)
+        } catch(err){
+            console.log(err)
+        } finally {
+            closeForm()
+            forceUpdate()
+        }
+    };
+
+    // Render the Page
     return ( 
-    <div class="main">
+    <div className='main'>
         <div id="table-div">
             <div id="search-div">
-                <input type="text" class="search-input" placeholder="Participant Filter"/>
                 <input type="text" class="search-input" placeholder="Activity Filter"/>
-            </div>  
-            <table id="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Participant</th>
-                        <th>Activity</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Captain America</td>
-                        <td>6_9Baseball_Mariners</td>
-                        <td>
-                            <button class="edit-button" ion-button icon-only onclick="edit()">
-                                <IonIcon icon={buildOutline} />
-                            </button><br/>
-                            <button class="del-button" ion-button icon-only onclick="del()">
-                                <IonIcon icon={trashOutline} />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Mike Tyson</td>
-                        <td>4_5Baseball_Orioles</td>
-                        <td>
-                            <button class="edit-button" ion-button icon-only onclick="edit()">
-                                <IonIcon icon={buildOutline} />
-                            </button><br/>
-                            <button class="del-button" ion-button icon-only onclick="del()">
-                                <IonIcon icon={trashOutline} />
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Humpty Dumpty</td>
-                        <td>4_5Baseball_Orioles</td>
-                        <td>
-                            <button class="edit-button" ion-button icon-only onclick="edit()">
-                                <IonIcon icon={buildOutline} />
-                            </button><br/>
-                            <button class="del-button" ion-button icon-only onclick="del()">
-                                <IonIcon icon={trashOutline} />
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <input type="text" class="search-input" placeholder="Participant Filter"/>
+            </div>
+            <RenderTable dataSet={enrollments} headerSet={enrollmentHeaders} edit={edit} del={del}  />
         </div>
 
-        <div class="insert-button">
-            <button class="add-button" onclick="add()">Add Participant/Activity Pair</button>
+        <div className='insert-button'>
+        <button className='add-button' onClick={add}>Add New Enrollment</button>
         </div>
+
         <div>
-            <div id="insert-form">
-                <button class="closebtn" ion-button icon-only onclick="closeForm()">
+            <div id='insert-form'>
+                <button className='closebtn' ion-button icon-only onClick={closeForm}>
                     <IonIcon icon={closeCircleOutline} />
                 </button>
-                <form method="POST" id="addEnrollment">
-                    <legend>Create New Activity Enrollment</legend>
-                    <fieldset class="fields">
-                        <div class="form-ele">
-                            <label> Participant </label> 
-                                <select name="Participants">
-                                    <option ></option>
-                                    <option value="Cap">Captain America</option>
-                                    <option value="Iron">Mike Tyson</option>
-                                    <option value="HD">Humpty Dumpty</option>
-                                </select>
+                <div className='form'>
+                    <h1>Add Activity Enrollment</h1>
+                    <div className='form-ele'>
+                            <label> Participant </label>
+                            <select value={participant} onChange={(e) => {
+                                setEnrollmentParticipant(e.target.value)
+                            }}>
+                                <option value=''></option>
+                                {participantDropdown.map((participantCategory) => (
+                                    <RenderParticipantDropdown data={participantCategory} />
+                                ))}
+                            </select>
                         </div>
-                        <div class="form-ele">
-                            <label> Activity </label> 
-                                <select name="Activities">
-                                    <option > </option>
-                                    <option value="1">6_9Baseball_Mariners</option>
-                                    <option value="2">4_5Baseball_Orioles</option>
-                                    <option value="3">4_5Baseball_Cardinals</option>
-                                    <option value="4">4_5Baseball1_braves</option>
-                                </select>
+                        <div className='form-ele'>
+                            <label> Activity </label>
+                            <select value={activity} onChange={(e) => {
+                                setEnrollmentActivity(e.target.value)
+                            }}>
+                                <option value=''></option>
+                                {activityDropdown.map((activityCategory) => (
+                                    <RenderActivityDropdown data={activityCategory} />
+                                ))}
+                            </select>
                         </div>
-                    </fieldset>
-                    <input class="btn" type="submit" id="addEnrollment" value="Create Activity Enrollment" />
-                </form>  
+                    <button className='btn' onClick={insertEnrollment}> Add Activity Enrollment </button>
+                </div>
             </div>
 
-        <div id="update-form">
-            <button class="closebtn" ion-button icon-only onclick="closeForm()">
-                <IonIcon icon={closeCircleOutline} />
-            </button>
-            <form method="POST" id="updateEnrollment">
-                <legend>Update Existing Activity Enrollment</legend>
-                <fieldset class="fields">
-                    <div class="form-ele">
-                        <label> Participant </label> 
-                        <select name="Participants">
-                            <option> </option>
-                            <option value="Cap">Captain America</option>
-                            <option value="Iron">Mike Tyson</option>
-                            <option value="HD">Humpty Dumpty</option>
-                        </select>
-                    </div>
-                    <div class="form-ele">
-                        <label> Activity </label> 
-                        <select name="Activities">
-                            <option> </option>
-                            <option value="1">6_9Baseball_Mariners</option>
-                            <option value="2">4_5Baseball_Orioles</option>
-                            <option value="3">4_5Baseball_Cardinals</option>
-                            <option value="4">4_5Baseball1_braves</option>
-                        </select>
-                    </div>
-                </fieldset>
-                <input class="btn" type="submit" id="updateEnrollment" value="Update Existing Activity Enrollment" />
-            </form>
-        </div>
-
-            <div id="delete-form">
-                <button class="closebtn" ion-button icon-only onclick="closeForm()">
+            <div id='update-form'>
+                <button className='closebtn' onClick={closeForm}>
                     <IonIcon icon={closeCircleOutline} />
                 </button>
-                <form method="POST" id="deleteEnrollment">
-                    <legend>Delete Existing Activity Enrollment</legend>
-                        <fieldset class="fields">
+
+                <div className='form'>
+                    <h1>Update Activity Enrollment</h1>
+                    <div className='form-ele'>
+                            <label> Participant </label>
+                            <select value={participant} onChange={(e) => changeParticipant(e.target.value)}>
+                                {participantDropdown.map((participantCategory) => (
+                                    <RenderParticipantDropdown data={participantCategory} />
+                                ))}
+                            </select>
+                        </div>
+                    <div className='form-ele'>
+                            <label> Activity </label>
+                            <select value={activity} onChange={(e) => changeActivity(e.target.value)}>
+                                {activityDropdown.map((activityCategory) => (
+                                    <RenderActivityDropdown data={activityCategory} />
+                                ))}
+                            </select>
+                        </div>
+                    <button className='btn' onClick={() => updateEnrollment(id)}> Update Activity Enrollment </button>
+                </div>
+            </div>
+
+            <div id='delete-form'>
+                <button className='closebtn' onClick={closeForm}>
+                    <IonIcon icon={closeCircleOutline} />
+                </button>
+                <div className='form'>
+                    <h1>Delete Activity Enrollment</h1>
                         <p>Are you sure you wish to delete the following?</p>
-                        <div class="form-ele">
+                        <div className='form-ele'>
                             <label>ID:</label>
-                            <input type="text" name="enrollmentID" id="deleteenrollmentID" value="2"/>
+                            <input type='text' readOnly={true} value={id} />
                         </div>
-                        <div class="form-ele">
-                            <label>Participant </label>
-                            <input type="text" name="enrollmentID" id="deleteenrollmentID" value="Mike Tyson"/>
+                        <div className='form-ele'>
+                            <label>Participant</label>
+                            <input type='text' readOnly={true} value={participant} />
                         </div>
-                        <div class="form-ele">
-                            <label>Activity</label> 
-                            <input type="text" name="enrollmentID" id="deleteenrollmentID" value="4_5Baseball_Orioles"/>
+                        <div className='form-ele'>
+                            <label>Activity</label>
+                            <input type='text' readOnly={true} value={activity} />
                         </div>
-                </fieldset>
-                <input class="btn" type="submit" id="deleteEnrollment" value="Delete Activity Enrollment" />
-                </form> 
-            </div>  
+                    <button className='btn' onClick={() => deleteEnrollment(id)}> Delete Activity Enrollment </button>
+                </div>
+            </div>
         </div>
     </div>
     )
