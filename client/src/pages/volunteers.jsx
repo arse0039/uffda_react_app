@@ -21,6 +21,7 @@ const Volunteers = () => {
             try {
                 const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/volunteerData')
                 setVolunteers(result.data)
+                setRealVolunteers(result.data)
             } catch(err) {
                 console.log(err)
             }
@@ -131,12 +132,36 @@ const Volunteers = () => {
         }
     };
 
+    const [realVolunteers, setRealVolunteers] = useState([]);
+    const [search, setSearch] = useState([]);
+    const [searchDropData, setSearchDrop] = useState('');
+
+    const tableSearch = (e) => {
+        if(e.length > 0) {
+            let searchData=volunteers.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
+            setVolunteers(searchData)
+        } else {
+            setVolunteers(realVolunteers);
+        }
+        setSearch(e)
+    }
+
     // Render the page
     return ( 
         <div className="main">
             <h1 className="page-header"> Volunteers Page </h1>
             <div id="table-div">
-                <SearchBar headerData={volunteerHeaders} />
+            <div id="search-div">
+                <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                    <option disabled selected value> Select a Search Filter </option>
+                    <option value='name'>name</option>
+                    <option value='email'>email</option> 
+                    <option value='role'>role</option> 
+                </select>
+                <input type="text" className="search-input" value={search} placeholder='Search' onChange={
+                    (e) => tableSearch(e.target.value)
+                    }/>
+                </div>
                 <RenderTable dataSet={volunteers} headerSet={volunteerHeaders} edit={edit} del={del}   />
             </div>
 
