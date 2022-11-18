@@ -168,7 +168,7 @@ const Enrollments = () => {
     // Render the Page
     return ( 
     <div className='main'>
-        <h1 className="page-header"> Enrollments Page </h1>
+        <h1 id="page-header"> Enrollments Page </h1>
         <div id="table-div">
             <div id="search-div">
                 <input type="text" class="search-input" placeholder="Activity Filter"/>
@@ -178,7 +178,7 @@ const Enrollments = () => {
         </div>
 
         <div className='insert-button'>
-        <button className='add-button' onClick={add}>Add New Enrollment</button>
+            <button id='add-button' onClick={add}>Add New Enrollment</button>
         </div>
 
         <div>

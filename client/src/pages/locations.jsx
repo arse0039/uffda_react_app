@@ -125,7 +125,7 @@ const Locations = () => {
 
   return ( 
       <div className="main">
-      <h1 className="page-header"> Locations Page </h1>
+      <h1 id="page-header"> Locations Page </h1>
       <div id="table-div">
           <div id="search-div">
               <input type="text" className="search-input" placeholder="Name Filter" />
@@ -135,7 +135,7 @@ const Locations = () => {
       </div>  
             
       <div className="insert-button">
-        <button className="add-button" onClick={add}>Add New Location</button>
+        <button id="add-button" onClick={add}>Add New Location</button>
       </div>
   
       <div>

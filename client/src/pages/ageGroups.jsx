@@ -117,7 +117,7 @@ const AgeGroups = () => {
 
     return (
       <div className='main'>
-        <h1 className="page-header"> Age Groups Page </h1>
+        <h1 id="page-header"> Age Groups Page </h1>
           <div id='table-div'>
               <div id='search-div'>
                   <input type="text" className="search-input" placeholder="Age Group Filter" />
@@ -126,7 +126,7 @@ const AgeGroups = () => {
           </div>
 
           <div className='insert-button'>
-              <button className='add-button' onClick={add}>Add New Age Group</button>
+              <button id='add-button' onClick={add}>Add New Age Group</button>
           </div>
 
           <div>

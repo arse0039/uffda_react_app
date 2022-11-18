@@ -151,7 +151,7 @@ const Participants = () => {
     //Render the Page
     return ( 
         <div className="main">
-            <h1 className="page-header"> Participants Page </h1>
+            <h1 id="page-header"> Participants Page </h1>
             <div id="table-div">
                 <div id="search-div">
                     <input type="text" className="search-input" placeholder="Age Group Filter"/>
@@ -161,7 +161,7 @@ const Participants = () => {
             </div>
         
             <div className="insert-button">
-            <button className="add-button" onClick={add}>Add New Participant</button>
+                <button id="add-button" onClick={add}>Add New Participant</button>
             </div>
             
             <div>

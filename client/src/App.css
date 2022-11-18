@@ -9,7 +9,7 @@ body {
   display:inline;
 }
 
-.page-header {
+#page-header {
   text-align: center;
 }
 
@@ -164,7 +164,7 @@ ion-icon {
   transform: rotate(10deg);
 }
 
-.add-button {
+#add-button {
   margin-top: 15px;
   position: relative;
   top: 10%;
@@ -180,7 +180,7 @@ ion-icon {
 
 }
 
-.add-button:after {
+#add-button:after {
   background-color: #0C3554;
   border-radius: 8px;
   content: "";
@@ -195,7 +195,7 @@ ion-icon {
   z-index: -1;
 }
 
-.add-button:hover:after {
+#add-button:hover:after {
  transform:translate(2px, 2px)
 }
 

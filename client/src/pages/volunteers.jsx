@@ -149,7 +149,7 @@ const Volunteers = () => {
     // Render the page
     return ( 
         <div className="main">
-            <h1 className="page-header"> Volunteers Page </h1>
+            <h1 id="page-header"> Volunteers Page </h1>
             <div id="table-div">
             <div id="search-div">
                 <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
@@ -166,7 +166,7 @@ const Volunteers = () => {
             </div>
 
             <div className="insert-button">
-                <button className="add-button" onClick={add}>Add New Volunteer</button>
+                <button id="add-button" onClick={add}>Add New Volunteer</button>
             </div>
 
             <div>
