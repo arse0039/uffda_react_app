@@ -63,7 +63,12 @@ app.get("/ageGroupCol", (req, res) => {
 
 // View Participant Data for Populating Table
 app.get("/participantData", (req, res) => {
-    const participantSelect = 'SELECT * FROM Participants';
+    const participantSelect = 
+    `SELECT participant_id, age_groups.description as age_group_id, name, address 
+    FROM participants 
+    INNER JOIN age_groups 
+    ON participants.age_group_id = age_groups.age_group_id`
+    ;
     db.query(participantSelect, (err, result) => {
         if(err) {return result.json(err)}
         return res.json(result)
@@ -229,7 +234,7 @@ app.delete("/participants/:id", (req, res) => {
 });
 
 
-/***********Activities Querires (to be moved to separate file) **************/
+/***********Activities Queries (to be moved to separate file) **************/
 
 // View Activity Data for Populating Table
 app.get("/activityData", (req, res) => {
@@ -299,7 +304,7 @@ app.delete("/activities/:id", (req, res) => {
 /********************************************/
 
 
-/***********Enrollments Querires (to be moved to separate file) **************/
+/***********Enrollments Queries (to be moved to separate file) **************/
 
 // View Enrollment Data for Populating Table
 app.get("/enrollmentData", (req, res) => {
