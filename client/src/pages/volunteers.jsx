@@ -154,9 +154,9 @@ const Volunteers = () => {
             <div id="search-div">
                 <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
                     <option disabled selected value> Select a Search Filter </option>
-                    <option value='name'>name</option>
-                    <option value='email'>email</option> 
-                    <option value='role'>role</option> 
+                    <option value='name'>Name</option>
+                    <option value='email'>Email</option> 
+                    <option value='role'>Role</option> 
                 </select>
                 <input type="text" className="search-input" value={search} placeholder='Search' onChange={
                     (e) => tableSearch(e.target.value)
@@ -165,7 +165,7 @@ const Volunteers = () => {
                 <RenderTable dataSet={volunteers} headerSet={volunteerHeaders} edit={edit} del={del}   />
             </div>
 
-            <div className="insert-button">
+            <div id="insert-button">
                 <button id="add-button" onClick={add}>Add New Volunteer</button>
             </div>
 

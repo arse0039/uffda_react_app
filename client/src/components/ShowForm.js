@@ -9,7 +9,7 @@ const showform = (formtype) => {
         document.getElementById("header").style.filter="blur(3px)"    
         document.getElementById("search-div").style.filter="blur(3px)"
         document.getElementById("page-header").style.filter="blur(3px)"
-        document.getElementById("btn").style.filter="blur(3px)"
+        document.getElementById("insert-button").style.filter="blur(3px)"
     }else if (formtype == "delete") {
         document.getElementById("insert-form").style.visibility="hidden"
         document.getElementById("update-form").style.visibility="hidden"
@@ -18,7 +18,7 @@ const showform = (formtype) => {
         document.getElementById("header").style.filter="blur(3px)"
         document.getElementById("search-div").style.filter="blur(3px)"
         document.getElementById("page-header").style.filter="blur(3px)"
-        document.getElementById("btn").style.filter="blur(3px)"               
+        document.getElementById("insert-button").style.filter="blur(3px)"               
     } else if (formtype == "insert") {
         document.getElementById("insert-form").style.visibility="visible"
         document.getElementById("update-form").style.visibility="hidden"
@@ -27,7 +27,7 @@ const showform = (formtype) => {
         document.getElementById("header").style.filter="blur(3px)" 
         document.getElementById("search-div").style.filter="blur(3px)"
         document.getElementById("page-header").style.filter="blur(3px)"
-        document.getElementById("btn").style.filter="blur(3px)"
+        document.getElementById("insert-button").style.filter="blur(3px)"
     } else {
         document.getElementById("insert-form").style.visibility="hidden"
         document.getElementById("update-form").style.visibility="hidden"
@@ -36,7 +36,7 @@ const showform = (formtype) => {
         document.getElementById("header").style.filter="blur(0px)" 
         document.getElementById("search-div").style.filter="blur(0px)"
         document.getElementById("page-header").style.filter="blur(0px)"
-        document.getElementById("btn").style.filter="blur(0px)"
+        document.getElementById("insert-button").style.filter="blur(0px)"
     }
 }
 
