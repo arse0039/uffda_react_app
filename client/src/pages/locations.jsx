@@ -20,12 +20,14 @@ const Locations = () => {
         try {
             const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationData')
             setLocations(result.data)
+            setRealLocations(result.data)
         } catch(err) {
             console.log(err)
         }
     }
     getLocations();
   }, [renderNew]);  
+
   // Adding renderNew to the dependency array here forces the useEffect function to run
   // whenever there is a change to the received item.
 
@@ -77,8 +79,8 @@ const Locations = () => {
     };
 
     const closeForm = () => {
-        clearState()
         showform("close")
+        clearState()
     };
 
     const clearState = () => {
@@ -91,16 +93,16 @@ const Locations = () => {
     // CRUD Request Block
     //////////////////////////////////////////////////////
 
-
   const insertLoc = async () => {
       try {
           await Axios.post('http://flip2.engr.oregonstate.edu:10725/locationsInsert', {name:name, address:address})
       } catch(err){
           console.log(err)
+      } finally {
+        forceUpdate()
+        closeForm()
+        clearState()
       }
-      closeForm()
-      clearState()
-      forceUpdate();  // forces rerender of table
   };
 
   const updateLoc = async (locID) => {
@@ -108,9 +110,11 @@ const Locations = () => {
         await Axios.put(`http://flip2.engr.oregonstate.edu:10725/locations/${locID}`, {name:name, address:address})
     } catch(err) {
         console.log(err)
+    } finally {
+        forceUpdate()
+        closeForm()
+        clearState()      
     }
-    closeForm();
-    forceUpdate();  // forces rerender of table
   };
 
   const delLoc = async (locID) => {
@@ -118,23 +122,50 @@ const Locations = () => {
           await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/locations/${locID}`)
       } catch(err) {
           console.log(err)
+      } finally {
+        forceUpdate()
+        closeForm()
       }
-      closeForm();
-      forceUpdate();  // forces rerender of table
   };
 
+  // Search Bar Functionality.
+  // Created using modified code found from:
+  // https://www.youtube.com/watch?v=CO1T4YeYC_Y
+
+  const [realLocations, setRealLocations] = useState([]);
+  const [search, setSearch] = useState([]);
+  const [searchDropData, setSearchDrop] = useState('');
+
+  const tableSearch = (e) => {
+      if(e.length > 0) {
+          let searchData=locations.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
+          setLocations(searchData)
+      } else {
+          setLocations(realLocations);
+      }
+      setSearch(e)
+  }
+
+  // render the Locations Page
   return ( 
       <div className="main">
       <h1 id="page-header"> Locations Page </h1>
       <div id="table-div">
-          <div id="search-div">
-              <input type="text" className="search-input" placeholder="Name Filter" />
-          </div>
+        <div id="search-div">
+                <select id='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                    <option disabled selected value> Select a Search Filter </option>
+                    <option value='name'>name</option>
+                    <option value='address'>address</option> 
+                </select>
+                <input type="text" className="search-input" value={search} placeholder='Search' onChange={
+                    (e) => tableSearch(e.target.value)
+                    }/>
+            </div>
           <RenderTable dataSet={locations} headerSet={locationHeaders} edit={edit} del={del}   />
 
       </div>  
             
-      <div className="insert-button">
+      <div id="insert-button">
         <button id="add-button" onClick={add}>Add New Location</button>
       </div>
   
@@ -171,14 +202,14 @@ const Locations = () => {
               <h1>Update Location</h1>
               <div className="form-ele">
                    <label> Location Name </label>
-                   <input type="text" placeholder={name} onChange = {(e) => {
+                   <input type="text" value={name} onChange = {(e) => {
                       setLocationName(e.target.value)
                    }}/>
               </div>
 
               <div className="form-ele">
                    <label> Address </label>
-                   <input type="text" placeholder={address} onChange = {(e) => {
+                   <input type="text" value={address} onChange = {(e) => {
                       setLocationAddress(e.target.value)
                    }}/>
               </div>
@@ -197,11 +228,11 @@ const Locations = () => {
                 <p>Are you sure you wish to delete the following?</p>
                 <div className='form-ele'>
                    <label>ID:</label>
-                   <input type="text" readOnly={true} value={id} />
+                   <input className="del-box" type="text" readOnly={true} value={id} />
                 </div>
                 <div className='form-ele'>
                    <label>Name:</label>
-                   <input type="text" readOnly={true} value={name} />
+                   <input className="del-box" type="text" readOnly={true} value={name} />
                 </div>
             <button className='btn' onClick={() => delLoc(id)} >Delete Location </button>
         </div>

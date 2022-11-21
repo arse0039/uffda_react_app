@@ -15,6 +15,9 @@ const ageGroup = require('./routes/ageGroups');
 const activities = require('./routes/activities');
 const enrollments = require('./routes/enrollments');
 
+// Route tree separation code modified from source code found at:
+// https://github.com/expressjs/express/tree/master/examples/route-separation
+
 /************* Volunteers  *************/
 
 app.get("/volunteerData", vols.data);

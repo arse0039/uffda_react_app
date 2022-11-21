@@ -93,10 +93,6 @@ const Volunteers = () => {
         setVolunteerRole('')
     };
 
-    const changeRole = (e) => {
-        setVolunteerRole(e.target.value)
-    };
-
     //////////////////////////////////////////////////////
     // CRUD Request Block
     //////////////////////////////////////////////////////
@@ -135,6 +131,10 @@ const Volunteers = () => {
             closeForm()                  
         }
     };
+
+    // Search Bar Functionality.
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=CO1T4YeYC_Y
 
     const [realVolunteers, setRealVolunteers] = useState([]);
     const [search, setSearch] = useState([]);
