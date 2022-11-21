@@ -279,7 +279,12 @@ fieldset {
   visibility: hidden;
 }
 
-
+.del-box {
+  text-align: center;
+  font-size: 20px;
+  background-color: #BBB;
+  cursor:default;
+}
 
 
 

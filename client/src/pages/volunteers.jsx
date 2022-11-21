@@ -13,8 +13,10 @@ const Volunteers = () => {
 ///////////////////////////////////////////////////////////////////////////
 
     const [volunteers, setVolunteers] = useState([]); // Receives data from DB via get request
-    const [renderNew, forceUpdate] = useReducer(x => x+1,0); //allows for auto-rendering of the component page
+    const [renderNew, forceUpdate] = useReducer(x => x+1,0); 
+
     // forceUpdate used to rerender table component dynamically
+    // useReducer implementation taken from https://www.youtube.com/watch?v=Nxe-9PkP8Nw
 
     useEffect(() => {
         const getVolunteers = async () => {
@@ -45,6 +47,7 @@ const Volunteers = () => {
         populateHeaders()
     });
     
+    // Populate array with column header values
     const headerPop = () => {
         volunteerColumns.map((e) => {
             volunteerHeaders.push(e.Field)
@@ -104,9 +107,9 @@ const Volunteers = () => {
         } catch(err){
             console.log(err)
         } finally {
+            forceUpdate()
             closeForm()
-            clearState()  
-            forceUpdate() 
+            clearState()            
         }
     };
 
@@ -116,8 +119,9 @@ const Volunteers = () => {
         } catch(err){
             console.log(err)
         } finally {
+            forceUpdate()
             closeForm()   
-            forceUpdate() 
+            clearState()
         }  
     };
 
@@ -127,8 +131,8 @@ const Volunteers = () => {
         } catch(err) {
             console.log(err)
         } finally {
-            closeForm()
-            forceUpdate()          
+            forceUpdate() 
+            closeForm()                  
         }
     };
 
@@ -151,16 +155,16 @@ const Volunteers = () => {
         <div className="main">
             <h1 id="page-header"> Volunteers Page </h1>
             <div id="table-div">
-            <div id="search-div">
-                <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
-                    <option disabled selected value> Select a Search Filter </option>
-                    <option value='name'>Name</option>
-                    <option value='email'>Email</option> 
-                    <option value='role'>Role</option> 
-                </select>
-                <input type="text" className="search-input" value={search} placeholder='Search' onChange={
-                    (e) => tableSearch(e.target.value)
-                    }/>
+                <div id="search-div">
+                    <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                        <option disabled selected value> Select a Search Filter </option>
+                        <option value='name'>Name</option>
+                        <option value='email'>Email</option> 
+                        <option value='role'>Role</option> 
+                    </select>
+                    <input type="text" className="search-input" value={search} placeholder='Search' onChange={
+                        (e) => tableSearch(e.target.value)
+                        }/>
                 </div>
                 <RenderTable dataSet={volunteers} headerSet={volunteerHeaders} edit={edit} del={del}   />
             </div>
@@ -214,20 +218,21 @@ const Volunteers = () => {
                         <h1>Update Volunteer</h1>
                             <div className="form-ele">
                                 <label> Name </label> 
-                                <input type="text" placeholder={name} onChange = {(e) => {
+                                <input type="text" value={name} onChange = {(e) => {
                                     setVolunteerName(e.target.value)
                             }}/>
                             </div>
                             <div className="form-ele">
                                 <label> Email </label> 
-                                <input type="email" placeholder={email} onChange = {(e) => {
+                                <input type="email" value={email} onChange = {(e) => {
                                     setVolunteerEmail(e.target.value)
                             }}/>
                             </div>
                             <div className="form-ele">
                                 <label> Role </label> 
-                                <select value={role} onChange={changeRole}>
-                                    <option value=''> </option>
+                                <select value={role} onChange={(e) => {
+                                    setVolunteerRole(e.target.value)
+                                    }}>
                                     <option value="Instructor">Instructor</option>
                                     <option value="Coach">Coach</option>
                                     <option value="Head Coach">Head Coach</option>
@@ -249,11 +254,11 @@ const Volunteers = () => {
                             <p>Are you sure you wish to delete the following volunteer?</p>
                             <div className="form-ele">
                                 <label>ID:</label>
-                                <input type="text" readOnly={true} value={id}/>
+                                <input className="del-box" type="text" readOnly={true} value={id}/>
                             </div>
                             <div className="form-ele">
                                 <label>Name:</label> 
-                                <input type="text" readOnly={true} value={name} />
+                                <input className="del-box" type="text" readOnly={true} value={name} />
                             </div>
                         <button className="btn" onClick={()=> delVol(id)}> Delete Volunteer </button>
                     </div> 
