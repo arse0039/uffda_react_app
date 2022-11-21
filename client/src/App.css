@@ -78,6 +78,7 @@ header ul li:hover{
   transform: scaleY(1.2);
 }
 /* Search Bar  */
+
 .search-drop{
   height: 35px;
   position: relative;
@@ -109,6 +110,10 @@ header ul li:hover{
   font-weight: bold;
   color: #000;
   border: none;
+}
+
+#search-div .search-input:focus {
+  outline: none;
 }
 
 /* Table Styling */

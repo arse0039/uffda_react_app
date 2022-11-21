@@ -19,6 +19,7 @@ const AgeGroups = () => {
             try {
                 const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/ageGroupData')
                 setAgeGroups(result.data)
+                setRealAgeGroups(result.data)
             } catch(err) {
                 console.log(err)
             }
@@ -60,16 +61,18 @@ const AgeGroups = () => {
     const edit = (ageGroupData) => {
         setAgeGroupId(ageGroupData.age_group_id)
         setAgeGroupDescription(ageGroupData.description)
-        showform("edit");
+        showform("edit")
     }
 
     const del = (ageGroupData) => {
         setAgeGroupId(ageGroupData.age_group_id)
         setAgeGroupDescription(ageGroupData.description)
-        showform("delete");
+        showform("delete")
     }
 
-    const add = () => {showform("insert");}
+    const add = () => {
+        showform("insert")
+    }
 
     const closeForm = () => {
         clearState()
@@ -87,9 +90,9 @@ const AgeGroups = () => {
         } catch(err) {
             console.log(err)
         } finally {
+            forceUpdate()
             closeForm()
             clearState()
-            forceUpdate();  // forces rerender of table component
         }
     };
 
@@ -99,8 +102,9 @@ const AgeGroups = () => {
         } catch(err) {
             console.log(err)
         } finally {
-            closeForm();
-            forceUpdate();  // forces rerender of table component
+            forceUpdate()
+            closeForm()
+            clearState()
         }
     };
 
@@ -110,22 +114,46 @@ const AgeGroups = () => {
         } catch(err) {
             console.log(err)
         } finally {
-            closeForm();
-            forceUpdate();  // forces rerender of table component
+            forceUpdate()
+            closeForm()  
         }
     }; 
 
+        // Search Bar Functionality.
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=CO1T4YeYC_Y
+
+    const [realAgeGroups, setRealAgeGroups] = useState([]);
+    const [search, setSearch] = useState([]);
+    const [searchDropData, setSearchDrop] = useState('');
+
+    const tableSearch = (e) => {
+        if(e.length > 0) {
+            let searchData = ageGroups.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
+            setAgeGroups(searchData)
+        } else {
+            setAgeGroups(realAgeGroups);
+        }
+        setSearch(e)
+    }
+
+    // render AgeGroups Page
     return (
       <div className='main'>
         <h1 id="page-header"> Age Groups Page </h1>
           <div id='table-div'>
-              <div id='search-div'>
-                  <input type="text" className="search-input" placeholder="Age Group Filter" />
-              </div>
+          <div id="search-div">
+                <select id='search-drop' onChange={() => setSearchDrop('description')}>
+                    <option default value='description'>Description</option>
+                </select>
+                <input type="text" className="search-input" value={search} placeholder='Search' onChange={
+                    (e) => tableSearch(e.target.value)
+                    }/>
+            </div>
           <RenderTable dataSet={ageGroups} headerSet={ageGroupHeaders} edit={edit} del={del} />
           </div>
 
-          <div className='insert-button'>
+          <div id='insert-button'>
               <button id='add-button' onClick={add}>Add New Age Group</button>
           </div>
 
@@ -156,7 +184,7 @@ const AgeGroups = () => {
                 <h1>Update Age Group</h1>
                       <div className='form-ele'>
                         <label> Description </label>
-                        <input type="text" placeholder={description} onChange = {(e) => {
+                        <input type="text" value={description} onChange = {(e) => {
                             setAgeGroupDescription(e.target.value)
                         }} />
                       </div>
@@ -173,11 +201,11 @@ const AgeGroups = () => {
                         <p> Are you sure you wish to delete the following?</p>
                         <div className='form-ele'>
                             <label>ID:</label>
-                            <input type="text" readOnly={true} value={id}/>
+                            <input className="del-box" type="text" readOnly={true} value={id}/>
                         </div>
                         <div className='form-ele'>
                             <label>Description:</label>
-                            <input type="text" readOnly={true} value={description}/>
+                            <input className="del-box" type="text" readOnly={true} value={description}/>
                         </div>
                   <input className='btn' type="submit" id="deleteAgeGroup" value="Delete Age Group" onClick={() => delAgeGroup(id)}/>
               </div>
