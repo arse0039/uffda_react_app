@@ -12,7 +12,10 @@ const AgeGroups = () => {
 ///////////////////////////////////////////////////////////////////////////
 
     const [ageGroups, setAgeGroups] = useState([]);  // Receives data from DB via GET request
-    const [renderNew, forceUpdate] = useReducer(x => x+1, 0);  // allows for auto-rendering of the component page
+    const [renderNew, forceUpdate] = useReducer(x => x+1, 0);  
+
+    // forceUpdate used to rerender table component dynamically
+    // useReducer implementation taken from https://www.youtube.com/watch?v=Nxe-9PkP8Nw
 
     useEffect(() => {
         const getAgeGroups = async () => {
@@ -119,7 +122,7 @@ const AgeGroups = () => {
         }
     }; 
 
-        // Search Bar Functionality.
+    // Search Bar Functionality.
     // Created using modified code found from:
     // https://www.youtube.com/watch?v=CO1T4YeYC_Y
 

@@ -18,6 +18,9 @@ const Activities = () => {
     const [activities, setActivities] = useState([]);
     const [renderNew, forceUpdate] = useReducer(x => x+1, 0);
 
+    // forceUpdate used to rerender table component dynamically
+    // useReducer implementation taken from https://www.youtube.com/watch?v=Nxe-9PkP8Nw
+
     useEffect(() => {
         const getActivities = async () => {
             try {

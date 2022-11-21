@@ -12,8 +12,11 @@ const Locations = () => {
 //// Use Effect block to populate the Locations Table from the database
 ///////////////////////////////////////////////////////////////////////////  
 
-  const [locations, setLocations] = useState([]);  // Receives data from DB via GET request
-  const [renderNew, forceUpdate] = useReducer(x => x+1, 0);  // allows for auto-rendering of the component page
+    const [locations, setLocations] = useState([]);  // Receives data from DB via GET request
+    const [renderNew, forceUpdate] = useReducer(x => x+1, 0); 
+
+    // forceUpdate used to rerender table component dynamically
+    // useReducer implementation taken from https://www.youtube.com/watch?v=Nxe-9PkP8Nw
   
   useEffect(() => {
     const getLocations = async () => {
