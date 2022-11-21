@@ -180,9 +180,9 @@ const Activities = () => {
         } catch(err){
             console.log(err.data)
         } finally {
+            forceUpdate()
             closeForm()
             clearState()
-            forceUpdate()
         }
     }; 
 
@@ -200,8 +200,9 @@ const Activities = () => {
         } catch(err){
             console.log(err)
         } finally {
-            closeForm()
             forceUpdate()
+            closeForm()
+            clearState()
         }
     }; 
 
@@ -211,8 +212,8 @@ const Activities = () => {
         } catch(err){
             console.log(err)
         } finally {
-            closeForm()
             forceUpdate()
+            closeForm()
         }
     };
 
@@ -229,7 +230,7 @@ const Activities = () => {
                 <RenderTable dataSet={activities} headerSet={activityHeaders} edit={edit} del={del} /> 
             </div>
 
-            <div className='insert-button'>
+            <div id='insert-button'>
                 <button id='add-button' onClick={add}>Add New Activity</button>
             </div>
 
@@ -304,19 +305,19 @@ const Activities = () => {
                     <h1>Update Activity</h1>
                         <div className='form-ele'>
                             <label> Name </label>
-                            <input type='text' placeholder={name} onChange={(e) => {
+                            <input type='text' value={name} onChange={(e) => {
                                 setActivityName(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
                             <label> Description </label>
-                            <input type='text' placeholder={description} onChange={(e) => {
+                            <input type='text' value={description} onChange={(e) => {
                                 setActivityDescription(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
                             <label> Max Participants </label>
-                            <input type='int' placeholder={maxPart} onChange={(e) => {
+                            <input type='int' value={maxPart} onChange={(e) => {
                                 setActivityMaxPart(e.target.value)
                             }}/>
                         </div>
@@ -357,11 +358,11 @@ const Activities = () => {
                             <p>Are you sure you wish to delete the following participant?</p>
                             <div className='form-ele'>
                                 <label> ID: </label>
-                                <input type='text' readOnly={true} value={id} />
+                                <input className='del-box' type='text' readOnly={true} value={id} />
                             </div>
                             <div className='form-ele'>
                                 <label> Name: </label>
-                                <input type='text' readOnly={true} value={name} />                                
+                                <input className='del-box' type='text' readOnly={true} value={name} />                                
                             </div>
                         <button className='btn' onClick={() => deleteActivity(id)}> Delete Activity </button>
                     </div>

@@ -140,9 +140,9 @@ const Enrollments = () => {
         } catch(err){
             console.log(err)
         } finally {
+            forceUpdate()
             closeForm()
             clearState()
-            forceUpdate()
         }
     };
 
@@ -152,8 +152,9 @@ const Enrollments = () => {
         } catch(err) {
             console.log(err)
         } finally{
-            closeForm()
             forceUpdate()
+            closeForm()
+            clearState()
         }
     };
 
@@ -163,8 +164,8 @@ const Enrollments = () => {
         } catch(err){
             console.log(err)
         } finally {
-            closeForm()
             forceUpdate()
+            closeForm()
         }
     };
 
@@ -180,7 +181,7 @@ const Enrollments = () => {
             <RenderTable dataSet={enrollments} headerSet={enrollmentHeaders} edit={edit} del={del}  />
         </div>
 
-        <div className='insert-button'>
+        <div id='insert-button'>
             <button id='add-button' onClick={add}>Add New Enrollment</button>
         </div>
 
@@ -257,11 +258,11 @@ const Enrollments = () => {
                         </div>
                         <div className='form-ele'>
                             <label>Participant</label>
-                            <input type='text' readOnly={true} value={participant} />
+                            <input className="del-box" type='text' readOnly={true} value={participant} />
                         </div>
                         <div className='form-ele'>
                             <label>Activity</label>
-                            <input type='text' readOnly={true} value={activity} />
+                            <input className="del-box" type='text' readOnly={true} value={activity} />
                         </div>
                     <button className='btn' onClick={() => deleteEnrollment(id)}> Delete Activity Enrollment </button>
                 </div>
