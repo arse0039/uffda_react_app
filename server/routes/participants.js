@@ -6,9 +6,9 @@ exports.data = (req, res) => {
     age_groups.description as age_group_id, 
     name, 
     address 
-    FROM participants 
+    FROM Participants 
     INNER JOIN age_groups 
-    ON participants.age_group_id = age_groups.age_group_id`
+    ON Participants.age_group_id = age_groups.age_group_id`
     ;
     db.query(participantSelect, (err, result) => {
         if(err) {return result.json(err)}
