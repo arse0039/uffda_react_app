@@ -26,6 +26,7 @@ const Activities = () => {
             try {
                 const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/activityData')
                 setActivities(result.data)
+                setRealActivities(result.data)
             } catch(err) {
                 console.log(err)
             }
@@ -217,15 +218,40 @@ const Activities = () => {
         }
     };
 
+    // Search Bar Functionality.
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=CO1T4YeYC_Y
+
+    const [realActivities, setRealActivities] = useState([]);
+    const [search, setSearch] = useState([]);
+    const [searchDropData, setSearchDrop] = useState('');
+
+    const tableSearch = (e) => {
+        if(e.length > 0) {
+            let searchData=activities.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
+            setActivities(searchData)
+        } else {
+            setActivities(realActivities);
+        }
+        setSearch(e)
+    }
+
     // Render the Page
     return (
         <div className='main'>
             <h1 id="page-header"> Activities Page </h1>
             <div id="table-div">
                 <div id="search-div">
-                    <input type="text" className="search-input" placeholder="Location Filter"/>
-                    <input type="text" className="search-input" placeholder="Age Group Filter"/>
-                    <input type="text" className="search-input" placeholder="Name Filter"/>
+                    <select id='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                        <option disable selected value> Select a Search Filter </option>
+                        <option value='location_id'> Location </option>
+                        <option value='volunteer_id'> Volunteer </option>
+                        <option value='age_group'> Age Group </option>
+                        <option value='name'> Name </option>
+                    </select>
+                    <input type="text" className="search-input" value={search} placeholder='Search' onChange={
+                        (e) => tableSearch(e.target.value)
+                    }/>
                 </div>
                 <RenderTable dataSet={activities} headerSet={activityHeaders} edit={edit} del={del} /> 
             </div>
