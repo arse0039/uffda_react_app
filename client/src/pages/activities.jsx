@@ -300,7 +300,6 @@ const Activities = () => {
                             <select value={volunteer} onChange={(e) => {
                                 setActivityVolunteer(e.target.value)
                             }}>
-                                <option value=''></option>
                                 {volunteerDropDown.map((volunteerCategory) => (
                                     <RenderVolunteerDropdown data={volunteerCategory} />
                                 ))}
