@@ -1,7 +1,14 @@
 const db = require('../db_config')
 
 exports.data = (req, res) => {
-    const enrollmentSelect = 'SELECT * FROM Activity_Enrollments';
+    const enrollmentSelect = 
+    `SELECT enrollment_id,
+    Participants.name as participant_id,
+    Activities.name as activity_id
+    FROM Activity_Enrollments
+    INNER JOIN Participants ON Participants.participant_id = Activity_Enrollments.participant_id
+    INNER JOIN Activities ON Activities.activity_id = Activity_Enrollments.activity_id`
+    ;
     db.query(enrollmentSelect, (err, result) => {
         if(err) {return result.json(err)}
         return res.json(result)
