@@ -3,12 +3,12 @@ const db = require('../db_config')
 exports.data = (req, res) => {
     const participantSelect = 
     `SELECT participant_id, 
-    age_groups.description as age_group_id, 
+    Age_Groups.description as age_group_id, 
     name, 
     address 
     FROM Participants 
-    INNER JOIN age_groups 
-    ON Participants.age_group_id = age_groups.age_group_id`
+    INNER JOIN Age_Groups 
+    ON Participants.age_group_id = Age_Groups.age_group_id`
     ;
     db.query(participantSelect, (err, result) => {
         if(err) {return result.json(err)}
