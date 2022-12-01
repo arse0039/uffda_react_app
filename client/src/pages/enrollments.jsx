@@ -25,6 +25,7 @@ const Enrollments = () => {
             try{
                 const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/enrollmentData')
                 setEnrollments(result.data)
+                setRealEnrollments(result.data)
             } catch(err) {
                 console.log(err)
             }
@@ -169,14 +170,40 @@ const Enrollments = () => {
         }
     };
 
+
+    // Search Bar Functionality.
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=CO1T4YeYC_Y
+
+    const [realEnrollments, setRealEnrollments] = useState([]);
+    const [search, setSearch] = useState([]);
+    const [searchDropData, setSearchDrop] = useState('');
+
+    const tableSearch = (e) => {
+        if(e.length > 0) {
+            let searchData=enrollments.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
+            setEnrollments(searchData)
+        } else {
+            setEnrollments(realEnrollments);
+        }
+        setSearch(e)
+    }
+
+
     // Render the Page
     return ( 
     <div className='main'>
         <h1 id="page-header"> Enrollments Page </h1>
         <div id="table-div">
             <div id="search-div">
-                <input type="text" class="search-input" placeholder="Activity Filter"/>
-                <input type="text" class="search-input" placeholder="Participant Filter"/>
+                <select id='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                    <option disabled selected value> Select a Search Filter </option>
+                    <option value='participant_id'> Participant </option> 
+                    <option value='activity_id'> Activity </option>
+                </select>
+                <input type="text" class="search-input" value={search} placeholder='Search' onChange={
+                    (e) => tableSearch(e.target.value)
+                }/>
             </div>
             <RenderTable dataSet={enrollments} headerSet={enrollmentHeaders} edit={edit} del={del}  />
         </div>
