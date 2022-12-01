@@ -7,7 +7,7 @@ exports.data = (req, res) => {
     name, 
     address 
     FROM Participants 
-    INNER JOIN Age_Groups 
+    LEFT JOIN Age_Groups 
     ON Participants.age_group_id = Age_Groups.age_group_id`
     ;
     db.query(participantSelect, (err, result) => {

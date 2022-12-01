@@ -8,9 +8,9 @@ exports.data = (req, res) => {
     Age_Groups.description as age_group, 
     Activities.name, Activities.description, max_participants 
     FROM Activities 
-    INNER JOIN Locations ON Activities.location_id = Locations.location_id
-    INNER JOIN Volunteers ON Activities.volunteer_id = Volunteers.volunteer_id
-    INNER JOIN Age_Groups ON Activities.age_group = Age_Groups.age_group_id`
+    LEFT JOIN Locations ON Activities.location_id = Locations.location_id
+    LEFT JOIN Volunteers ON Activities.volunteer_id = Volunteers.volunteer_id
+    LEFT JOIN Age_Groups ON Activities.age_group = Age_Groups.age_group_id`
     ;
     db.query(activitySelect, (err, result) => {
         if(err) {return result.json(err)}

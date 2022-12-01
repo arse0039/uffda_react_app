@@ -6,8 +6,8 @@ exports.data = (req, res) => {
     Participants.name as participant_id,
     Activities.name as activity_id
     FROM Activity_Enrollments
-    INNER JOIN Participants ON Participants.participant_id = Activity_Enrollments.participant_id
-    INNER JOIN Activities ON Activities.activity_id = Activity_Enrollments.activity_id`
+    LEFT JOIN Participants ON Participants.participant_id = Activity_Enrollments.participant_id
+    LEFT JOIN Activities ON Activities.activity_id = Activity_Enrollments.activity_id`
     ;
     db.query(enrollmentSelect, (err, result) => {
         if(err) {return result.json(err)}
