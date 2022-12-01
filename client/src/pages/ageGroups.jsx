@@ -146,7 +146,7 @@ const AgeGroups = () => {
         <h1 id="page-header"> Age Groups Page </h1>
           <div id='table-div'>
           <div id="search-div">
-                <select id='search-drop' onChange={() => setSearchDrop('description')}>
+                <select className='search-drop' onChange={() => setSearchDrop('description')}>
                     <option default value='description'>Description</option>
                 </select>
                 <input type="text" className="search-input" value={search} placeholder='Search' onChange={

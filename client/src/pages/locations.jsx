@@ -155,7 +155,7 @@ const Locations = () => {
       <h1 id="page-header"> Locations Page </h1>
       <div id="table-div">
         <div id="search-div">
-                <select id='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
                     <option disabled selected value> Select a Search Filter </option>
                     <option value='name'>name</option>
                     <option value='address'>address</option> 

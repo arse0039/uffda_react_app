@@ -3,6 +3,7 @@ const db = require('../db_config')
 exports.data = (req, res) => {
     const participantSelect = 
     `SELECT participant_id, 
+    Participants.age_group_id as age_ID,
     Age_Groups.description as age_group_id, 
     name, 
     address 

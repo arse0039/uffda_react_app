@@ -175,7 +175,7 @@ const Participants = () => {
             <h1 id="page-header"> Participants Page </h1>
             <div id="table-div">
             <div id="search-div">
-                    <select id='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                    <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
                         <option disabled selected value> Select a Search Filter </option>
                         <option value='age_group_id'>Age Group</option>
                         <option value='name'>Name</option> 

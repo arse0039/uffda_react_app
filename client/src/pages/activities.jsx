@@ -242,7 +242,7 @@ const Activities = () => {
             <h1 id="page-header"> Activities Page </h1>
             <div id="table-div">
                 <div id="search-div">
-                    <select id='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
+                    <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
                         <option disable selected value> Select a Search Filter </option>
                         <option value='location_id'> Location </option>
                         <option value='volunteer_id'> Volunteer </option>
@@ -290,7 +290,6 @@ const Activities = () => {
                             <select value={location} onChange={(e) => {
                                 setActivityLocation(e.target.value)
                             }}>
-                                <option value=''></option>
                                 {locationDropDown.map((locationCategory) => (
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
@@ -312,7 +311,6 @@ const Activities = () => {
                             <select value={ageGroup} onChange={(e) => {
                                 setActivityAgeGroup(e.target.value)
                             }}>
-                                <option value=''></option>
                                 {ageDropDown.map((ageCategory) => (
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
