@@ -3,9 +3,12 @@ const db = require('../db_config')
 exports.data = (req, res) => {
     const activitySelect = 
     `SELECT activity_id, 
-    Locations.location_id as location_id, 
-    Volunteers.volunteer_id as volunteer_id, 
-    Age_Groups.age_group_id as age_group, 
+    Activities.location_id as real_location,
+    Locations.name as location_id, 
+    Activities.volunteer_id as real_volunteer,
+    Volunteers.name as volunteer_id, 
+    Activities.age_group as real_age,
+    Age_Groups.description as age_group, 
     Activities.name, Activities.description, max_participants 
     FROM Activities 
     LEFT JOIN Locations ON Activities.location_id = Locations.location_id
