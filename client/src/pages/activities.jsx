@@ -119,7 +119,7 @@ const Activities = () => {
         setActivityId(activityData.activity_id)
         setActivityLocation(activityData.location_id)
         setActivityVolunteer(activityData.volunteer_id)
-        setActivityAgeGroup(activityData.age_group_id)
+        setActivityAgeGroup(activityData.age_group)
         setActivityName(activityData.name)
         setActivityDescription(activityData.description)
         setActivityMaxPart(activityData.max_participants)
@@ -173,7 +173,7 @@ const Activities = () => {
             {
                 location_id: location, 
                 volunteer_id: volunteer, 
-                age_group_id: ageGroup, 
+                age_group: ageGroup, 
                 name: name, 
                 description: description, 
                 max_participants: maxPart
@@ -193,7 +193,7 @@ const Activities = () => {
             {
                 location_id: location, 
                 volunteer_id: volunteer, 
-                age_group_id: ageGroup, 
+                age_group: ageGroup, 
                 name: name, 
                 description: description, 
                 max_participants: maxPart
@@ -365,7 +365,9 @@ const Activities = () => {
                         </div>
                         <div className='form-ele'>
                             <label> Age Group </label> 
-                            <select value={ageGroup} onChange={(e) => changeAgeGroup(e.target.value)}>
+                            <select value={ageGroup} onChange={(e) => {
+                                setActivityAgeGroup(e.target.value) 
+                            }}>
                                 {ageDropDown.map((ageCategory) => (
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
