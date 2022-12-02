@@ -357,7 +357,10 @@ const Activities = () => {
                         </div>
                         <div className='form-ele'>
                             <label> Volunteer </label> 
-                            <select value={volunteer} onChange={(e) => changeVolunteer(e.target.value)}>
+                            <select value={volunteer} onChange={(e) => {
+                                setActivityVolunteer(e.target.value)
+                            }}>
+                            <option value=''></option>
                                 {volunteerDropDown.map((volunteerCategory) => (
                                     <RenderVolunteerDropdown data={volunteerCategory} />
                                 ))}
