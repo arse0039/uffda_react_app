@@ -122,7 +122,7 @@ const Activities = () => {
         setActivityAgeGroup(activityData.age_group_id)
         setActivityName(activityData.name)
         setActivityDescription(activityData.description)
-        setActivityMaxPart(activityData.maxpart)
+        setActivityMaxPart(activityData.max_participants)
         showform("edit")
     };
 
@@ -341,7 +341,7 @@ const Activities = () => {
                         </div>
                         <div className='form-ele'>
                             <label> Max Participants </label>
-                            <input type='int' value={maxPart} onChange={(e) => {
+                            <input type='text' value={maxPart} onChange={(e) => {
                                 setActivityMaxPart(e.target.value)
                             }}/>
                         </div>
