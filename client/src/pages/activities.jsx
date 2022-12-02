@@ -117,9 +117,9 @@ const Activities = () => {
 
     const edit = (activityData) => {
         setActivityId(activityData.activity_id)
-        setActivityLocation(activityData.location_id)
-        setActivityVolunteer(activityData.volunteer_id)
-        setActivityAgeGroup(activityData.age_group)
+        setActivityLocation(activityData.real_location)
+        setActivityVolunteer(activityData.real_volunteer)
+        setActivityAgeGroup(activityData.real_age)
         setActivityName(activityData.name)
         setActivityDescription(activityData.description)
         setActivityMaxPart(activityData.max_participants)
