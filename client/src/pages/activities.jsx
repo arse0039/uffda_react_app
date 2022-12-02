@@ -142,13 +142,13 @@ const Activities = () => {
     };
 
     const clearState = () => {
-        setActivityId('')
-        setActivityLocation('')
-        setActivityVolunteer('')
-        setActivityAgeGroup('')
-        setActivityName('')
-        setActivityDescription('')
-        setActivityMaxPart('')
+        setActivityId("")
+        setActivityLocation("")
+        setActivityVolunteer("")
+        setActivityAgeGroup("")
+        setActivityName("")
+        setActivityDescription("")
+        setActivityMaxPart("")
     };
 
     const changeLocation = (e) => {
@@ -321,7 +321,7 @@ const Activities = () => {
                 </div>
 
                 <div id='update-form'>
-                    <button className='closebtn' ion-button icon-only onClick={closeForm}>
+                    <button className='closebtn' onClick={closeForm}>
                         <IonIcon icon={closeCircleOutline} />
                     </button>
 
@@ -347,7 +347,9 @@ const Activities = () => {
                         </div>
                         <div className='form-ele'>
                             <label> Location </label> 
-                            <select value={location} onChange={(e) => changeLocation(e.target.value)}>
+                            <select value={location} onChange={(e) => {
+                                setActivityLocation(e.target.value)
+                                }}>
                                 {locationDropDown.map((locationCategory) => (
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
