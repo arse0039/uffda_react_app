@@ -29,7 +29,7 @@ exports.headers = (req, res) => {
 exports.insert = (req, res) => {
     const location = req.body.location_id;
     const volunteer = req.body.volunteer_id;
-    const ageGroup = req.body.age_group_id;
+    const ageGroup = req.body.age_group;
     const name = req.body.name;
     const description = req.body.description;
     const maxPart = req.body.max_participants;
@@ -53,7 +53,7 @@ exports.insert = (req, res) => {
 exports.update = (req, res) => {
     const location = req.body.location_id;
     const volunteer = req.body.volunteer_id;
-    const ageGroup = req.body.age_group_id;
+    const ageGroup = req.body.age_group;
     const name = req.body.name;
     const description = req.body.description;
     const maxPart = req.body.max_participants;
