@@ -96,8 +96,8 @@ const Enrollments = () => {
 
     const edit = (enrollmentData) => {
         setEnrollmentId(enrollmentData.enrollment_id)
-        setEnrollmentParticipant(enrollmentData.participant_id)
-        setEnrollmentActivity(enrollmentData.activity_id)
+        setEnrollmentParticipant(enrollmentData.real_participant)
+        setEnrollmentActivity(enrollmentData.real_activity)
         showform("edit")
     };
 
