@@ -140,6 +140,7 @@ const Activities = () => {
         showform("insert")
     };
 
+    // function to close the pop-up form
     const closeForm = () => {
         clearState()
         showError("clear-name-add")
@@ -153,6 +154,7 @@ const Activities = () => {
         showform("close")
     };
 
+    // clears stored data for reset of form input fields
     const clearState = () => {
         setActivityId("")
         setActivityLocation("")

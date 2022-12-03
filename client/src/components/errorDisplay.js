@@ -80,6 +80,23 @@ const showError = (field) => {
         document.getElementById('maxPart-error-update').style.visibility="hidden"
     }
 
+    // validation error messages for email input
+    else if (field==="email-add") {
+        document.getElementById("email-error-add").style.visibility="visible"
+    } else if (field==="email-update") {
+        document.getElementById("email-error-update").style.visibility="visible"
+    } else if (field==="clear-email-add") {
+        document.getElementById("email-error-add").style.visibility="hidden"
+    } else if (field==="clear-email-update"){
+        document.getElementById('email-error-update').style.visibility="hidden"
+    }
+
+    // validation error messages for role dropdown
+    else if (field==="role-add") {
+        document.getElementById("role-error-add").style.visibility="visible"
+    } else if (field==="clear-role-add") {
+        document.getElementById("role-error-add").style.visibility="hidden"
+    }
 }
 
 export default showError;

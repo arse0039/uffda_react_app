@@ -29,9 +29,9 @@ const Volunteers = () => {
             }
         }
         getVolunteers();
-    }, [renderNew]); // adding renderNew to the dependency array here forces the useEffect function to
-    // run whenever there is a change to the received item. 
+    }, [renderNew]); // renderNew forces the useEffect to run whenever there is a change to the received item. 
 
+    // Pull data from the database to populate the table headers
     const [volunteerColumns, setColHeaders] = useState([]);
     let volunteerHeaders  = []
 
@@ -63,6 +63,7 @@ const Volunteers = () => {
     const [email, setVolunteerEmail] = useState("")
     const [role, setVolunteerRole] = useState("")
 
+    /// Sets data from selected row and opens update form
     const edit = (volData) => {
         setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)
@@ -71,21 +72,29 @@ const Volunteers = () => {
         showform("edit")
     };
     
+    /// Sets data from selected row and opens delete form
     const del = (volData) => {
         setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)
         showform("delete")
     };
 
+    // Opens blank insert form
     const add = () => {
         showform("insert")
     };
 
+    // function to close the pop-up form
     const closeForm = () => {
         clearState()
+        showError("clear-name-add")
+        showError("clear-email-add")
+        showError("clear-name-update")
+        showError("clear-email-update")      
         showform("close")
     };
 
+    // clears stored data for reset of form input fields
     const clearState = () => {
         setVolunteerId('')
         setVolunteerName('')
@@ -150,6 +159,53 @@ const Volunteers = () => {
         setSearch(e)
     }
 
+    // Form input validation
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=tIdNeoHniEY
+    const validateDataAdd = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-add")
+        } else {
+            showError("clear-name-add")
+        }
+
+        if (email === '') {
+            valid = false
+            showError("email-add")
+        } else {
+            showError("clear-email-add")
+        }
+
+        if (valid) {
+            insertVol()
+        }
+    } 
+
+    const validateDataUpdate = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-update")
+        } else {
+            showError("clear-name-update")
+        }
+
+        if (email === '') {
+            valid = false
+            showError("email-update")
+        } else {
+            showError("clear-email-update")
+        }
+
+        if (valid) {
+            updateVol(id)
+        }
+    }
+
     // Render the page
     return ( 
         <div className="main">
@@ -180,18 +236,20 @@ const Volunteers = () => {
                     </button>
                     <div className="form">
                         <h1>Add Volunteer</h1>
-                        <h4>*Please fill in the required field</h4><br/>
+                        <h5>*Please fill in the required field</h5>
                         <div className="form-ele">
                             <label> Name* </label> 
                             <input type="text" value={name} onChange={(e) =>{
                                 setVolunteerName(e.target.value)
                             }}/>
+                            <span id="name-error-add">Please enter a volunteer name</span>
                         </div>
                         <div className="form-ele">
                             <label> Email* </label> 
                             <input type="email" value={email}  onChange={(e) => {
                                 setVolunteerEmail(e.target.value)
                             }}/>
+                            <span id="email-error-add">Please enter a volunteer email</span>
                         </div>
                         <div className="form-ele">
                             <label> Role* </label> 
@@ -205,8 +263,9 @@ const Volunteers = () => {
                                 <option value="Assistant Coach">Assistant Coach</option>
                                 <option value="Guide">Guide</option>
                             </select>
+                            <span id="role-error-add">Please enter a volunteer role</span>
                         </div>
-                    <button className="btn" onClick={insertVol}> Add Volunteer </button>
+                    <button className="btn" onClick={(e) => validateDataAdd(e)}> Add Volunteer </button>
                     </div> 
                 </div> 
 
@@ -217,18 +276,20 @@ const Volunteers = () => {
 
                     <div className='form'>
                         <h1>Update Volunteer</h1>
-                        <h4>*Please fill in the required field</h4><br/>
+                        <h5>*Please fill in the required field</h5>
                             <div className="form-ele">
                                 <label> Name* </label> 
                                 <input type="text" value={name} onChange = {(e) => {
                                     setVolunteerName(e.target.value)
-                            }}/>
+                                }}/>
+                                <span id="name-error-update">Please enter a volunteer name</span>
                             </div>
                             <div className="form-ele">
                                 <label> Email* </label> 
                                 <input type="email" value={email} onChange = {(e) => {
                                     setVolunteerEmail(e.target.value)
-                            }}/>
+                                }}/>
+                                <span id="email-error-update">Please enter a volunteer name</span>
                             </div>
                             <div className="form-ele">
                                 <label> Role* </label> 
@@ -241,9 +302,10 @@ const Volunteers = () => {
                                     <option value="Assistant Coach">Assistant Coach</option>
                                     <option value="Guide">Guide</option>
                                 </select>
+                                <span id="role-error-update">Invisible! AMAZING!</span>
                             </div>
 
-                        <button className="btn" onClick={() => updateVol(id)}>Update Volunteer</button> 
+                        <button className="btn" onClick={(e) => validateDataUpdate(e)}>Update Volunteer</button> 
                     </div>   
                 </div>
 
