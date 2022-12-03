@@ -39,6 +39,29 @@ const showError = (field) => {
     } else if (field==="clear-description-update"){
         document.getElementById('description-error-update').style.visibility="hidden"
     }
+
+    // validation error messages for participant input fields
+    else if (field==="participant-add") {
+        document.getElementById('participant-error-add').style.visibility="visible"
+    } else if (field==="participant-update") {
+        document.getElementById('participant-error-update').style.visibility="visible"
+    } else if (field==="clear-participant-add") {
+        document.getElementById('participant-error-add').style.visibility="hidden"
+    } else if (field==="clear-participant-update") {
+        document.getElementById('participant-error-update').style.visibility="hidden"
+    }
+
+    // validation error messages for activity input fields
+    else if (field==="activity-add") {
+        document.getElementById('activity-error-add').style.visibility="visible"
+    } else if (field==="activity-update") {
+        document.getElementById('activity-error-update').style.visibility="visible"
+    } else if (field==="clear-activity-add") {
+        document.getElementById('activity-error-add').style.visibility="hidden"
+    } else if (field==="clear-activity-update") {
+        document.getElementById('activity-error-update').style.visibility="hidden"
+    }
+
     
     // else if (field==="clear") {
     //     document.getElementById("name-error-add").style.visibility="hidden"
