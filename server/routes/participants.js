@@ -26,10 +26,13 @@ exports.headers = (req, res) => {
 }
 
 exports.insert = (req, res) => {
-    const description = req.body.description;
+    const ageGroup = req.body.age_group_id;
+    const name = req.body.name;
+    const address = req.body.address;
+    const id = req.params.id;
 
-    const ageGroupInsert = "INSERT INTO Age_Groups (description) VALUES (?)"
-    db.query(ageGroupInsert, [description], (err, result) => {
+    const participantInsert = "INSERT INTO Participants (age_group_id, name, address) VALUES (?, ?, ?)"
+    db.query(participantInsert, [ageGroup, name, address], (err, result) => {
         if(err){return result.json(err)}
         return res.json(result)
     });
