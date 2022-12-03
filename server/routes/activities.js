@@ -31,11 +31,15 @@ exports.headers = (req, res) => {
 
 exports.insert = (req, res) => {
     const location = req.body.location_id;
-    const volunteer = req.body.volunteer_id;
+    let volunteer = req.body.volunteer_id;
     const ageGroup = req.body.age_group;
     const name = req.body.name;
     const description = req.body.description;
     const maxPart = req.body.max_participants;
+
+    if(volunteer == ''){
+        volunteer = null
+    }
 
     const activityInsert = 
     `INSERT INTO Activities (
@@ -55,12 +59,16 @@ exports.insert = (req, res) => {
 
 exports.update = (req, res) => {
     const location = req.body.location_id;
-    const volunteer = req.body.volunteer_id;
+    let volunteer = req.body.volunteer_id;
     const ageGroup = req.body.age_group;
     const name = req.body.name;
     const description = req.body.description;
     const maxPart = req.body.max_participants;
     const id = req.params.id;
+
+    if(volunteer == ''){
+        volunteer = null
+    }
 
     const participantInsert = 
         `UPDATE Activities 
