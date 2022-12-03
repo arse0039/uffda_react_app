@@ -160,16 +160,11 @@ const Activities = () => {
     //////////////////////////////////////////////////////
 
     const insertActivity = async () => {
-        let vol = volunteer
-        if (vol === "") {
-            vol = null
-        }
-       
         try {
             await Axios.post('http://flip2.engr.oregonstate.edu:10725/activitiesInsert', 
             {
                 location_id: location, 
-                volunteer_id: vol, 
+                volunteer_id: volunteer, 
                 age_group: ageGroup, 
                 name: name, 
                 description: description, 
