@@ -323,7 +323,7 @@ const Enrollments = () => {
                         <p>Are you sure you wish to delete the following?</p>
                         <div className='form-ele'>
                             <label>ID:</label>
-                            <input type='text' readOnly={true} value={id} />
+                            <input className="del-box" type='text' readOnly={true} value={id} />
                         </div>
                         <div className='form-ele'>
                             <label>Participant</label>
