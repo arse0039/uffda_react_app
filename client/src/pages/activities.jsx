@@ -142,6 +142,14 @@ const Activities = () => {
 
     const closeForm = () => {
         clearState()
+        showError("clear-name-add")
+        showError("clear-name-update")
+        showError("clear-description-add")
+        showError("clear-description-update")
+        showError("clear-maxPart-add")
+        showError("clear-maxPart-update")
+        showError("clear-location-add")
+        showError("clear-age-add")
         showform("close")
     };
 
@@ -238,6 +246,81 @@ const Activities = () => {
         setSearch(e)
     }
 
+    // Form input validation
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=tIdNeoHniEY
+    const validateDataAdd = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-add")
+        } else {
+            showError("clear-name-add")
+        }
+
+        if (description === '') {
+            valid = false
+            showError("description-add")
+        } else {
+            showError("clear-description-add")
+        }
+
+        if (maxPart === '') {
+            valid = false
+            showError("maxPart-add")
+        } else {
+            showError("clear-maxPart-add")
+        }
+
+        if (location === '') {
+            valid = false
+            showError("location-add")
+        } else {
+            showError("clear-location-add")
+        }
+
+        if (ageGroup === '') {
+            valid = false
+            showError("age-add")
+        } else {
+            showError("clear-age-add")
+        }
+
+        if (valid) {
+            insertActivity()
+        }
+    } 
+
+    const validateDataUpdate = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-update")
+        } else {
+            showError("clear-name-update")
+        }
+
+        if (description === '') {
+            valid = false
+            showError("description-update")
+        } else {
+            showError("clear-description-update")
+        }
+
+        if (maxPart === '') {
+            valid = false
+            showError("maxPart-update")
+        } else {
+            showError("clear-maxPart-update")
+        }
+
+        if (valid) {
+            updateActivity(id)
+        }
+    }    
+
     // Render the Page
     return (
         <div className='main'>
@@ -269,24 +352,27 @@ const Activities = () => {
                     </button>
                 <div className='form'>
                     <h1>Add Activity</h1>
-                    <h4>*Please fill in the required field</h4><br/>
+                    <h3>*Please fill in the required field</h3>
                         <div className='form-ele'>
                             <label> Name* </label>
                             <input type='text' value={name} onChange={(e) => {
                                 setActivityName(e.target.value)
                             }}/>
+                            <span id="name-error-add">Please enter a name</span>
                         </div>
                         <div className='form-ele'>
                             <label> Description* </label>
                             <input type='text' value={description} onChange={(e) => {
                                 setActivityDescription(e.target.value)
                             }}/>
+                            <span id="description-error-add">Please enter a description</span>
                         </div>
                         <div className='form-ele'>
                             <label> Max Participants* </label>
                             <input type='text' value={maxPart} onChange={(e) => {
                                 setActivityMaxPart(e.target.value)
                             }}/>
+                            <span id="maxPart-error-add">Please enter a maximum number of participants</span>
                         </div>
                         <div className='form-ele'>
                             <label> Location* </label> 
@@ -298,6 +384,7 @@ const Activities = () => {
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
                             </select>
+                            <span id="location-error-add">Please select a location</span>
                         </div>
                         <div className='form-ele'>
                             <label> Volunteer </label> 
@@ -320,6 +407,7 @@ const Activities = () => {
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
                             </select>
+                            <span id="age-error-add">Please select an age group</span>
                         </div>
                     <button className='btn' onClick={insertActivity}> Add Activity </button>                        
                 </div>                
@@ -332,24 +420,27 @@ const Activities = () => {
 
                 <div className='form'>
                     <h1>Update Activity</h1>
-                    <h4>*Please fill in the required field</h4><br/>
+                    <h3>*Please fill in the required field</h3><br/>
                         <div className='form-ele'>
                             <label> Name* </label>
                             <input type='text' value={name} onChange={(e) => {
                                 setActivityName(e.target.value)
                             }}/>
+                            <span id="name-error-update">Please enter a name</span>
                         </div>
                         <div className='form-ele'>
                             <label> Description* </label>
                             <input type='text' value={description} onChange={(e) => {
                                 setActivityDescription(e.target.value)
                             }}/>
+                            <span id="description-error-update">Please enter a description</span>
                         </div>
                         <div className='form-ele'>
                             <label> Max Participants* </label>
                             <input type='text' value={maxPart} onChange={(e) => {
                                 setActivityMaxPart(e.target.value)
                             }}/>
+                            <span id="maxPart-error-update">Please enter a maximum number of participants</span>
                         </div>
                         <div className='form-ele'>
                             <label> Location* </label> 
@@ -360,6 +451,7 @@ const Activities = () => {
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
                             </select>
+                            <div></div>
                         </div>
                         <div className='form-ele'>
                             <label> Volunteer </label> 
@@ -371,6 +463,7 @@ const Activities = () => {
                                     <RenderVolunteerDropdown data={volunteerCategory} />
                                 ))}
                             </select>
+                            <div></div>
                         </div>
                         <div className='form-ele'>
                             <label> Age Group* </label> 
@@ -381,6 +474,7 @@ const Activities = () => {
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
                             </select>
+                            <div></div>
                         </div>
                     <button className='btn' onClick={ () => updateActivity(id)}> Update Activity </button>                        
                 </div>                

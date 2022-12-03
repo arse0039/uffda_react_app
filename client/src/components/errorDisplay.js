@@ -40,7 +40,7 @@ const showError = (field) => {
         document.getElementById('description-error-update').style.visibility="hidden"
     }
 
-    // validation error messages for participant input fields
+    // validation error messages for participant dropdown
     else if (field==="participant-add") {
         document.getElementById('participant-error-add').style.visibility="visible"
     } else if (field==="participant-update") {
@@ -51,7 +51,7 @@ const showError = (field) => {
         document.getElementById('participant-error-update').style.visibility="hidden"
     }
 
-    // validation error messages for activity input fields
+    // validation error messages for activity dropdown
     else if (field==="activity-add") {
         document.getElementById('activity-error-add').style.visibility="visible"
     } else if (field==="activity-update") {
@@ -62,16 +62,24 @@ const showError = (field) => {
         document.getElementById('activity-error-update').style.visibility="hidden"
     }
 
-    
-    // else if (field==="clear") {
-    //     document.getElementById("name-error-add").style.visibility="hidden"
-    //     document.getElementById("name-error-update").style.visibility="hidden"
-    //     document.getElementById("address-error-add").style.visibility="hidden"
-    //     document.getElementById("address-error-update").style.visibility="hidden"
-    //     document.getElementById("age-error-add").style.visibility="hidden"
-    //     document.getElementById("description-error-update").style.visibility="hidden"
-    //     document.getElementById("description-error-add").style.visibility="hidden"
-    // }
+    // validation error messages for location dropdown
+    else if (field==="location-add") {
+        document.getElementById("location-error-add").style.visibility="visible"
+    } else if (field==="clear-age-add") {
+        document.getElementById("location-error-add").style.visibility="hidden"
+    }
+
+    // validation error messages for max participants input
+    else if (field==="maxPart-add") {
+        document.getElementById("maxPart-error-add").style.visibility="visible"
+    } else if (field==="maxPart-update") {
+        document.getElementById("maxPart-error-update").style.visibility="visible"
+    } else if (field==="clear-maxPart-add") {
+        document.getElementById("maxPart-error-add").style.visibility="hidden"
+    } else if (field==="clear-maxPart-update"){
+        document.getElementById('maxPart-error-update').style.visibility="hidden"
+    }
+
 }
 
 export default showError;
