@@ -79,6 +79,7 @@ const AgeGroups = () => {
 
     const closeForm = () => {
         clearState()
+        showError("clear")
         showform("close");
     }
 
@@ -140,6 +141,42 @@ const AgeGroups = () => {
         setSearch(e)
     }
 
+    // Form input validation
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=tIdNeoHniEY
+
+    const validateDataAdd = (e) => {
+        e.preventDefault()
+        let valid = true
+        console.log(description)
+        if (description === '') {
+            valid = false
+            showError("description-add")
+        } else {
+            showError("clear")
+        }
+
+        if (valid) {
+            insertAgeGroup()
+        }
+    } 
+
+    const validateDataUpdate = (e) => {
+        e.preventDefault()
+        let valid = true
+        console.log(description)
+        if (description === '') {
+            valid = false
+             showError("description-update")
+        } else {
+            showError("clear")
+        }
+
+        if (valid) {
+            updateAgeGroup(id)
+        }
+    } 
+
     // render AgeGroups Page
     return (
       <div className='main'>
@@ -172,8 +209,9 @@ const AgeGroups = () => {
                       <input type="text" value={description} onChange={(e) => {
                           setAgeGroupDescription(e.target.value)
                       }} />
+                      <span id="description-error-add">Please enter a description</span>
                   </div>
-              <button className='btn' onClick={insertAgeGroup}> Add Age Group</button>
+              <button className='btn' onClick={(e) => validateDataAdd(e)}> Add Age Group</button>
                 <div/>
               </div>
           </div>
@@ -190,8 +228,9 @@ const AgeGroups = () => {
                         <input type="text" value={description} onChange = {(e) => {
                             setAgeGroupDescription(e.target.value)
                         }} />
+                        <span id="description-error-update">Please enter a description</span>
                       </div>
-                <button className='btn' onClick={() => updateAgeGroup(id)}> Update Age Group</button>
+                <button className='btn' onClick={(e) =>validateDataUpdate(e)}> Update Age Group</button>
             </div>
           </div>
 
