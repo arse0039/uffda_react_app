@@ -215,8 +215,8 @@ const Locations = () => {
         <div id="search-div">
                 <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
                     <option disabled selected value> Select a Search Filter </option>
-                    <option value='name'>name</option>
-                    <option value='address'>address</option> 
+                    <option value='name'>Name</option>
+                    <option value='address'>Address</option> 
                 </select>
                 <input type="text" className="search-input" value={search} placeholder='Search' onChange={
                     (e) => tableSearch(e.target.value)
