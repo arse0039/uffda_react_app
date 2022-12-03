@@ -92,7 +92,8 @@ const Volunteers = () => {
         showError("clear-name-add")
         showError("clear-email-add")
         showError("clear-name-update")
-        showError("clear-email-update")      
+        showError("clear-email-update")
+        showError("clear-role-add"  )
         showform("close")
     };
 

@@ -356,7 +356,7 @@ const Activities = () => {
             </div>
 
             <div>
-                <div id='insert-form'>
+                <div id='insert-form-act'>
                     <button className='closebtn' ion-button icon-only onClick={closeForm}>
                         <IonIcon icon={closeCircleOutline} />
                     </button>
@@ -424,7 +424,7 @@ const Activities = () => {
                 </div>                
                 </div>
 
-                <div id='update-form'>
+                <div id='update-form-act'>
                     <button className='closebtn' onClick={closeForm}>
                         <IonIcon icon={closeCircleOutline} />
                     </button>
