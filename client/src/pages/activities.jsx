@@ -349,6 +349,8 @@ const Activities = () => {
                         <option value='volunteer_id'> Volunteer </option>
                         <option value='age_group'> Age Group </option>
                         <option value='name'> Name </option>
+                        <option value='description'> Description </option>
+                        <option value='max_participants'> Max Participants </option>
                     </select>
                     <input type="text" className="search-input" value={search} placeholder='Search' onChange={
                         (e) => tableSearch(e.target.value)
