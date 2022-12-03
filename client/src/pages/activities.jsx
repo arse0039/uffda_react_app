@@ -160,6 +160,7 @@ const Activities = () => {
     //////////////////////////////////////////////////////
 
     const insertActivity = async () => {
+
         try {
             await Axios.post('http://flip2.engr.oregonstate.edu:10725/activitiesInsert', 
             {
