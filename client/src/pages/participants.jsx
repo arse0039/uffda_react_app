@@ -306,6 +306,7 @@ const Participants = () => {
                                     setParticipantName(e.target.value)
                                 }
                             }/>
+                            <span id="name-error-update">Please enter a name</span>
                         </div>
                         <div className="form-ele">
                             <label> Age Group* </label> 
