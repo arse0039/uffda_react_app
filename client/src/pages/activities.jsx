@@ -138,7 +138,7 @@ const Activities = () => {
     const del = (activityData) => {
         setActivityId(activityData.activity_id)
         setActivityName(activityData.name)
-        showform("delete")
+        showform("delete-act")
     };
 
     // Opens blank insert form
@@ -360,68 +360,68 @@ const Activities = () => {
                     <button className='closebtn' ion-button icon-only onClick={closeForm}>
                         <IonIcon icon={closeCircleOutline} />
                     </button>
-                <div className='form'>
-                    <h1>Add Activity</h1>
-                    <h5>*Please fill in the required field</h5>
-                        <div className='form-ele'>
-                            <label> Name* </label>
-                            <input type='text' value={name} onChange={(e) => {
-                                setActivityName(e.target.value)
-                            }}/>
-                            <span id="name-error-add">Please enter a name</span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Description* </label>
-                            <input type='text' value={description} onChange={(e) => {
-                                setActivityDescription(e.target.value)
-                            }}/>
-                            <span id="description-error-add">Please enter a description</span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Max Participants* </label>
-                            <input type='text' value={maxPart} onChange={(e) => {
-                                setActivityMaxPart(e.target.value)
-                            }}/>
-                            <span id="maxPart-error-add">Please enter a maximum number of participants</span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Location* </label> 
-                            <select value={location} onChange={(e) => {
-                                setActivityLocation(e.target.value)
-                            }}>
-                                <option disabled selected value=''>Please select a Location</option>
-                                {locationDropDown.map((locationCategory) => (
-                                    <RenderLocationDropdown data={locationCategory} />
-                                ))}
-                            </select>
-                            <span id="location-error-add">Please select a location</span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Volunteer </label> 
-                            <select value={volunteer} onChange={(e) => {
-                                setActivityVolunteer(e.target.value)
-                            }}>
-                                <option value=''></option>
-                                {volunteerDropDown.map((volunteerCategory) => (
-                                    <RenderVolunteerDropdown data={volunteerCategory} />
-                                ))}
-                            </select>
-                            <span id="volunteer-error-add"></span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Age Group* </label> 
-                            <select value={ageGroup} onChange={(e) => {
-                                setActivityAgeGroup(e.target.value)
-                            }}>
-                                <option disabled selected value=''>Please select an Age Group</option>
-                                {ageDropDown.map((ageCategory) => (
-                                    <RenderAgeDropdown data={ageCategory} />
-                                ))}
-                            </select>
-                            <span id="age-error-add">Please select an age group</span>
-                        </div>
-                    <button className='btn' onClick={(e) => validateDataAdd(e)}> Add Activity </button>                        
-                </div>                
+                    <div className='form'>
+                        <h1>Add Activity</h1>
+                        <h5>*Please fill in the required field</h5>
+                            <div className='form-ele'>
+                                <label> Name* </label>
+                                <input type='text' value={name} onChange={(e) => {
+                                    setActivityName(e.target.value)
+                                }}/>
+                                <span id="name-error-add">Please enter a name</span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Description* </label>
+                                <input type='text' value={description} onChange={(e) => {
+                                    setActivityDescription(e.target.value)
+                                }}/>
+                                <span id="description-error-add">Please enter a description</span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Max Participants* </label>
+                                <input type='text' value={maxPart} onChange={(e) => {
+                                    setActivityMaxPart(e.target.value)
+                                }}/>
+                                <span id="maxPart-error-add">Please enter a maximum number of participants</span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Location* </label> 
+                                <select value={location} onChange={(e) => {
+                                    setActivityLocation(e.target.value)
+                                }}>
+                                    <option disabled selected value=''>Please select a Location</option>
+                                    {locationDropDown.map((locationCategory) => (
+                                        <RenderLocationDropdown data={locationCategory} />
+                                    ))}
+                                </select>
+                                <span id="location-error-add">Please select a location</span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Volunteer </label> 
+                                <select value={volunteer} onChange={(e) => {
+                                    setActivityVolunteer(e.target.value)
+                                }}>
+                                    <option value=''></option>
+                                    {volunteerDropDown.map((volunteerCategory) => (
+                                        <RenderVolunteerDropdown data={volunteerCategory} />
+                                    ))}
+                                </select>
+                                <span id="volunteer-error-add"></span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Age Group* </label> 
+                                <select value={ageGroup} onChange={(e) => {
+                                    setActivityAgeGroup(e.target.value)
+                                }}>
+                                    <option disabled selected value=''>Please select an Age Group</option>
+                                    {ageDropDown.map((ageCategory) => (
+                                        <RenderAgeDropdown data={ageCategory} />
+                                    ))}
+                                </select>
+                                <span id="age-error-add">Please select an age group</span>
+                            </div>
+                        <button className='btn' onClick={(e) => validateDataAdd(e)}> Add Activity </button>                        
+                    </div>                
                 </div>
 
                 <div id='update-form-act'>
@@ -429,66 +429,66 @@ const Activities = () => {
                         <IonIcon icon={closeCircleOutline} />
                     </button>
 
-                <div className='form'>
-                    <h1>Update Activity</h1>
-                    <h5>*Please fill in the required field</h5>
-                        <div className='form-ele'>
-                            <label> Name* </label>
-                            <input type='text' value={name} onChange={(e) => {
-                                setActivityName(e.target.value)
-                            }}/>
-                            <span id="name-error-update">Please enter a name</span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Description* </label>
-                            <input type='text' value={description} onChange={(e) => {
-                                setActivityDescription(e.target.value)
-                            }}/>
-                            <span id="description-error-update">Please enter a description</span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Max Participants* </label>
-                            <input type='text' value={maxPart} onChange={(e) => {
-                                setActivityMaxPart(e.target.value)
-                            }}/>
-                            <span id="maxPart-error-update">Please enter a maximum number of participants</span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Location* </label> 
-                            <select value={location} onChange={(e) => {
-                                setActivityLocation(e.target.value)
+                    <div className='form'>
+                        <h1>Update Activity</h1>
+                        <h5>*Please fill in the required field</h5>
+                            <div className='form-ele'>
+                                <label> Name* </label>
+                                <input type='text' value={name} onChange={(e) => {
+                                    setActivityName(e.target.value)
+                                }}/>
+                                <span id="name-error-update">Please enter a name</span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Description* </label>
+                                <input type='text' value={description} onChange={(e) => {
+                                    setActivityDescription(e.target.value)
+                                }}/>
+                                <span id="description-error-update">Please enter a description</span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Max Participants* </label>
+                                <input type='text' value={maxPart} onChange={(e) => {
+                                    setActivityMaxPart(e.target.value)
+                                }}/>
+                                <span id="maxPart-error-update">Please enter a maximum number of participants</span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Location* </label> 
+                                <select value={location} onChange={(e) => {
+                                    setActivityLocation(e.target.value)
+                                    }}>
+                                    {locationDropDown.map((locationCategory) => (
+                                        <RenderLocationDropdown data={locationCategory} />
+                                    ))}
+                                </select>
+                                <span id="location-error-update"></span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Volunteer </label> 
+                                <select value={volunteer} onChange={(e) => {
+                                    setActivityVolunteer(e.target.value)
                                 }}>
-                                {locationDropDown.map((locationCategory) => (
-                                    <RenderLocationDropdown data={locationCategory} />
-                                ))}
-                            </select>
-                            <span id="location-error-update"></span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Volunteer </label> 
-                            <select value={volunteer} onChange={(e) => {
-                                setActivityVolunteer(e.target.value)
-                            }}>
-                            <option value=''></option>
-                                {volunteerDropDown.map((volunteerCategory) => (
-                                    <RenderVolunteerDropdown data={volunteerCategory} />
-                                ))}
-                            </select>
-                            <span id="volunteer-error-update"></span>
-                        </div>
-                        <div className='form-ele'>
-                            <label> Age Group* </label> 
-                            <select value={ageGroup} onChange={(e) => {
-                                setActivityAgeGroup(e.target.value) 
-                            }}>
-                                {ageDropDown.map((ageCategory) => (
-                                    <RenderAgeDropdown data={ageCategory} />
-                                ))}
-                            </select>
-                            <span id="age-error-update"></span>
-                        </div>
-                    <button className='btn' onClick={ (e) => validateDataUpdate(e)}> Update Activity </button>                        
-                </div>                
+                                <option value=''></option>
+                                    {volunteerDropDown.map((volunteerCategory) => (
+                                        <RenderVolunteerDropdown data={volunteerCategory} />
+                                    ))}
+                                </select>
+                                <span id="volunteer-error-update"></span>
+                            </div>
+                            <div className='form-ele'>
+                                <label> Age Group* </label> 
+                                <select value={ageGroup} onChange={(e) => {
+                                    setActivityAgeGroup(e.target.value) 
+                                }}>
+                                    {ageDropDown.map((ageCategory) => (
+                                        <RenderAgeDropdown data={ageCategory} />
+                                    ))}
+                                </select>
+                                <span id="age-error-update"></span>
+                            </div>
+                        <button className='btn' onClick={ (e) => validateDataUpdate(e)}> Update Activity </button>                        
+                    </div>                
                 </div>
 
                 <div id='delete-form'>
