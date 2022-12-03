@@ -131,7 +131,7 @@ const Activities = () => {
         setActivityName(activityData.name)
         setActivityDescription(activityData.description)
         setActivityMaxPart(activityData.max_participants)
-        showform("edit")
+        showform("edit-act")
     };
 
     // Sets data from selected row and opens delete form
@@ -143,7 +143,7 @@ const Activities = () => {
 
     // Opens blank insert form
     const add = () => {
-        showform("insert")
+        showform("insert-act")
     };
 
     // function to close the pop-up form
