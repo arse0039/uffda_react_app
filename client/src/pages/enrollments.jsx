@@ -260,8 +260,8 @@ const Enrollments = () => {
                                 {participantDropdown.map((participantCategory) => (
                                     <RenderParticipantDropdown data={participantCategory} />
                                 ))}
-                                <span id="participant-error-add">Please select a Participant</span>
                             </select>
+                            <span id="participant-error-add">Please select a Participant</span>
                         </div>
                         <div className='form-ele'>
                             <label> Activity* </label>
@@ -272,10 +272,10 @@ const Enrollments = () => {
                                 {activityDropdown.map((activityCategory) => (
                                     <RenderActivityDropdown data={activityCategory} />
                                 ))}
-                                <span id="activity-error-add">Please select an Activity</span>
                             </select>
+                            <span id="activity-error-add">Please select an Activity</span>
                         </div>
-                    <button className='btn' onClick={insertEnrollment}> Add Activity Enrollment </button>
+                    <button className='btn' onClick={(e) => validateDataAdd(e)}> Add Activity Enrollment </button>
                 </div>
             </div>
 
