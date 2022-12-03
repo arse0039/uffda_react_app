@@ -85,7 +85,8 @@ header ul li:hover{
 #location-error-add, #location-error-update,
 #maxPart-error-add, #maxPart-error-update,
 #participant-error-add, #participant-error-update,
-#activity-error-add, #activity-error-update {
+#activity-error-add, #activity-error-update,
+#volunteer-error-add, #volunteer-error-update {
   color: rgb(210, 8, 8);
   border-color:rgb(226, 8, 8);
   border-radius: 3px;

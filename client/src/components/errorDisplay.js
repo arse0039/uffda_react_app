@@ -65,7 +65,7 @@ const showError = (field) => {
     // validation error messages for location dropdown
     else if (field==="location-add") {
         document.getElementById("location-error-add").style.visibility="visible"
-    } else if (field==="clear-age-add") {
+    } else if (field==="clear-location-add") {
         document.getElementById("location-error-add").style.visibility="hidden"
     }
 

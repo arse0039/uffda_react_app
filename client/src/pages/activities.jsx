@@ -352,7 +352,7 @@ const Activities = () => {
                     </button>
                 <div className='form'>
                     <h1>Add Activity</h1>
-                    <h3>*Please fill in the required field</h3>
+                    <h5>*Please fill in the required field</h5>
                         <div className='form-ele'>
                             <label> Name* </label>
                             <input type='text' value={name} onChange={(e) => {
@@ -396,6 +396,7 @@ const Activities = () => {
                                     <RenderVolunteerDropdown data={volunteerCategory} />
                                 ))}
                             </select>
+                            <span id="volunteer-error-add"></span>
                         </div>
                         <div className='form-ele'>
                             <label> Age Group* </label> 
@@ -420,7 +421,7 @@ const Activities = () => {
 
                 <div className='form'>
                     <h1>Update Activity</h1>
-                    <h3>*Please fill in the required field</h3><br/>
+                    <h5>*Please fill in the required field</h5>
                         <div className='form-ele'>
                             <label> Name* </label>
                             <input type='text' value={name} onChange={(e) => {
@@ -451,7 +452,7 @@ const Activities = () => {
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
                             </select>
-                            <div></div>
+                            <span id="location-error-update"></span>
                         </div>
                         <div className='form-ele'>
                             <label> Volunteer </label> 
@@ -463,7 +464,7 @@ const Activities = () => {
                                     <RenderVolunteerDropdown data={volunteerCategory} />
                                 ))}
                             </select>
-                            <div></div>
+                            <span id="volunteer-error-update"></span>
                         </div>
                         <div className='form-ele'>
                             <label> Age Group* </label> 
@@ -474,7 +475,7 @@ const Activities = () => {
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
                             </select>
-                            <div></div>
+                            <span id="age-error-update"></span>
                         </div>
                     <button className='btn' onClick={ (e) => validateDataUpdate(e)}> Update Activity </button>                        
                 </div>                
