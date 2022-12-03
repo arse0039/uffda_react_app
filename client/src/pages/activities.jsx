@@ -409,7 +409,7 @@ const Activities = () => {
                             </select>
                             <span id="age-error-add">Please select an age group</span>
                         </div>
-                    <button className='btn' onClick={insertActivity}> Add Activity </button>                        
+                    <button className='btn' onClick={(e) => validateDataAdd(e)}> Add Activity </button>                        
                 </div>                
                 </div>
 
@@ -476,7 +476,7 @@ const Activities = () => {
                             </select>
                             <div></div>
                         </div>
-                    <button className='btn' onClick={ () => updateActivity(id)}> Update Activity </button>                        
+                    <button className='btn' onClick={ (e) => validateDataUpdate(e)}> Update Activity </button>                        
                 </div>                
                 </div>
 
