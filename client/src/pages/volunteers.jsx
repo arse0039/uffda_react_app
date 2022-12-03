@@ -180,6 +180,13 @@ const Volunteers = () => {
             showError("clear-email-add")
         }
 
+        if (role === '') {
+            valid = false
+            showError("role-add")
+        } else {
+            showError("clear-role-add")
+        }
+
         if (valid) {
             insertVol()
         }
@@ -290,7 +297,7 @@ const Volunteers = () => {
                                 <input type="email" value={email} onChange = {(e) => {
                                     setVolunteerEmail(e.target.value)
                                 }}/>
-                                <span id="email-error-update">Please enter a volunteer name</span>
+                                <span id="email-error-update">Please enter a volunteer email</span>
                             </div>
                             <div className="form-ele">
                                 <label> Role* </label> 
