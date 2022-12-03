@@ -101,7 +101,12 @@ const Participants = () => {
 
     const closeForm = () => {
         clearState()
-        showform("close")
+        showError("clear-age-add")
+        showError("clear-name-add")
+        showError("clear-address-add")
+        showError("clear-name-update")
+        showError("clear-address-update")
+        showform("close");
     };
 
     const clearState = () => {
@@ -169,6 +174,60 @@ const Participants = () => {
         setSearch(e)
     }
 
+    // Form input validation
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=tIdNeoHniEY
+    const validateDataAdd = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-add")
+        } else {
+            showError("clear-name-add")
+        }
+
+        if (address === '') {
+            valid = false
+            showError("address-add")
+        } else {
+            showError("clear-address-add")
+        }
+
+        if (ageGroupID === '') {
+            valid = false
+            showError("age-add")
+        } else {
+            showError("clear-age-add")
+        }
+
+        if (valid) {
+            insertPart()
+        }
+    } 
+
+    const validateDataUpdate = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-update")
+        } else {
+            showError("clear-name-update")
+        }
+
+        if (address === '') {
+            valid = false
+            showError("address-update")
+        } else {
+            showError("clear-address-update")
+        }
+
+        if (valid) {
+            updatePart(id)
+        }
+    } 
+
     //Render the Participants Page
     return ( 
         <div className="main">
@@ -205,6 +264,7 @@ const Participants = () => {
                             <input type="text" value={name} onChange={(e) => {
                                 setParticipantName(e.target.value)
                             }}/>
+                            <span id="name-error-add">Please enter a name</span>
                         </div>
                         <div className="form-ele">
                             <label> Age Group* </label>
@@ -217,6 +277,7 @@ const Participants = () => {
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
                             </select>
+                            <span id="age-error-add">Please select an age group</span>
                         </div>
                         <div className="form-ele"> 
                             <label> Address* </label> 
@@ -224,8 +285,9 @@ const Participants = () => {
                                 setParticipantAddress(e.target.value)
                               }
                             }/>
+                            <span id="address-error-add">Please enter an address</span>
                         </div>
-                    <button className="btn" onClick={insertPart}> Add Participant </button>
+                    <button className="btn" onClick={(e) => validateDataAdd(e)}> Add Participant </button>
                 </div> 
             </div>
         
@@ -261,7 +323,7 @@ const Participants = () => {
                                 }   
                             } />
                         </div>
-                        <button className="btn" onClick={()=> updatePart(id)}> Update Participant </button>
+                        <button className="btn" onClick={(e)=> validateDataUpdate(e)}> Update Participant </button>
                 </div> 
             </div>
         

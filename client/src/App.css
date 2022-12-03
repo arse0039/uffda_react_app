@@ -78,6 +78,9 @@ header ul li:hover{
   transform: scaleY(1.2);
 }
 
+#name-error-add, #name-error-update,
+#age-error-add, #age-error-update,
+#address-error-add, #address-error-update,
 #description-error-add, #description-error-update {
   color: rgb(210, 8, 8);
   border-color:rgb(226, 8, 8);

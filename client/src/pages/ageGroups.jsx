@@ -80,7 +80,8 @@ const AgeGroups = () => {
 
     const closeForm = () => {
         clearState()
-        showError("clear")
+        showError("clear-description-add")
+        showError("clear-description-update")
         showform("close");
     }
 
