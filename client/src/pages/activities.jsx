@@ -115,6 +115,7 @@ const Activities = () => {
     const [description, setActivityDescription] = useState("")
     const [maxPart, setActivityMaxPart] = useState("")
 
+    /// Data for UPDATE
     const edit = (activityData) => {
         setActivityId(activityData.activity_id)
         setActivityLocation(activityData.real_location)
@@ -126,12 +127,14 @@ const Activities = () => {
         showform("edit")
     };
 
+    /// Data for DELETE
     const del = (activityData) => {
         setActivityId(activityData.activity_id)
         setActivityName(activityData.name)
         showform("delete")
     };
 
+    /// Data for INSERT
     const add = () => {
         showform("insert")
     };

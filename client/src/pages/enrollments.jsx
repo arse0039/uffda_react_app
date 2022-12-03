@@ -94,6 +94,7 @@ const Enrollments = () => {
     const [activity, setEnrollmentActivity] = useState("")
     const [participant, setEnrollmentParticipant] = useState("")
 
+    /// Data for UPDATE
     const edit = (enrollmentData) => {
         setEnrollmentId(enrollmentData.enrollment_id)
         setEnrollmentParticipant(enrollmentData.real_participant)
@@ -101,6 +102,7 @@ const Enrollments = () => {
         showform("edit")
     };
 
+    /// Data for DELETE
     const del = (enrollmentData) => {
         setEnrollmentId(enrollmentData.enrollment_id)
         setEnrollmentParticipant(enrollmentData.participant_id)
@@ -108,6 +110,7 @@ const Enrollments = () => {
         showform("delete")
     };
 
+    /// Data for INSERT
     const add = () => {
         showform("insert")
     };
