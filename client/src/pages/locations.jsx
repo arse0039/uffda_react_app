@@ -82,7 +82,12 @@ const Locations = () => {
         showform("insert")
     };
 
+    // function to close the pop-up form
     const closeForm = () => {
+        showError("clear-name-add")
+        showError("clear-address-add")
+        showError("clear-name-update")
+        showError("clear-address-update")
         showform("close")
         clearState()
     };
@@ -150,6 +155,54 @@ const Locations = () => {
       setSearch(e)
   }
 
+    // Form input validation
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=tIdNeoHniEY
+    const validateDataAdd = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-add")
+        } else {
+            showError("clear-name-add")
+        }
+
+        if (address === '') {
+            valid = false
+            showError("address-add")
+        } else {
+            showError("clear-address-add")
+        }
+
+
+        if (valid) {
+            insertLoc()
+        }
+    } 
+
+    const validateDataUpdate = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (name === '') {
+            valid = false
+            showError("name-update")
+        } else {
+            showError("clear-name-update")
+        }
+
+        if (address === '') {
+            valid = false
+            showError("address-update")
+        } else {
+            showError("clear-address-update")
+        }
+
+        if (valid) {
+            updateLoc(id)
+        }
+    }   
+
   // render the Locations Page
   return ( 
       <div className="main">
@@ -181,20 +234,22 @@ const Locations = () => {
 
           <div className="form">
               <h1>Add Location</h1>
-              <h4>*Please fill in the required field</h4><br/>
+              <h5>*Please fill in the required field</h5>
               <div className="form-ele">
                   <label> Location Name* </label> 
                   <input type="text" value={name} onChange={(e) =>{
                             setLocationName(e.target.value)
                   }}/>
+                  <span id="name-error-add">Please enter a location name</span>
               </div>
               <div className="form-ele">
                   <label> Address* </label> 
                   <input type="email" value={address}  onChange={(e) => {
                             setLocationAddress(e.target.value)
                    }}/>
+                   <span id="address-error-add">Please enter a location address</span>
             </div>
-            <button  className="btn" onClick={insertLoc}> Add Location </button>
+            <button  className="btn" onClick={(e) => validateDataAdd(e)}> Add Location </button>
         </div>
       </div>
 
@@ -211,6 +266,7 @@ const Locations = () => {
                    <input type="text" value={name} onChange = {(e) => {
                       setLocationName(e.target.value)
                    }}/>
+                   <span id="name-error-update">Please enter a location name</span>
               </div>
 
               <div className="form-ele">
@@ -218,12 +274,12 @@ const Locations = () => {
                    <input type="text" value={address} onChange = {(e) => {
                       setLocationAddress(e.target.value)
                    }}/>
+                   <span id="address-error-update">Please enter a location address</span>
               </div>
 
-              <button className="btn" onClick={() => updateLoc(id)}> Update Location</button>
+              <button className="btn" onClick={(e) => validateDataUpdate(e)}> Update Location</button>
           </div>
       </div>
-
 
       <div id="delete-form">
         <button className="closebtn" onClick={closeForm}>

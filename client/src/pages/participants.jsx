@@ -259,7 +259,7 @@ const Participants = () => {
                 </button>
                 <div className="form">
                     <h1>Add Participant</h1>
-                    <h4>*Please fill in the required field</h4><br/>
+                    <h5>*Please fill in the required field</h5>
                         <div className="form-ele">
                             <label> Name* </label> 
                             <input type="text" value={name} onChange={(e) => {
@@ -299,7 +299,7 @@ const Participants = () => {
             
                 <div className="form">
                     <h1>Update Participant</h1>
-                    <h4>*Please fill in the required field</h4><br/>
+                    <h5>*Please fill in the required field</h5>
                         <div className="form-ele">      
                             <label> Name* </label> 
                             <input type="text" value={name} onChange={(e) => {
