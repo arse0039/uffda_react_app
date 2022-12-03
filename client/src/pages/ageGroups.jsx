@@ -12,6 +12,7 @@ const AgeGroups = () => {
 //// Use Effect block to populate the Age_Groups Table from the database
 ///////////////////////////////////////////////////////////////////////////
 
+    // Get data for the ageGroups Table
     const [ageGroups, setAgeGroups] = useState([]);  // Receives data from DB via GET request
     const [renderNew, forceUpdate] = useReducer(x => x+1, 0);  
 
@@ -29,11 +30,9 @@ const AgeGroups = () => {
             }
         }
         getAgeGroups();
-    }, [renderNew]);
+    }, [renderNew]); // renderNew forces the useEffect to run whenever there is a change to the received item. 
 
-    // adding renderNew (above) to the dependency array forces the useEffect function to run whenever 
-    // there is a change to the received item
- 
+    // Pull data from the database to populate the table header
     const [ageGroupColumns, setColHeaders] = useState([]);
     let ageGroupHeaders = []
 
@@ -49,6 +48,7 @@ const AgeGroups = () => {
         populateHeaders();
     });
 
+    // Populate array with column header values
     const headerPop = () => {
         ageGroupColumns.map((e) => {
             ageGroupHeaders.push(e.Field)
@@ -62,22 +62,26 @@ const AgeGroups = () => {
     const [id, setAgeGroupId] = useState("")
     const [description, setAgeGroupDescription] = useState("")
 
+    // Sets data from selected row and opens update form
     const edit = (ageGroupData) => {
         setAgeGroupId(ageGroupData.age_group_id)
         setAgeGroupDescription(ageGroupData.description)
         showform("edit")
     }
 
+    // Sets data from selected row and opens delete form
     const del = (ageGroupData) => {
         setAgeGroupId(ageGroupData.age_group_id)
         setAgeGroupDescription(ageGroupData.description)
         showform("delete")
     }
 
+    // Opens blank insert form
     const add = () => {
         showform("insert")
     }
 
+    // function to close the pop-up form
     const closeForm = () => {
         clearState()
         showError("clear-description-add")
@@ -85,11 +89,16 @@ const AgeGroups = () => {
         showform("close");
     }
 
+    // clears stored data for reset of form input fields
     const clearState = () => {
         setAgeGroupId('')
         setAgeGroupDescription('')
     };
 
+    //////////////////////////////////////////////////////
+    // CRUD Request Block
+    //////////////////////////////////////////////////////
+    
     const insertAgeGroup = async () => {
         try {
             await Axios.post('http://flip.engr.oregonstate.edu:10725/ageGroupInsert', {description:description})

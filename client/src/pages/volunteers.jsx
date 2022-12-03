@@ -12,6 +12,7 @@ const Volunteers = () => {
 //// Use Effect block to populate the Volunteer Table from the database
 ///////////////////////////////////////////////////////////////////////////
 
+    // Get data for the Volunteers Table
     const [volunteers, setVolunteers] = useState([]); // Receives data from DB via get request
     const [renderNew, forceUpdate] = useReducer(x => x+1,0); 
 
@@ -63,7 +64,7 @@ const Volunteers = () => {
     const [email, setVolunteerEmail] = useState("")
     const [role, setVolunteerRole] = useState("")
 
-    /// Sets data from selected row and opens update form
+    // Sets data from selected row and opens update form
     const edit = (volData) => {
         setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)
@@ -72,7 +73,7 @@ const Volunteers = () => {
         showform("edit")
     };
     
-    /// Sets data from selected row and opens delete form
+    // Sets data from selected row and opens delete form
     const del = (volData) => {
         setVolunteerId(volData.volunteer_id)
         setVolunteerName(volData.name)

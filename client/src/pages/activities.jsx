@@ -33,9 +33,10 @@ const Activities = () => {
             }
         }
         getActivities();
-    }, [renderNew]);
+    }, [renderNew]); // renderNew forces the useEffect to run whenever there is a change to the received item. 
 
-    // Generate Headers for Table
+
+    // Pull data from the database to populate the table headers
     const [activityColumns, setColHeaders] = useState([])
     let activityHeaders = []
 
@@ -51,12 +52,17 @@ const Activities = () => {
         populateHeaders()
     });
 
+    // Populate array with column header values
     const headerPop = () => {
         activityColumns.map((e) => {
             activityHeaders.push(e.Field)
         })
     }
     headerPop()
+
+    //////////////////////////////////////////////////////
+    /// Form Block for Getting Data for Dropdowns
+    //////////////////////////////////////////////////////
 
     // Get data to Generate Location Dropdown
     const [locationDropDown, setLocationDropdown] = useState([])
@@ -116,7 +122,7 @@ const Activities = () => {
     const [description, setActivityDescription] = useState("")
     const [maxPart, setActivityMaxPart] = useState("")
 
-    /// Data for UPDATE
+    // Sets data from selected row and opens update form
     const edit = (activityData) => {
         setActivityId(activityData.activity_id)
         setActivityLocation(activityData.real_location)
@@ -128,14 +134,14 @@ const Activities = () => {
         showform("edit")
     };
 
-    /// Data for DELETE
+    // Sets data from selected row and opens delete form
     const del = (activityData) => {
         setActivityId(activityData.activity_id)
         setActivityName(activityData.name)
         showform("delete")
     };
 
-    /// Data for INSERT
+    // Opens blank insert form
     const add = () => {
         showform("insert")
     };
@@ -170,6 +176,7 @@ const Activities = () => {
     //////////////////////////////////////////////////////
 
     const insertActivity = async () => {
+        // allows for null values 
         let vol = volunteer
         if (vol === "") {
             vol = null
@@ -195,6 +202,7 @@ const Activities = () => {
     }; 
 
     const updateActivity = async (activityID) => {
+        // allows for null values
         let vol = volunteer
         if (vol === "") {
             vol = null
