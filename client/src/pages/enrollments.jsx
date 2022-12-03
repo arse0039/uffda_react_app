@@ -118,6 +118,8 @@ const Enrollments = () => {
 
     const closeForm = () => {
         clearState()
+        showError("clear-participant-add")
+        showError("clear-activity-add")
         showform("close")
     };
 
@@ -193,6 +195,31 @@ const Enrollments = () => {
         setSearch(e)
     }
 
+    // Form input validation
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=tIdNeoHniEY
+    const validateDataAdd = (e) => {
+        e.preventDefault()
+        let valid = true
+        if (participant === '') {
+            valid = false
+            showError("participant-add")
+        } else {
+            showError("clear-participant-add")
+        }
+
+        if (activity === '') {
+            valid = false
+            showError("activity-add")
+        } else {
+            showError("clear-activity-add")
+        }
+
+        if (valid) {
+            insertEnrollment()
+        }
+    } 
+
 
     // Render the Page
     return ( 
@@ -233,6 +260,7 @@ const Enrollments = () => {
                                 {participantDropdown.map((participantCategory) => (
                                     <RenderParticipantDropdown data={participantCategory} />
                                 ))}
+                                <span id="participant-error-add">Please select a Participant</span>
                             </select>
                         </div>
                         <div className='form-ele'>
@@ -244,6 +272,7 @@ const Enrollments = () => {
                                 {activityDropdown.map((activityCategory) => (
                                     <RenderActivityDropdown data={activityCategory} />
                                 ))}
+                                <span id="activity-error-add">Please select an Activity</span>
                             </select>
                         </div>
                     <button className='btn' onClick={insertEnrollment}> Add Activity Enrollment </button>
