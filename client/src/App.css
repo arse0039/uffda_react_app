@@ -337,6 +337,7 @@ fieldset {
   font-size: 20px;
   background-color: #BBB;
   cursor:default;
+  border-style: none;
 }
 
 
