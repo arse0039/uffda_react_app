@@ -247,9 +247,15 @@ const Activities = () => {
     const [searchDropData, setSearchDrop] = useState('');
 
     const tableSearch = (e) => {
-        if(e.length > 0) {
-            let searchData=activities.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
-            setActivities(searchData)
+        if(e.length > 0) { 
+            if (searchDropData === "volunteer_id") {
+                const filteredActivities = activities.filter(ele => {return ele.volunteer_id})
+                let searchData=filteredActivities.filter((col) => col.volunteer_id.toLowerCase().includes(e.toLowerCase()));
+                setActivities(searchData) 
+            } else {
+                let searchData=activities.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
+                setActivities(searchData)  
+            }
         } else {
             setActivities(realActivities);
         }
