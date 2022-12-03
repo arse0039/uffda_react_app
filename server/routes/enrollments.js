@@ -4,7 +4,9 @@ exports.data = (req, res) => {
     const enrollmentSelect = 
     `SELECT enrollment_id,
     Participants.name as participant_id,
-    Activities.name as activity_id
+    Activity_Enrollments.participant_id as real_participant,
+    Activities.name as activity_id,
+    Activity_Enrollments.activity_id as real_activity
     FROM Activity_Enrollments
     LEFT JOIN Participants ON Participants.participant_id = Activity_Enrollments.participant_id
     LEFT JOIN Activities ON Activities.activity_id = Activity_Enrollments.activity_id`
