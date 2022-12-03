@@ -151,18 +151,6 @@ const Activities = () => {
         setActivityMaxPart("")
     };
 
-    const changeLocation = (e) => {
-        setActivityLocation(e)
-    };
-
-    const changeVolunteer = (e) => {
-        setActivityVolunteer(e)
-    };
-
-    const changeAgeGroup = (e) => {
-        setActivityAgeGroup(e)
-    };
-
     //////////////////////////////////////////////////////
     // CRUD Request Block
     //////////////////////////////////////////////////////
