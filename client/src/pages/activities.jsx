@@ -234,7 +234,7 @@ const Activities = () => {
             <div id="table-div">
                 <div id="search-div">
                     <select className='search-drop' onChange={(e) => setSearchDrop(e.target.value)}>
-                        <option disable selected value> Select a Search Filter </option>
+                        <option disabled selected value> Select a Search Filter </option>
                         <option value='location_id'> Location </option>
                         <option value='volunteer_id'> Volunteer </option>
                         <option value='age_group'> Age Group </option>
