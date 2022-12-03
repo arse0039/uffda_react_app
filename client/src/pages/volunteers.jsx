@@ -59,6 +59,7 @@ const Volunteers = () => {
     ///////////////////////////////////////////////////////////////////
     /// Form Block for Getting Data from user for forms/CRUD operations
     ///////////////////////////////////////////////////////////////////
+    
     const [id, setVolunteerId] = useState("")
     const [name, setVolunteerName] = useState("")
     const [email, setVolunteerEmail] = useState("")
@@ -214,7 +215,7 @@ const Volunteers = () => {
         }
     }
 
-    // Render the page
+    // Render the Volunteers page
     return ( 
         <div className="main">
             <h1 id="page-header"> Volunteers Page </h1>

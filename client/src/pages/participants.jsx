@@ -31,9 +31,10 @@ const Participants = () => {
             }
         }
         getParticipants();    
-    }, [renderNew]);
+    }, [renderNew]); // renderNew forces the useEffect to run whenever there is a change to the received item. 
 
-    // Generate Headers for Table
+
+    // Pull data from the database to populate the table headers
     const [participantColumns, setColHeaders] = useState([])
     let participantHeaders = []
 
@@ -49,6 +50,7 @@ const Participants = () => {
         populateHeaders()
     }, [renderNew]);
 
+    // Populate array with column header values
     const headerPop = () => {
         participantColumns.map((e) => {
             participantHeaders.push(e.Field)
@@ -81,6 +83,7 @@ const Participants = () => {
     const [name, setParticipantName] = useState("")
     const [address, setParticipantAddress] = useState("")
 
+    // Sets data from selected row and opens update form
     const edit = (participantData) => {
         setParticipantId(participantData.participant_id)
         setParticipantAgeGroupName(participantData.age_group_id)
@@ -90,16 +93,19 @@ const Participants = () => {
         showform("edit")
     };
 
+    // Sets data from selected row and opens delete form
     const del = (participantData) => {
         setParticipantId(participantData.participant_id)
         setParticipantName(participantData.name)
         showform("delete")
     };
 
+    // Opens blank insert form
     const add = () => {
         showform("insert")
     };
 
+    // function to close the pop-up form
     const closeForm = () => {
         clearState()
         showError("clear-age-add")
@@ -110,6 +116,7 @@ const Participants = () => {
         showform("close");
     };
 
+    // clears stored data for reset of form input fields
     const clearState = () => {
         setParticipantId("")
         setParticipantAgeGroupName("")
@@ -229,7 +236,7 @@ const Participants = () => {
         }
     } 
 
-    //Render the Participants Page
+    // Render the Participants Page
     return ( 
         <div className="main">
             <h1 id="page-header"> Participants Page </h1>

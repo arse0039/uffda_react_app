@@ -331,7 +331,7 @@ const Activities = () => {
         }
     }    
 
-    // Render the Page
+    // Render the Activities Page
     return (
         <div className='main'>
             <h1 id="page-header"> Activities Page </h1>

@@ -13,13 +13,14 @@ const Locations = () => {
 //// Use Effect block to populate the Locations Table from the database
 ///////////////////////////////////////////////////////////////////////////  
 
+    // Get data for the Locations Table
     const [locations, setLocations] = useState([]);  // Receives data from DB via GET request
     const [renderNew, forceUpdate] = useReducer(x => x+1, 0); 
 
     // forceUpdate used to rerender table component dynamically
     // useReducer implementation taken from https://www.youtube.com/watch?v=Nxe-9PkP8Nw
-  
-  useEffect(() => {
+
+    useEffect(() => {
     const getLocations = async () => {
         try {
             const result = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationData')
@@ -30,54 +31,56 @@ const Locations = () => {
         }
     }
     getLocations();
-  }, [renderNew]);  
+    }, [renderNew]);  // renderNew forces the useEffect to run whenever there is a change to the received item. 
 
-  // Adding renderNew to the dependency array here forces the useEffect function to run
-  // whenever there is a change to the received item.
+    // Pull data from the database to populate the table headers
+    const [locationColumns, setColHeaders] = useState([]);
+    let locationHeaders  = []
 
-  const [locationColumns, setColHeaders] = useState([]);
-  let locationHeaders  = []
-
-  useEffect(() => {
-      const populateHeaders = async () => {
-          try {
-              const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationCol')
-              setColHeaders(res.data)
-          } catch (err) {
-              console.log(err)
-          } 
-      }
-      populateHeaders()
-  });
+    useEffect(() => {
+        const populateHeaders = async () => {
+            try {
+                const res = await Axios.get('http://flip2.engr.oregonstate.edu:10725/locationCol')
+                setColHeaders(res.data)
+            } catch (err) {
+                console.log(err)
+            } 
+        }
+        populateHeaders()
+    });
   
-  const headerPop = () => {
+    // Populate array with column header values
+    const headerPop = () => {
     locationColumns.map((e) => {
         locationHeaders.push(e.Field)
-      })
-  }
-  headerPop()
+        })
+    }
+    headerPop()
 
 ///////////////////////////////////////////////////////////////////
 /// Form Block for Getting Data from user for forms/CRUD operations
 ///////////////////////////////////////////////////////////////////
 
-  const [id, setLocationId] = useState("");
-  const [name, setLocationName] = useState("");
-  const [address, setLocationAddress] = useState("");
+    const [id, setLocationId] = useState("");
+    const [name, setLocationName] = useState("");
+    const [address, setLocationAddress] = useState("");
 
-  const edit = (locData) => {
-      setLocationId(locData.location_id)
-      setLocationName(locData.name)
-      setLocationAddress(locData.address)
-      showform("edit")
-  };
+    // Sets data from selected row and opens update form
+    const edit = (locData) => {
+        setLocationId(locData.location_id)
+        setLocationName(locData.name)
+        setLocationAddress(locData.address)
+        showform("edit")
+    };
 
+    // Sets data from selected row and opens delete form
     const del = (locData) => {
         setLocationId(locData.location_id)
         setLocationName(locData.name)
         showform("delete")
     };
 
+    // Opens blank insert form
     const add = () => {
         showform("insert")
     };
@@ -92,6 +95,7 @@ const Locations = () => {
         clearState()
     };
 
+    // clears stored data for reset of form input fields
     const clearState = () => {
         setLocationId('')
         setLocationName('')
@@ -102,19 +106,19 @@ const Locations = () => {
     // CRUD Request Block
     //////////////////////////////////////////////////////
 
-  const insertLoc = async () => {
-      try {
-          await Axios.post('http://flip2.engr.oregonstate.edu:10725/locationsInsert', {name:name, address:address})
-      } catch(err){
-          console.log(err)
-      } finally {
+    const insertLoc = async () => {
+        try {
+            await Axios.post('http://flip2.engr.oregonstate.edu:10725/locationsInsert', {name:name, address:address})
+        } catch(err){
+            console.log(err)
+        } finally {
         forceUpdate()
         closeForm()
         clearState()
-      }
-  };
+        }
+    };
 
-  const updateLoc = async (locID) => {
+    const updateLoc = async (locID) => {
     try {
         await Axios.put(`http://flip2.engr.oregonstate.edu:10725/locations/${locID}`, {name:name, address:address})
     } catch(err) {
@@ -124,36 +128,36 @@ const Locations = () => {
         closeForm()
         clearState()      
     }
-  };
+    };
 
-  const delLoc = async (locID) => {
-      try {
-          await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/locations/${locID}`)
-      } catch(err) {
-          console.log(err)
-      } finally {
+    const delLoc = async (locID) => {
+        try {
+            await Axios.delete(`http://flip2.engr.oregonstate.edu:10725/locations/${locID}`)
+        } catch(err) {
+            console.log(err)
+        } finally {
         forceUpdate()
         closeForm()
-      }
-  };
+        }
+    };
 
-  // Search Bar Functionality.
-  // Created using modified code found from:
-  // https://www.youtube.com/watch?v=CO1T4YeYC_Y
+    // Search Bar Functionality.
+    // Created using modified code found from:
+    // https://www.youtube.com/watch?v=CO1T4YeYC_Y
 
-  const [realLocations, setRealLocations] = useState([]);
-  const [search, setSearch] = useState([]);
-  const [searchDropData, setSearchDrop] = useState('');
+    const [realLocations, setRealLocations] = useState([]);
+    const [search, setSearch] = useState([]);
+    const [searchDropData, setSearchDrop] = useState('');
 
-  const tableSearch = (e) => {
-      if(e.length > 0) {
-          let searchData=locations.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
-          setLocations(searchData)
-      } else {
-          setLocations(realLocations);
-      }
-      setSearch(e)
-  }
+    const tableSearch = (e) => {
+        if(e.length > 0) {
+            let searchData=locations.filter((col) => col[searchDropData].toLowerCase().includes(e.toLowerCase()));
+            setLocations(searchData)
+        } else {
+            setLocations(realLocations);
+        }
+        setSearch(e)
+    }
 
     // Form input validation
     // Created using modified code found from:
