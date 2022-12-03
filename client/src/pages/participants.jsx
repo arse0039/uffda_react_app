@@ -206,7 +206,8 @@ const Participants = () => {
                             }}/>
                         </div>
                         <div className="form-ele">
-                            <label> Age Group </label> 
+                            <label> Age Group </label>
+                            <option value=''>Please select an Age Group</option>
                             <select value={ageGroupID} onChange={(e) => {
                                 setParticipantAgeGroupID(e.target.value)
                                 }

@@ -281,6 +281,7 @@ const Activities = () => {
                             <select value={location} onChange={(e) => {
                                 setActivityLocation(e.target.value)
                             }}>
+                                <option value=''>Please select a Location</option>
                                 {locationDropDown.map((locationCategory) => (
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
@@ -302,6 +303,7 @@ const Activities = () => {
                             <select value={ageGroup} onChange={(e) => {
                                 setActivityAgeGroup(e.target.value)
                             }}>
+                                <option value=''>Please select an Age Group</option>
                                 {ageDropDown.map((ageCategory) => (
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}

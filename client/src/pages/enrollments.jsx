@@ -222,23 +222,24 @@ const Enrollments = () => {
                 </button>
                 <div className='form'>
                     <h1>Add Activity Enrollment</h1>
+                    <h4>*Please fill in the required field</h4><br/>
                     <div className='form-ele'>
-                            <label> Participant </label>
+                            <label> Participant* </label>
                             <select value={participant} onChange={(e) => {
                                 setEnrollmentParticipant(e.target.value)
                             }}>
-                                <option value=''></option>
+                                <option value=''>Please select a Participant</option>
                                 {participantDropdown.map((participantCategory) => (
                                     <RenderParticipantDropdown data={participantCategory} />
                                 ))}
                             </select>
                         </div>
                         <div className='form-ele'>
-                            <label> Activity </label>
+                            <label> Activity* </label>
                             <select value={activity} onChange={(e) => {
                                 setEnrollmentActivity(e.target.value)
                             }}>
-                                <option value=''></option>
+                                <option value=''>Please select an Activity</option>
                                 {activityDropdown.map((activityCategory) => (
                                     <RenderActivityDropdown data={activityCategory} />
                                 ))}
