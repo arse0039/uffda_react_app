@@ -32,9 +32,9 @@ const Enrollments = () => {
             }
         }
         getEnrollments();
-    }, [renderNew]);
+    }, [renderNew]); // renderNew forces the useEffect to run whenever there is a change to the received item. 
 
-    // Generate Headers for Table
+    // Pull data from the database to populate the table headers
     const [enrollmentColumns, setColHeaders] = useState([])
     let enrollmentHeaders = []
 
@@ -50,6 +50,7 @@ const Enrollments = () => {
         populateHeaders()
     });
 
+    // Populate array with column header values
     const headerPop = () => {
         enrollmentColumns.map((e) => {
             enrollmentHeaders.push(e.Field)
@@ -57,7 +58,11 @@ const Enrollments = () => {
     }
     headerPop()
 
-    // Get data to Generate Participants Dropdown
+    ///////////////////////////////////////////////////////
+    /// Form Block for Getting Data for form dropdowns
+    ///////////////////////////////////////////////////////
+
+    // Participants Dropdown
     const [participantDropdown, setParticipantDropdown] = useState([])
 
     useEffect(() => {
@@ -72,7 +77,7 @@ const Enrollments = () => {
         populateParticipantDropdown()
     }, [renderNew]);
 
-    // Get data to Generate Participants Dropdown
+    // Activities  Dropdown
     const [activityDropdown, setActivityDropdown] = useState([])
 
     useEffect(() => {
@@ -95,7 +100,7 @@ const Enrollments = () => {
     const [activity, setEnrollmentActivity] = useState("")
     const [participant, setEnrollmentParticipant] = useState("")
 
-    /// Data for UPDATE
+    // Sets data from selected row and opens update form
     const edit = (enrollmentData) => {
         setEnrollmentId(enrollmentData.enrollment_id)
         setEnrollmentParticipant(enrollmentData.real_participant)
@@ -103,7 +108,7 @@ const Enrollments = () => {
         showform("edit")
     };
 
-    /// Data for DELETE
+    // Sets data from selected row and opens delete form
     const del = (enrollmentData) => {
         setEnrollmentId(enrollmentData.enrollment_id)
         setEnrollmentParticipant(enrollmentData.participant_id)
@@ -111,11 +116,12 @@ const Enrollments = () => {
         showform("delete")
     };
 
-    /// Data for INSERT
+    // Opens blank insert form
     const add = () => {
         showform("insert")
     };
 
+    // function to close the pop-up form
     const closeForm = () => {
         clearState()
         showError("clear-participant-add")
@@ -123,6 +129,7 @@ const Enrollments = () => {
         showform("close")
     };
 
+    // clears stored data for reset of form input fields
     const clearState = () => {
         setEnrollmentId('')
         setEnrollmentParticipant('')
@@ -221,7 +228,7 @@ const Enrollments = () => {
     } 
 
 
-    // Render the Page
+    // Render the Enrollments page
     return ( 
     <div className='main'>
         <h1 id="page-header"> Enrollments Page </h1>
@@ -250,7 +257,7 @@ const Enrollments = () => {
                 </button>
                 <div className='form'>
                     <h1>Add Activity Enrollment</h1>
-                    <h4>*Please fill in the required field</h4><br/>
+                    <h5>*Please fill in the required field</h5>
                     <div className='form-ele'>
                             <label> Participant* </label>
                             <select value={participant} onChange={(e) => {
@@ -286,7 +293,7 @@ const Enrollments = () => {
 
                 <div className='form'>
                     <h1>Update Activity Enrollment</h1>
-                    <h4>*Please fill in the required field</h4><br/>
+                    <h5>*Please fill in the required field</h5>
                     <div className='form-ele'>
                             <label> Participant* </label>
                             <select value={participant} onChange={(e) => changeParticipant(e.target.value)}>
