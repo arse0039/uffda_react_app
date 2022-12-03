@@ -157,7 +157,7 @@ const Activities = () => {
         showError("clear-maxPart-update")
         showError("clear-location-add")
         showError("clear-age-add")
-        showform("close")
+        showform("close-act")
     };
 
     // clears stored data for reset of form input fields
