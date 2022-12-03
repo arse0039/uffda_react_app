@@ -185,11 +185,16 @@ const Activities = () => {
     }; 
 
     const updateActivity = async (activityID) => {
+        let vol = volunteer
+        if (vol === "") {
+            vol = null
+        }
+
         try {
             await Axios.put(`http://flip2.engr.oregonstate.edu:10725/activities/${activityID}`,
             {
                 location_id: location, 
-                volunteer_id: volunteer, 
+                volunteer_id: vol, 
                 age_group: ageGroup, 
                 name: name, 
                 description: description, 
