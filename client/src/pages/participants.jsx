@@ -316,6 +316,7 @@ const Participants = () => {
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
                             </select>
+                            <span id="age-error-update">test</span>
                         </div>
                         <div className="form-ele">
                             <label> Address* </label> 
@@ -323,6 +324,7 @@ const Participants = () => {
                                     setParticipantAddress(e.target.value)
                                 }   
                             } />
+                            <span id="address-error-update">Please enter an address</span>
                         </div>
                         <button className="btn" onClick={(e)=> validateDataUpdate(e)}> Update Participant </button>
                 </div> 
