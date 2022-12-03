@@ -180,14 +180,15 @@ const Locations = () => {
 
           <div className="form">
               <h1>Add Location</h1>
+              <h4>*Please fill in the required field</h4><br/>
               <div className="form-ele">
-                  <label> Location Name </label> 
+                  <label> Location Name* </label> 
                   <input type="text" value={name} onChange={(e) =>{
                             setLocationName(e.target.value)
                   }}/>
               </div>
               <div className="form-ele">
-                  <label> Address </label> 
+                  <label> Address* </label> 
                   <input type="email" value={address}  onChange={(e) => {
                             setLocationAddress(e.target.value)
                    }}/>
@@ -203,15 +204,16 @@ const Locations = () => {
 
           <div className='form'>
               <h1>Update Location</h1>
+              <h4>*Please fill in the required field</h4><br/>
               <div className="form-ele">
-                   <label> Location Name </label>
+                   <label> Location Name* </label>
                    <input type="text" value={name} onChange = {(e) => {
                       setLocationName(e.target.value)
                    }}/>
               </div>
 
               <div className="form-ele">
-                   <label> Address </label>
+                   <label> Address* </label>
                    <input type="text" value={address} onChange = {(e) => {
                       setLocationAddress(e.target.value)
                    }}/>

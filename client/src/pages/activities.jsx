@@ -258,30 +258,31 @@ const Activities = () => {
                     </button>
                 <div className='form'>
                     <h1>Add Activity</h1>
+                    <h4>*Please fill in the required field</h4><br/>
                         <div className='form-ele'>
-                            <label> Name </label>
+                            <label> Name* </label>
                             <input type='text' value={name} onChange={(e) => {
                                 setActivityName(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
-                            <label> Description </label>
+                            <label> Description* </label>
                             <input type='text' value={description} onChange={(e) => {
                                 setActivityDescription(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
-                            <label> Max Participants </label>
+                            <label> Max Participants* </label>
                             <input type='text' value={maxPart} onChange={(e) => {
                                 setActivityMaxPart(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
-                            <label> Location </label> 
+                            <label> Location* </label> 
                             <select value={location} onChange={(e) => {
                                 setActivityLocation(e.target.value)
                             }}>
-                                <option value=''>Please select a Location</option>
+                                <option disabled selected value=''>Please select a Location</option>
                                 {locationDropDown.map((locationCategory) => (
                                     <RenderLocationDropdown data={locationCategory} />
                                 ))}
@@ -299,11 +300,11 @@ const Activities = () => {
                             </select>
                         </div>
                         <div className='form-ele'>
-                            <label> Age Group </label> 
+                            <label> Age Group* </label> 
                             <select value={ageGroup} onChange={(e) => {
                                 setActivityAgeGroup(e.target.value)
                             }}>
-                                <option value=''>Please select an Age Group</option>
+                                <option disabled selected value=''>Please select an Age Group</option>
                                 {ageDropDown.map((ageCategory) => (
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
@@ -320,26 +321,27 @@ const Activities = () => {
 
                 <div className='form'>
                     <h1>Update Activity</h1>
+                    <h4>*Please fill in the required field</h4><br/>
                         <div className='form-ele'>
-                            <label> Name </label>
+                            <label> Name* </label>
                             <input type='text' value={name} onChange={(e) => {
                                 setActivityName(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
-                            <label> Description </label>
+                            <label> Description* </label>
                             <input type='text' value={description} onChange={(e) => {
                                 setActivityDescription(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
-                            <label> Max Participants </label>
+                            <label> Max Participants* </label>
                             <input type='text' value={maxPart} onChange={(e) => {
                                 setActivityMaxPart(e.target.value)
                             }}/>
                         </div>
                         <div className='form-ele'>
-                            <label> Location </label> 
+                            <label> Location* </label> 
                             <select value={location} onChange={(e) => {
                                 setActivityLocation(e.target.value)
                                 }}>
@@ -360,7 +362,7 @@ const Activities = () => {
                             </select>
                         </div>
                         <div className='form-ele'>
-                            <label> Age Group </label> 
+                            <label> Age Group* </label> 
                             <select value={ageGroup} onChange={(e) => {
                                 setActivityAgeGroup(e.target.value) 
                             }}>

@@ -180,20 +180,21 @@ const Volunteers = () => {
                     </button>
                     <div className="form">
                         <h1>Add Volunteer</h1>
+                        <h4>*Please fill in the required field</h4><br/>
                         <div className="form-ele">
-                            <label> Name </label> 
+                            <label> Name* </label> 
                             <input type="text" value={name} onChange={(e) =>{
                                 setVolunteerName(e.target.value)
                             }}/>
                         </div>
                         <div className="form-ele">
-                            <label> Email </label> 
+                            <label> Email* </label> 
                             <input type="email" value={email}  onChange={(e) => {
                                 setVolunteerEmail(e.target.value)
                             }}/>
                         </div>
                         <div className="form-ele">
-                            <label> Role </label> 
+                            <label> Role* </label> 
                             <select value={role} onChange = {(e) => {
                                 setVolunteerRole(e.target.value)
                             }}>
@@ -216,20 +217,21 @@ const Volunteers = () => {
 
                     <div className='form'>
                         <h1>Update Volunteer</h1>
+                        <h4>*Please fill in the required field</h4><br/>
                             <div className="form-ele">
-                                <label> Name </label> 
+                                <label> Name* </label> 
                                 <input type="text" value={name} onChange = {(e) => {
                                     setVolunteerName(e.target.value)
                             }}/>
                             </div>
                             <div className="form-ele">
-                                <label> Email </label> 
+                                <label> Email* </label> 
                                 <input type="email" value={email} onChange = {(e) => {
                                     setVolunteerEmail(e.target.value)
                             }}/>
                             </div>
                             <div className="form-ele">
-                                <label> Role </label> 
+                                <label> Role* </label> 
                                 <select value={role} onChange={(e) => {
                                     setVolunteerRole(e.target.value)
                                     }}>

@@ -205,8 +205,9 @@ const AgeGroups = () => {
                   </button>
                 <div className='form'>
                     <h1>Add Age Group</h1>
+                    <h4>*Please fill in the required field</h4><br/>
                   <div className='form-ele'>
-                      <label> Description </label>
+                      <label> Description* </label>
                       <input type="text" value={description} onChange={(e) => {
                           setAgeGroupDescription(e.target.value)
                       }} />
@@ -224,8 +225,9 @@ const AgeGroups = () => {
 
             <div className='form'>
                 <h1>Update Age Group</h1>
+                <h4>*Please fill in the required field</h4><br/>
                       <div className='form-ele'>
-                        <label> Description </label>
+                        <label> Description* </label>
                         <input type="text" value={description} onChange = {(e) => {
                             setAgeGroupDescription(e.target.value)
                         }} />

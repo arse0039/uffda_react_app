@@ -199,26 +199,27 @@ const Participants = () => {
                 </button>
                 <div className="form">
                     <h1>Add Participant</h1>
+                    <h4>*Please fill in the required field</h4><br/>
                         <div className="form-ele">
-                            <label> Name </label> 
+                            <label> Name* </label> 
                             <input type="text" value={name} onChange={(e) => {
                                 setParticipantName(e.target.value)
                             }}/>
                         </div>
                         <div className="form-ele">
-                            <label> Age Group </label>
-                            <option value=''>Please select an Age Group</option>
+                            <label> Age Group* </label>
                             <select value={ageGroupID} onChange={(e) => {
                                 setParticipantAgeGroupID(e.target.value)
                                 }
                             }>
+                                <option disabled selected value=''>Please select an Age Group</option>
                                 {ageDropDown.map((ageCategory) => (
                                     <RenderAgeDropdown data={ageCategory} />
                                 ))}
                             </select>
                         </div>
                         <div className="form-ele"> 
-                            <label> Address </label> 
+                            <label> Address* </label> 
                             <input type="text" value={address} onChange={(e) => {
                                 setParticipantAddress(e.target.value)
                               }
@@ -235,15 +236,16 @@ const Participants = () => {
             
                 <div className="form">
                     <h1>Update Participant</h1>
+                    <h4>*Please fill in the required field</h4><br/>
                         <div className="form-ele">      
-                            <label> Name </label> 
+                            <label> Name* </label> 
                             <input type="text" value={name} onChange={(e) => {
                                     setParticipantName(e.target.value)
                                 }
                             }/>
                         </div>
                         <div className="form-ele">
-                            <label> Age Group </label> 
+                            <label> Age Group* </label> 
                             <select value={ageGroupID} onChange={(e) => {
                                 setParticipantAgeGroupID(e.target.value)
                                 }}>
@@ -253,7 +255,7 @@ const Participants = () => {
                             </select>
                         </div>
                         <div className="form-ele">
-                            <label> Address </label> 
+                            <label> Address* </label> 
                             <input type="text" value={address} onChange={(e) => {
                                     setParticipantAddress(e.target.value)
                                 }   
